@@ -1,2 +1,2 @@
-git push git/cms 
+git push --set-upstream /home/qotsa2/git/cms master
 #git push ssh://git@ws1.navsim.pl:12340/data/navsim_source/scheduler2 
