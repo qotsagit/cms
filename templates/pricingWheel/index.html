@@ -1,0 +1,286 @@
+<br>
+<div class="row">
+      
+    <div class="col-md-12">
+    <div class="container">
+        <fieldset>
+            <div class="headline">
+                
+            <h1><center><?php print $this->Msg('_PRICING_','Pricing') ?></center></h1>
+           
+            </div>
+            <?php print $this->RenderValidationMessage() ?>
+            <h3><?php print $this->Msg('_PERSONAL_DATA_','Personal Data') ?></h3>
+            <hr>
+            <form role="form" method="POST">
+            <div class="row">
+                     
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group <?php print $this->FirstName->ErrorStyle ?>">
+                <label><?php print $this->Msg('_FIRST_NAME_','First Name') ?></label>
+                <input type="text" class="form-control" placeholder="<?php print $this->Msg('_FIRST_NAME_','First Name') ?>" name="<?php print PRICING_FIRST_NAME ?>" value="<?php print $this->FirstName->Value ?>">
+                <?php print $this->RenderValidationError($this->FirstName->ErrorText); ?>
+            </div>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group <?php print $this->LastName->ErrorStyle ?>"">
+                  <label><?php print $this->Msg('_LAST_NAME_','Last Name') ?></label>
+                <input type="text" class="form-control" placeholder="<?php print $this->Msg('_LAST_NAME_','Last Name') ?>" name="<?php print PRICING_LAST_NAME ?>" value="<?php print $this->LastName->Value ?>">
+                <?php print $this->RenderValidationError($this->LastName->ErrorText); ?>
+            </div>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group <?php print $this->Email->ErrorStyle ?>"">
+                <label><?php print $this->Msg('_EMAIL_','Email') ?></label>
+                <input type="email" class="form-control" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print PRICING_EMAIL ?>" value="<?php print $this->Email->Value ?>">
+                <?php print $this->RenderValidationError($this->Email->ErrorText); ?>
+            </div>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group <?php print $this->Phone->ErrorStyle ?>"">
+                <label><?php print $this->Msg('_PHONE_','Phone') ?></label>
+                <input type="text" class="form-control" placeholder="<?php print $this->Msg('_PHONE_','Phone') ?>" name="<?php print PRICING_PHONE ?>" value="<?php print $this->Phone->Value ?>">
+                <?php print $this->RenderValidationError($this->Phone->ErrorText); ?>
+            </div>
+            </div>
+           
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group <?php print $this->YourWeight->ErrorStyle ?>"">
+                <label><?php print $this->Msg('_YOUR_WEIGHT_','Your Weight') ?></label>
+                <input data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="<?php print $this->Msg('_YOUR_WEIGHT_HELP','Your Weight Help') ?>" type="text" class="form-control" placeholder="<?php print $this->Msg('_YOUR_WEIGHT_','Your Weight') ?>" name="<?php print PRICING_YOUR_WEIGHT ?>" value="<?php print $this->YourWeight->Value ?>">
+                <?php print $this->RenderValidationError($this->YourWeight->ErrorText); ?>
+            </div>
+            </div>
+            
+           </div>
+            
+            <!-- ADDITIONAL DATA -->
+            <div class="row">
+            <div class="col-md-12">
+                <h3><?php print $this->Msg('_ADDITIONAL_DATA_','Additional Data') ?></h3>
+                <hr>
+            </div>
+                
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group <?php print $this->Budget->ErrorStyle ?>"">
+                <label><?php print $this->Msg('_BUDGET_','Budget') ?></label>
+                <input type="number" class="form-control" placeholder="<?php print $this->Msg('_BUDGET_','Budget') ?>" name="<?php print PRICING_BUDGET ?>" value="<?php print $this->Budget->Value ?>">
+                <?php print $this->RenderValidationError($this->Budget->ErrorText); ?>
+            </div>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <?php $this->RenderAsSelect($this->Colors,$this->Color->Value,$this->Msg('_COLOR_','Color'),PRICING_COLOR) ?>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group <?php print $this->ExpectedWeight->ErrorStyle ?>"">
+                <label><?php print $this->Msg('_EXPECTED_WEIGHT_','Expected Weight') ?></label>
+                <input type="number" min="0"  class="form-control" placeholder="<?php print $this->Msg('_EXPECTED_WEIGHT_','Expected Weight') ?>" name="<?php print PRICING_EXPECTED_WEIGHT ?>" value="<?php print $this->ExpectedWeight->Value ?>">
+                <?php print $this->RenderValidationError($this->ExpectedWeight->ErrorText); ?>
+            </div>
+            </div>
+            
+            </div>
+            
+             <!-- WHEEL  -->
+            <div class="row">
+            <div class="col-md-12">
+                <h3><?php print $this->Msg('_WHEEL_','Wheel') ?></h3>
+                <hr>
+            </div>            
+            <div class="col-md-6 col-sm-6">
+                <?php $this->RenderAsSelect($this->Wheels,$this->Wheel->Value,$this->Msg('_WHEEL_','Wheel'),PRICING_WHEEL) ?>
+            </div>
+            <div class="col-md-6 col-sm-6" id="wheel_size">
+                <?php $this->RenderAsSelect($this->Sizes,$this->Size->Value,$this->Msg('_SIZE_','Size'),PRICING_SIZE) ?>
+            </div>
+            </div>
+             
+            <!-- BRAKES -->
+            <div class="row">
+            <div class="col-md-12">
+                <h3><?php print $this->Msg('_BRAKES_','Brakes') ?></h3>
+                <hr>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <?php $this->RenderAsSelect($this->Brakes,$this->Brake->Value,$this->Msg('_BRAKES_','Brakes'),PRICING_BRAKE) ?>
+            </div>
+            <div class="col-md-6 col-sm-6" id="brake_mounting">
+                <?php $this->RenderAsSelect($this->Mountings,$this->Mounting->Value,$this->Msg('_MOUNTING_','Mounting'),PRICING_MOUNTING) ?>
+            </div>      
+            </div>
+            
+            <!-- PURPOSE -->
+            <div class="row">
+            <div class="col-md-12">
+                <h3><?php print $this->Msg('_PURPOSE_','Purpose') ?></h3>
+                <hr>
+            </div>
+           
+            <div class="col-md-12 col-sm-12" id="purposeRoad">
+                <?php $this->RenderAsCheckbox($this->PurposesRoad,$this->PurposeRoad->Value,PRICING_PURPOSE_ROAD); ?>
+                 <?php print $this->RenderValidationError($this->PurposeRoad->ErrorText); ?>
+            </div>
+            
+             <div class="col-md-12 col-sm-12" id="purposeMTB">
+                <?php $this->RenderAsCheckbox($this->PurposesMTB,$this->PurposeMTB->Value,PRICING_PURPOSE_MTB); ?>
+                <?php print $this->RenderValidationError($this->PurposeMTB->ErrorText); ?>
+            </div>    
+            </div>
+            
+            <!-- TIRE -->
+            <div class="row" id="tire">
+            <div class="col-md-12">
+                 <h3><?php print $this->Msg('_TIRE_','Tire') ?></h3>
+                <hr>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <?php $this->RenderAsSelect($this->Tires,$this->Tire->Value,$this->Msg('_TIRE_','Tire'), PRICING_TIRE); ?>
+                 <?php print $this->RenderValidationError($this->Tire->ErrorText); ?>
+            </div>
+            </div>
+            
+            <!-- AXIS TYPE -->
+            <div class="row" id="axis">
+            <div class="col-md-12">
+                 <h3><?php print $this->Msg('_AXIS_','Axis') ?></h3>
+                <hr>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <?php $this->RenderAsSelect($this->AxisFronts,$this->AxisFront->Value,$this->Msg('_AXIS_FRONT_','Axis Front'), PRICING_AXIS_FRONT); ?>
+                <?php print $this->RenderValidationError($this->AxisFront->ErrorText); ?>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+                <?php $this->RenderAsSelect($this->AxisRears,$this->AxisRear->Value,$this->Msg('_AXIS_REAR_','Axis Rear'), PRICING_AXIS_REAR); ?>
+                <?php print $this->RenderValidationError($this->AxisRear->ErrorText); ?>
+            </div>
+            </div>
+            
+            <!-- CASSETTE -->
+            <div class="row">
+            <div class="col-md-12">
+                <h3><?php print $this->Msg('_CASSETTE_','Cassette') ?></h3>
+                <hr>
+            </div>
+            <div class="col-md-6 col-sm-6" id="cassetteMTB">
+                <?php $this->RenderAsSelect($this->CassettesMTB,$this->CassetteMTB->Value,$this->Msg('_CASSETTE_','Cassette'), PRICING_CASSETTE_MTB); ?>
+                <?php print $this->RenderValidationError($this->CassetteMTB->ErrorText); ?>
+            </div>
+
+             <div class="col-md-6 col-sm-6" id="cassetteRoad">
+                <?php $this->RenderAsSelect($this->CassettesRoad,$this->CassetteRoad->Value,$this->Msg('_CASSETTE_','Cassette'), PRICING_CASSETTE_ROAD); ?>
+                <?php print $this->RenderValidationError($this->CassetteRoad->ErrorText); ?>
+            </div>
+            </div>
+            
+            <!-- SEALANT -->
+            <div class="row">
+            <div class="col-md-12">
+                 <h3><?php print $this->Msg('_SEALANT_','Sealant') ?></h3>
+                 <hr>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <?php $this->RenderAsSelect($this->Sealants,$this->Sealant->Value,$this->Msg('_SEALANT_QUESTION_','Sealant Question'), PRICING_SEALANT); ?>
+                <?php print $this->RenderValidationError($this->Sealant->ErrorText); ?>
+            </div>
+            </div>
+            
+            <!-- COMMENT -->
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            <div class="col-md-12 col-sm-12">
+                <label class="control-label"><?php print $this->Msg('_OTHER_ITEMS_','Other items') ?></label>
+                <textarea class="form-control" name="<?php print PRICING_COMMENT ?>" rows="10" ><?php print $this->Comment->Value ?></textarea>                            
+                <?php print $this->RenderValidationError($this->Comment->ErrorText); ?>
+            </div>
+            </div>
+            <br><br>
+            <div class="row">            
+            <div class="col-md-12 col-sm-12">
+            <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_VIEW ?>">
+            <button class="btn btn-primary pull-right"><?php print $this->Msg('_PREVIEW_','Preview') ?><span class="glyphicon glyphicon-chevron-right"></span></button>                                   
+            </div>
+            </div>
+            </div>
+            </form>
+            </fieldset>
+        </div>    
+    </div>
+
+<br>
+
+<script>
+    
+    
+    $( document ).ready(function()
+    {         
+         show($('#wheel'),$('#wheel_size'),1);
+         show($('#brake'),$('#brake_mounting'),0);
+         
+         show($('#wheel'),$('#purposeMTB'),1);
+         show($('#wheel'),$('#purposeRoad'),0);
+         show($('#wheel'),$('#tire'),0);
+         show($('#wheel'),$('#axis'),1);
+         
+         //kaseta
+         show($('#wheel'),$('#cassetteMTB'),1);
+         show($('#wheel'),$('#cassetteRoad'),0);
+         
+    });
+    
+    // koło
+    $('#wheel').change(function ()
+    {
+        show($('#wheel'),$('#wheel_size'),1);
+        
+        show($('#wheel'),$('#purposeMTB'),1);
+        show($('#wheel'),$('#tire'),0);
+        show($('#wheel'),$('#axis'),1);
+        show($('#wheel'),$('#purposeRoad'),0);
+        //kaseta
+         show($('#wheel'),$('#cassetteMTB'),1);
+         show($('#wheel'),$('#cassetteRoad'),0);
+        
+    });
+    
+    //hamulce
+    $('#brake').change(function ()
+    {
+        show($('#brake'),$('#brake_mounting'),0);
+    });
+    
+    
+    function enable(e1,e2,val)
+    {
+        if($(e1).val() == val)
+        {
+            $(e2).prop('disabled',true);
+        }
+        else
+        {
+            $(e2).prop('disabled',false);
+        }
+    }
+    
+    function show(e1,e2,val)
+    {
+        
+        if($(e1).val() == val)
+        {
+            //$(e2).delay( 800 ).fadeIn( 400 );
+            $(e2).show();
+        }
+        else
+        {
+            //$(e2).delay( 800 ).fadeOut( 400 );
+            $(e2).hide();
+        }
+    }
+    
+</script>

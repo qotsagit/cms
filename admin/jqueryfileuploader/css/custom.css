@@ -1,0 +1,32 @@
+.jFiler {
+    font-family: inherit;
+}
+
+.jFiler-input-text h3 {
+    color: inherit;
+}
+
+.jFiler-items-grid .jFiler-item a {
+    color: inherit;
+}
+
+.jFiler-items-grid .jFiler-item {
+    width: 25%;
+}
+
+.jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-thumb {
+    width: auto;
+    height: 163px;
+}
+
+.jFiler-item-info {
+    text-align: left;
+}
+
+span.jFiler-icon-file {
+    font-size: 12px;
+}
+
+.demo-fileInput-thumbs {
+    margin-top: 20px;
+}

@@ -1,0 +1,41 @@
+
+<div class="row">
+     <div class="col-md-10 col-md-offset-1">
+        <form method="POST" id="form-content" enctype="multipart/form-data">
+            <fieldset>
+                <legend><?php print $this->Msg('_NEW_','New') ?></legend>    
+                    <a href="<?php print $this->CtrlName ?>"  class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
+                    <div class="form-group pull-right">
+                        <input type="hidden" name="<?php print IDFILE ?>" value="<?php print $this->IdFile->Value ?>">
+                        <input type="hidden" name="<?php print TEMPLATE_NAME ?>" value="<?php print $this->Name->Value ?>">   
+                        <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                        <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+                        <a href="<?php print CTRL_TEMPLATE ?>"  class="btn btn-default"><?php print $this->Msg('_CANCEL_','Anuluj') ?></a>
+                    </div>
+                <hr> 
+                <ul class="nav nav-tabs">
+                    <li class="active" role="presentation"><a data-toggle="pill" href="#page1"><?php print $this->Msg('_ALL_','All') ?></a></li>
+                    <li role="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_OPTIONS_','Options') ?></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="page1" class="tab-pane fade in active">
+                        <div class="form-group">
+                            <label class="control-label"><?php print $this->msg('_NAME_','Name') ?></label>
+                            <input type="text" class="form-control" placeholder="<?php print $this->msg('_NAME_','Name') ?>" name="<?php print TEMPLATE_NAME ?>" value="<?php print $this->Name->Value ?>">
+                            <?php print $this->RenderValidationError($this->Name->ErrorText); ?>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"><?php print $this->Msg('_CONTENT_','Content') ?></label>
+                            <textarea id="editor" class="form-control" name="<?php print TEMPLATE_CONTENT ?>" rows="40" ><?php print $this->Content->Value ?></textarea>                            
+                            <?php print $this->RenderValidationError($this->Content->ErrorText); ?>
+                        </div>
+                    </div>
+                    <div id="page2" class="tab-pane fade">
+                        <?php $this->RenderAsSelect($this->Languages,$this->IdLang->Value,$this->Msg('_LANGUAGES_','Languages'),IDLANG) ?>
+                        <?php $this->RenderAsSelect($this->Statuses,$this->Status->Value ,$this->msg('_STATUS_','Status'),PAGE_STATUS) ?>
+                    </div>
+                </div>
+             </fieldset>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <?php //$this->RenderListHeader($this); ?>
+                    <?php $this->RenderSelectedPage($this); ?>
+                        <?php if($this->Count > 0) 
+                        {
+                        foreach ($view->Items as $item)
+                        {
+            
+                            print '<div class="col-sm-6 col-md-6">';
+                            print '<div class="thumbnail text-center">';
+                            print '<h2><b><a href="'.$view->CtrlName.'/'.METHOD_PARENT.'/'.$item->GetId().'">'.$item->GetTitle().'</a></b></h2>';
+                            //print '<span class="glyphicon glyphicon-user" style="font-size: 20px;"></span>';
+                            //$this->RenderRowMenu($view, $item);
+                            //print '<div class="caption">';  
+                            //print '<h3>'.$item->GetTitle().'</h3>';
+                            //print '<img src='.$item->GetImage().'>';
+                            //print '</div>';
+                            $column->Render($view,$item);
+                        }
+                        }
+
+                        ?>
+                        <div class="panel-body text-right">
+                            <?php $this->RenderGalleryBody($this); ?>
+                        </div>
+                        <div class="panel-body text-right">
+                            <?php $this->RenderTablePagination($this); ?>
+                           <?php //} ?>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        

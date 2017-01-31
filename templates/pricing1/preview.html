@@ -1,0 +1,215 @@
+<br>
+<div class="row">
+    <div class="col-md-12">
+    <div class="container">
+        <fieldset>
+            <div class="headline1">
+            <h1><center><?php print $this->Msg('_PRICING_','Pricing') ?></center></h1>
+            </div>
+            <?php print $this->RenderValidationMessage() ?>
+            <?php if($this->Saved) { ?><div class="alert alert-success"><?php print $this->Msg('_MESSAGE_SEND_','Message Send') ?></div> <?php } ?>
+            <hr>
+            <form role="form" method="POST">
+            <div class="row">
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <input type="hidden" name="<?php print PRICING_FIRST_NAME ?>" value="<?php print $this->FirstName->Value ?>">
+                <label><?php print $this->Msg('_FIRST_NAME_','First Name') ?></label><h4><?php print $this->FirstName->Value ?></h4>
+            </div>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <input type="hidden" name="<?php print PRICING_LAST_NAME ?>" value="<?php print $this->LastName->Value ?>">
+                <label><?php print $this->Msg('_LAST_NAME_','Last Name') ?></label><h4><?php print $this->LastName->Value ?></h4>
+            </div>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <input type="hidden" name="<?php print PRICING_EMAIL ?>" value="<?php print $this->Email->Value ?>">
+                <label><?php print $this->Msg('_EMAIL_','Email') ?></label><h4><?php print $this->Email->Value ?></h4>
+            </div>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <input type="hidden" name="<?php print PRICING_PHONE ?>" value="<?php print $this->Phone->Value ?>">
+                <label><?php print $this->Msg('_PHONE_','Phone') ?></label><h4><?php print $this->Phone->Value ?></h4>
+            </div>
+            </div>
+           
+            <div class="col-md-12 col-sm-12">
+            <div class="form-group">
+                <input type="hidden" name="<?php print PRICING_YOUR_WEIGHT ?>" value="<?php print $this->YourWeight->Value ?>">
+                <label><?php print $this->Msg('_YOUR_WEIGHT_','Your Weight') ?></label><h4><?php print $this->YourWeight->Value ?></h4>
+            </div>
+            </div>
+            
+            </div>
+            
+            <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <input type="hidden" name="<?php print PRICING_BUDGET ?>" value="<?php print $this->Budget->Value ?>">
+                <label><?php print $this->Msg('_BUDGET_','Budget') ?></label><h4><?php print $this->Budget->Value ?></h4>
+            </div>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+                <input type="hidden" name="<?php print PRICING_COLOR ?>" value="<?php print $this->Color->Value ?>">
+                <label><?php print $this->Msg('_COLOR_','Color') ?></label><h4><?php print $this->RenderSelectValue($this->Colors,$this->Color->Value) ?></h4>
+            </div>
+            
+            <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <input type="hidden" name="<?php print PRICING_EXPECTED_WEIGHT ?>" value="<?php print $this->ExpectedWeight->Value ?>">
+                <label><?php print $this->Msg('_EXPECTED_WEIGHT_','Expected Weight') ?></label><h4><?php print $this->ExpectedWeight->Value ?></h4>
+            </div>
+            </div>
+            
+            </div>
+            
+            <div class="row">
+            
+            <!-- WHEEL  -->
+            <div class="col-md-12"><hr></div>            
+            <div class="col-md-6 col-sm-6">
+                <input type="hidden" name="<?php print PRICING_WHEEL ?>" value="<?php print $this->Wheel->Value ?>">
+                <label><?php print $this->Msg('_WHEEL_','Wheel') ?></label><h4><?php print $this->RenderSelectValue($this->Wheels,$this->Wheel->Value) ?></h4>
+            </div>
+            <?php if ($this->Wheel->Value == 1) {?>
+            <div class="col-md-6 col-sm-6">
+                <input type="hidden" name="<?php print PRICING_SIZE ?>" value="<?php print $this->Size->Value ?>">
+                <label><?php print $this->Msg('_SIZE_','Size') ?></label><h4><?php print $this->RenderSelectValue($this->Sizes,$this->Size->Value) ?></h4>
+            </div>
+            <?php } ?>
+            </div>
+             
+            <!-- BRAKES -->
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            <div class="col-md-6 col-sm-6">
+                <input type="hidden" name="<?php print PRICING_BRAKE ?>" value="<?php print $this->Brake->Value ?>">
+                <label><?php print $this->Msg('_BRAKES_','Brakes') ?></label><h4><?php print $this->RenderSelectValue($this->Brakes,$this->Brake->Value) ?></h4>
+            </div>
+            <?php if ($this->Brake->Value == 0) {?>
+            <div class="col-md-6 col-sm-6">
+                <input type="hidden" name="<?php print PRICING_MOUNTING ?>" value="<?php print $this->Mounting->Value ?>">
+                <label><?php print $this->Msg('_MOUNTING_','Mounting') ?></label><h4><?php print $this->RenderSelectValue($this->Mountings,$this->Mounting->Value) ?></h4>
+            </div>
+            <?php } ?>
+            </div>
+            
+            <!-- PURPOSE -->
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            
+            <!-- ROAD -->
+            <?php if ($this->Wheel->Value == 0) {?>
+            <div class="col-md-12 col-sm-12">
+                <?php $this->RenderAsHiddenArray($this->PurposeRoad->Value,PRICING_PURPOSE_ROAD) ?>
+                <label><?php print $this->Msg('_PURPOSE_','Purpose') ?></label><h4><?php print $this->RenderCheckboxValue($this->PurposesRoad,$this->PurposeRoad->Value) ?></h4>
+            </div>
+            <?php } ?>
+            
+            <!-- MTB -->
+            <?php if ($this->Wheel->Value == 1) {?>
+             <div class="col-md-12 col-sm-12">
+                <?php $this->RenderAsHiddenArray($this->PurposeMTB->Value,PRICING_PURPOSE_MTB) ?>
+                <label><?php print $this->Msg('_PURPOSE_','Purpose') ?></label><h4><?php print $this->RenderCheckboxValue($this->PurposesMTB,$this->PurposeMTB->Value); ?></h4>
+            </div>
+             <?php } ?>
+            </div>
+                        
+            <!-- TIRE -->
+            <?php if ($this->Wheel->Value == 0) {?>
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            <input type="hidden" name="<?php print PRICING_TIRE ?>" value="<?php print $this->Tire->Value ?>">
+            <div class="col-md-12 col-sm-12"><label><?php print $this->Msg('_TIRE_','Tire') ?><h4><?php print $this->RenderSelectValue($this->Tires,$this->Tire->Value); ?></h4>
+            </div>
+            </div>
+            <?php } ?>
+            
+            
+            <!-- AXIS TYPE -->
+            <?php if ($this->Wheel->Value == 1) {?> 
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            <input type="hidden" name="<?php print PRICING_AXIS_FRONT ?>" value="<?php print $this->AxisFront->Value ?>">
+            <div class="col-md-6 col-sm-6"><label><?php print $this->Msg('_AXIS_FRONT_','Axis Front') ?></label><h4><?php print $this->RenderSelectValue($this->AxisFronts,$this->AxisFront->Value); ?></h4></div>
+            <input type="hidden" name="<?php print PRICING_AXIS_REAR ?>" value="<?php print $this->AxisRear->Value ?>">
+            <div class="col-md-6 col-sm-6"><label><?php print $this->Msg('_AXIS_REAR_','Axis Rear') ?></label><h4><?php print $this->RenderSelectValue($this->AxisRears,$this->AxisRear->Value); ?></h4></div>
+            </div>
+            <?php } ?>
+            
+            <!-- CASSETTE -->
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            <?php if ($this->Wheel->Value == 0) {?>
+            <input type="hidden" name="<?php print PRICING_CASSETTE_ROAD ?>" value="<?php print $this->CassetteRoad->Value ?>">
+            <div class="col-md-6 col-sm-6"><label><?php print $this->Msg('_CASSETTE_','Cassette'); ?></label><h4><?php print $this->RenderSelectValue($this->CassettesRoad,$this->CassetteRoad->Value); ?></h4>
+            </div>
+            <?php } ?>
+            
+            <?php if ($this->Wheel->Value == 1) {?>
+            <input type="hidden" name="<?php print PRICING_CASSETTE_MTB ?>" value="<?php print $this->CassetteMTB->Value ?>">
+            <div class="col-md-6 col-sm-6"><label><?php print $this->Msg('_CASSETTE_','Cassette'); ?></label><h4><?php print $this->RenderSelectValue($this->CassettesMTB,$this->CassetteMTB->Value); ?></h4>
+                
+            </div>
+            <?php } ?>
+            
+            </div>
+            
+            <!-- SEALANT -->
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            <input type="hidden" name="<?php print PRICING_SEALANT ?>" value="<?php print $this->Sealant->Value ?>">
+            <div class="col-md-12 col-sm-12"><label><?php print $this->Msg('_SEALANT_','Sealant'); ?></label><h4><?php print $this->RenderSelectValue($this->Sealants,$this->Sealant->Value); ?></h4>
+            </div>
+            </div>
+            
+            <!-- COMMENT -->
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            <div class="col-md-12 col-sm-12">
+                <input type="hidden" name="<?php print PRICING_COMMENT ?>" value="<?php print $this->Comment->Value ?>">
+                <label class="control-label"><?php print $this->Msg('_OTHER_ITEMS_','Other items') ?></label><h4><?php print $this->Comment->Value ?></h4>
+            </div>
+            </div>
+            
+            <?php if(!$this->Saved) { ?>
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            <!-- <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>"> -->
+            <div class="col-md-6">
+            <button type="submit" name="<?php print METHOD ?>" value="<?php print METHOD_ADD ?>" class="btn btn-default pull-left"><span class="glyphicon glyphicon-chevron-left"></span> <?php print $this->Msg('_BACK_','Back') ?></button>
+            </div>
+            <div class="col-md-6">
+            <button type="submit" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>" class="btn btn-primary pull-right"><?php print $this->Msg('_SEND_','Send') ?> <span class="glyphicon glyphicon-envelope"></span> </button>                                   
+            </div>
+            </div>
+            <?php }else{ ?>
+            <div class="row">
+            <div class="col-md-12"><hr></div>
+            <!-- <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>"> -->
+            <div class="col-md-6">
+            <button type="submit" name="<?php print METHOD ?>" value="<?php print METHOD_ADD ?>" class="btn btn-default pull-left"><span class="glyphicon glyphicon-chevron-left"></span> <?php print $this->Msg('_BACK_','Back') ?></button>
+            </div>
+            
+            </div>
+            
+                        
+            <?php } ?>
+            </form>
+            </fieldset>
+        </div>
+            </div>
+    </div>
+<br>

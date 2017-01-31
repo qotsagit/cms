@@ -1,0 +1,249 @@
+<div class="container">
+<div class="row">
+     <div class="col-md-12"><h1><?php print $this->Msg('_CONTROL_PANEL_','Control Panel')  ?></h1></div>
+     <div class="col-md-12"><h4 id="clock"></h4></div>
+     <?php //print 'space'.$this->GetDiskTotalSpace('/home/qotsa2/domains/old') ?>
+     <?php //print 'free space'.$this->GetDiskFreeSpace('/home/qotsa2/domains/old') ?>
+</div>
+     <hr>
+<div class="row">
+     <div class="col-sm-3 col-md-3">
+          <a href="<?php print CTRL_USER ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-user" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_USERS_','Users') ?></h4>
+                <h1><span class="label label-info"><?php print $this->UserCount ?></span></h1>
+            </div>
+            </a>
+    </div>
+    
+    <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_CATEGORY ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-tags" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_CATEGORIES_','Categories') ?></h4>
+                <h1><span class="label label-info"><?php print $this->CategoryCount ?></span></h1>
+            </div>
+            </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_LANG ?>" class="thumbnail">
+            <div class="text-center" >
+               <span class="glyphicon glyphicon-flag" style="font-size: 60px;"></span>
+               <h4><?php print $this->Msg('_LANGUAGES_','Languages') ?></h4>
+                <h1><span class="label label-info"><?php print $this->LangCount ?></span></h1>
+            </div>
+            </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_ROLE ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-knight" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_ROLES_','Roles') ?></h4>
+                 <h1><span class="label label-info"><?php print $this->RoleCount ?></span></h1>
+            </div>
+            </a>
+    </div>   
+</div>
+<hr>
+<div class="row">
+     <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_MSG ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-pencil" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_MSG_','Messages') ?></h4>
+                 <h1><span class="label label-info"><?php print $this->MsgCount ?></span></h1>
+            </div>
+        </a>
+    </div>   
+    
+    <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_BLOCK ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-modal-window" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_BLOCKS_','Blocks') ?></h4>
+                 <h1><span class="label label-info"><?php print $this->BlockCount ?></span></h1>
+            </div>
+            </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_MENU ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-menu-hamburger" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_MENU_','Menu') ?></h4>
+                 <h1><span class="label label-info"><?php print $this->MenuCount ?></span></h1>
+            </div>
+            </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_PAGE ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-duplicate" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_PAGES_','Pages') ?></h4>
+                 <h1><span class="label label-info"><?php print $this->PageCount ?></span></h1>
+            </div>
+            </a>
+    </div>   
+</div>
+<hr>
+<div class="row">
+     <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_TEMPLATE ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-eye-open" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_TEMPLATES_','Templates') ?></h4>
+                 <h1><span class="label label-info"><?php print $this->TemplateCount ?></span></h1>
+            </div>
+        </a>
+    </div>   
+    
+     <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_CALENDAR ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-calendar" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_CALENDAR_','Calendar') ?></h4>
+                 <h1><span class="label label-info"><?php print $this->CalendarCount ?></span></h1>
+            </div>
+            </a>
+    </div>
+    
+    <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_SETTINGS ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-cog" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_SETTINGS_','Settings') ?></h4>
+            </div>
+            </a>
+    </div>
+    
+    <div class="col-sm-3 col-md-3">
+        <a href="<?php print CTRL_LOGOUT ?>" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-off" style="font-size: 60px;"></span>
+                <h4><?php print $this->Msg('_LOGOUT_','Logout') ?></h4>
+            </div>
+            </a>
+    </div>
+</div>
+<hr>
+</div>
+<script>
+var myVar = setInterval(myTimer, 1000);
+
+function myTimer()
+{
+    var d = new Date();
+    document.getElementById("clock").innerHTML = d.toLocaleDateString() +' ' +d.toLocaleTimeString();
+}
+</script>
+
+<!--
+
+<div class="row">
+    <div class="col-sm-3 col-md-3">
+        <a href="#" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-film" style="font-size: 75px;"></span>
+                <h4>system dla cpnów</h4>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <a href="#" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-film" style="font-size: 75px;"></span>
+                <h4>sklepów aptecznych</h4>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <a href="#" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-film" style="font-size: 75px;"></span>
+                <h4>system licytacji</h4>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <a href="#" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-alert" style="font-size: 75px;"></span>
+                <h4>budowa schronów</h4>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3 col-md-3">
+        <a href="#" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-film" style="font-size: 75px;"></span>
+                <h4>system licytacji</h4>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-3 col-md-3">
+        <a href="#" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-film" style="font-size: 75px;"></span>
+                <h4>system fryzjer</h4>
+            </div>
+        </a>
+    </div>
+
+
+    <div class="col-sm-3 col-md-3">
+        <a href="#" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-film" style="font-size: 75px;"></span>
+                <h4>rezerwacja stolików</h4>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-3 col-md-3">
+        <a href="#" class="thumbnail">
+            <div class="text-center">
+                <span class="glyphicon glyphicon-film" style="font-size: 75px;"></span>
+                <h4>formularz wyceny strony online</h4>
+            </div>
+        </a>
+    </div>
+</div>
+
+
+<div class="row"> 
+
+    <div class="col-sm-3 col-md-3"> 
+        <div class="thumbnail"> 
+            <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMzE5IiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMxOSAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU1MDhkYTk3NzQgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxNnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTUwOGRhOTc3NCI+PHJlY3Qgd2lkdGg9IjMxOSIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMTcuOTg0Mzc1IiB5PSIxMDcuMiI+MzE5eDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;"> 
+            <div class="caption"> 
+                <h3>Thumbnail label</h3> 
+                <p>mogła by też taka strona się sama generować, plus jeszcze projekt oklejenia samochodu na przykład, żeby można było odrazu swoją firmę reklamować
+wizytówki itp, odrazu</p> 
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> 
+                    <a href="#" class="btn btn-default" role="button">Button</a></p> 
+            </div> 
+        </div> 
+    </div> 
+    <div class="col-sm-3 col-md-3"> 
+        <div class="thumbnail"> 
+            <img data-src="holder.js/100%x200" alt="100%x200" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMzE5IiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMxOSAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU1MDhkYTk3NzQgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxNnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTUwOGRhOTc3NCI+PHJlY3Qgd2lkdGg9IjMxOSIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMTcuOTg0Mzc1IiB5PSIxMDcuMiI+MzE5eDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;"> 
+            <div class="caption"> 
+                <h3>Thumbnail label</h3> 
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> 
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> 
+                    <a href="#" class="btn btn-default" role="button">Button</a></p> 
+            </div> 
+        </div> 
+    </div>
+    
+</div>
+</div>
+-->

@@ -1,0 +1,179 @@
+<?php
+        
+    if (isset($this->FileUploadError)){
+        
+        echo $this->FileUploadError;
+        
+    }
+        
+?>
+
+<div class="row">
+     <div class="col-md-10 col-md-offset-1">
+      
+        <form method="POST" id="form-content" enctype="multipart/form-data" action="<?php print $this->CtrlName ?>">
+            <fieldset>            
+                <legend><?php print $this->ViewTitle ?></legend>    
+                    <a href="<?php print $this->CtrlName ?>"  class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"> </span> </a>        
+                    <div class="form-group pull-right">
+                        <input id="page_id_page" type="hidden" name="<?php print IDPAGE ?>" value="<?php print $this->IdPage->Value ?>">
+                        <!-- <input type="hidden" name="<?php print IDPARENT ?>" value="<?php print $this->IdParent->Value ?>">   -->
+                        <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                        <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+                        <a href="<?php print CTRL_PAGE ?>"  class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
+                    </div>
+                    <hr> 
+                    <ul class="nav nav-tabs">
+                        <li class="active" role="presentation"><a data-toggle="pill" href="#page1"><?php print $this->Msg('_ALL_','All') ?></a></li>
+                        <li role="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_OPTIONS_','Options') ?></a></li>
+                        <li role="presentation"><a data-toggle="pill" href="#page3"><?php print $this->Msg('_PORTFOLIO_','Portfolio') ?></a></li>
+                        <li role="presentation"><a data-toggle="pill" href="#page4"><?php print $this->Msg('_PRICE_','Price') ?></a></li>
+                        <li role="presentation"><a data-toggle="pill" href="#page5"><?php print $this->Msg('_META_','Meta') ?></a></li>
+                        <li role="presentation"><a data-toggle="pill" href="#page6"><?php print $this->Msg('_IMAGE_','Image') ?></a></li>
+                        <li role="presentation"><a data-toggle="pill" href="#page7"><?php print $this->Msg('_GALLERY_','Gallery') ?></a></li>
+                        <li role="presentation"><a data-toggle="pill" href="#page8"><?php print $this->Msg('_FILES_','Files') ?></a></li>
+                    </ul>
+                
+                <div class="tab-content">
+                <div id="page1" class="tab-pane fade in active">
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->msg('_TITLE_','Title') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->msg('_TITLE_','Title') ?>" name="<?php print PAGE_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                        <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
+                    </div>
+                    <?php $this->RenderAsSelect($this->Categories,$this->IdCategory->Value ,$this->msg('_CATEGORY_','Category'),IDCATEGORY) ?>
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
+                        <textarea id="editor" class="form-control" name="<?php print PAGE_TEXT ?>" rows="40" ><?php print $this->Text->Value ?></textarea>                            
+                        <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
+                    </div>
+                </div>
+                <div id="page2" class="tab-pane fade">
+                    <?php $this->RenderAsSelect($this->Languages,$this->IdLang->Value,$this->Msg('_LANGUAGES_','Languages'),PAGE_ID_LANG) ?>
+                    <?php $this->RenderTreeAsSelect($this->Pages,$this->IdParent->Value,$this->Msg('_PAGES_','Pages'),IDPARENT) ?>
+                    <?php $this->RenderAsSelect($this->Statuses,$this->Active->Value ,$this->msg('_ACTIVE_','Active'),PAGE_STATUS) ?>
+                    <?php $this->RenderAsSelect($this->StatusesExtra,$this->StatusExtra->Value ,$this->msg('_STATUS_EXTRA_','Status Extra'),PAGE_STATUS_EXTRA) ?>
+                    <?php $this->RenderAsSelect($this->ContentTypes,$this->ContentType->Value ,$this->msg('_CONTENT_TYPE_','Content Type'),PAGE_CONTENT_TYPE) ?>
+                    <?php $this->RenderAsSelect($this->Templates,$this->Template->Value ,$this->msg('_TEMPLATE_','Template'),PAGE_TEMPLATE) ?>
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->msg('_POSITION_','Position') ?></label>
+                        <input type="number" class="form-control" placeholder="<?php print $this->msg('_POSITION_','Position') ?>" name="<?php print PAGE_POSITION ?>" value="<?php print $this->Position->Value ?>">
+                        <?php print $this->RenderValidationError($this->Position->ErrorText); ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->msg('_PAGEURL_','URL') ?></label>
+                        <input disabled type="text" class="form-control" placeholder="<?php print $this->msg('_PAGEURL_ADDRESS_','URL Address') ?>" name="<?php print PAGE_URL_ADDRESS ?>" value="<?php print $this->UrlAddress->Value ?>">
+                        <?php print $this->RenderValidationError($this->UrlAddress->ErrorText); ?>
+                    </div>
+                </div>
+                    
+                <div id="page3" class="tab-pane fade">
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->msg('_PAGEURL_','URL') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->msg('_PAGEURL_','URL') ?>" name="<?php print PAGE_URL ?>" value="<?php print $this->Url->Value ?>">
+                        <?php print $this->RenderValidationError($this->Url->ErrorText); ?>
+                    </div>
+                </div>
+                <div id="page4" class="tab-pane fade">
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->msg('_PRICE_','Price') ?></label>
+                        <input type="number" class="form-control" step="0.01" placeholder="<?php print $this->msg('_PRICE_','Price') ?>" name="<?php print PAGE_PRICE ?>" value="<?php print $this->Price->Value ?>">
+                        <?php print $this->RenderValidationError($this->Price->ErrorText); ?>
+                    </div>
+                </div>
+                <div id="page5" class="tab-pane fade">
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->msg('_META_TITLE_','Meta Title') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->msg('_META_TITLE_','Meta Title') ?>" name="<?php print PAGE_META_TITLE ?>" value="<?php print $this->MetaTitle->Value ?>">
+                        <?php print $this->RenderValidationError($this->MetaTitle->ErrorText); ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->msg('_META_DESCRIPTION_','Meta Description') ?></label>
+                        <textarea class="form-control" name="<?php print PAGE_META_DESCRIPTION ?>" rows="20" ><?php print $this->MetaDescription->Value ?></textarea>
+                        <?php print $this->RenderValidationError($this->MetaDescription->ErrorText); ?>
+                    </div>
+                    
+                </div>
+                <div id="page6" class="tab-pane fade">
+                    <?php print $this->Image->Value ?>
+                    <?php $this->RenderOneImage($this->Image->Value,200,200) ?>
+                </div>
+                <div id="page7" class="tab-pane fade">
+                   <div class="col-md-12">
+                    <!-- <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 400px; height:400px;">OK</div> -->
+
+                    
+                       <input type="file" name="image[]" id="image-uploader" multiple="multiple" <!--onclick="PopupWindow('image'); -->">
+                    </div>
+                </div>
+                <div id="page8" class="tab-pane fade">
+                   <div class="col-md-12">
+                       <input type="file" name="file[]" id="file-uploader" multiple="multiple">
+                    </div>
+                </div>
+
+                </div>
+        
+             </fieldset>
+            </form>
+
+    </div>
+</div>
+
+<script>
+    $('#page_id_lang').change(function () { changevalue('#page_id_lang','#id_parent'); });
+     
+    function changevalue(e1,e2)
+    {
+        var id_lang = $('#page_id_lang').val();
+        var id_page = $('#page_id_page').val();
+        
+        //alert(id_page);
+        
+        $(e2).html('<option value=""><?php print $this->Msg("_LOADING_","Loading...") ?></option>');
+        $.get
+        ('page/options&page_id_lang='+id_lang+'&page_id_page='+id_page+'&id_parent=<?php print $this->IdParent->Value ?>',
+            function(data)
+            {
+                //alert(data);
+                $(e2).html(data);
+            }
+        );
+    }    
+    
+    
+    
+    function allowDrop(ev)
+    {
+        ev.preventDefault();
+        ev.dataTransfer.dropEffect = "move";
+    }
+    function drop(evt)
+    {
+      evt.preventDefault();
+      var data = evt.dataTransfer.getData("image");
+      evt.target.appendChild(document.getElementById(data));
+    }
+    
+    function PopupWindow(url)
+    {
+        var new_window = window.open(url,'_blank',"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+        
+        new_window.onbeforeunload = function()
+        {
+            alert();   
+        }
+        //my code
+    }
+
+</script>
+
+<?php 
+
+    include('templates/page/image-uploader.html');
+    include('templates/page/file-uploader.html');
+
+?>
+

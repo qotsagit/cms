@@ -1,0 +1,51 @@
+
+<div class="row">
+     <div class="col-md-10 col-md-offset-1">
+        <form method="POST" id="form-content" enctype="multipart/form-data">
+            <fieldset>
+                <legend><?php print $this->Msg('_SETTINGS_','Settings') ?></legend>
+                    <a href="<?php print $this->CtrlName ?>"  class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"> </span></a>
+                    <div class="form-group pull-right">
+                        <input type="hidden" name="<?php print IDPAGE ?>" value="<?php print $this->IdPage->Value ?>">
+                        <!-- <input type="hidden" name="<?php print IDPARENT ?>" value="<?php print $this->IdParent->Value ?>">   -->
+                        <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                        <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+                        <a href="<?php print CTRL_PAGE ?>"  class="btn btn-default"><?php print $this->Msg('_CANCEL_','Anuluj') ?></a>
+                    </div>
+                    <hr>
+                                    
+                    <?php $this->RenderTreeAsSelect($this->Pages,$this->IdPage->Value,$this->Msg('_START_PAGE_','Start page'),IDPAGE) ?>
+                  
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->msg('_EMAIL_','Email') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->msg('_EMAIL_','Email') ?>" name="<?php print SETTINGS_EMAIL ?>" value="<?php print $this->Email->Value ?>">
+                        <?php print $this->RenderValidationError($this->Email->ErrorText); ?>
+                    </div>
+                  
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->msg('_PAGEURL_','URL') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->msg('_PAGEURL_ADDRESS_','URL Address') ?>" name="<?php print PAGE_URL_ADDRESS ?>" value="<?php print $this->Url->Value ?>">
+                        <?php print $this->RenderValidationError($this->Url->ErrorText); ?>
+                    </div>
+            </fieldset>
+          </form>
+     </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    
+     $('#settings_idlang').change(function () { changevalue('#settings_idlang','#id_page'); });
+     
+     function changevalue(e1,e2)
+     {
+          $(e2).html('<option value=""><?php print $this->Msg('_LOADING_','Loading...') ?></option>');
+          $.get
+          ('page/options' ,
+               function(data)
+               {
+                    //alert(data);
+                    $(e2).html(data);
+               }
+          );
+     }
+</script>

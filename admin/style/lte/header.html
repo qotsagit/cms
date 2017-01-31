@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title><?php print $this->Msg('_SITE_TITLE_','CMS') ?></title>
+        <base href="<?php print BASE_HREF ?>">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="stylesheet" href="style/lte/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="style/lte/dist/css/font-awesome.min.css">
+        <link rel="stylesheet" href="style/lte/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="style/lte/dist/css/skins/skin-purple.min.css">
+        <link rel="stylesheet" href="style/lte/ionicons/css/ionicons.min.css">        
+        <link rel="stylesheet" href="style/lte/plugins/datatables/dataTables.bootstrap.css">
+        <link rel="stylesheet" href="style/lte/plugins/iCheck/square/blue.css">
+        
+        
+        <script src="style/lte/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+        <script src="style/lte/plugins/iCheck/icheck.min.js"></script>
+        <script src="style/lte/plugins/slimScroll/jquery.slimscroll.js"></script>
+
+        <script src="style/lte/bootstrap/js/bootstrap.min.js"></script>
+        <script src="style/lte/dist/js/app.min.js"></script>
+        <script src="style/lte/dist/js/ajax.js"></script>
+         <?php
+
+        if (Settings::$CKEditorUse) { ?>
+
+        <script src="//cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+
+        <?php 
+        } 
+        ?>
+        
+        
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body class="hold-transition fixed skin-purple sidebar-collapse">
+        <div class="wrapper" >
+	<?php if (Session::GetValidUser()) 
+	{
+        include 'top.html';
+	include 'left.html';
+	//include 'right.html';
+	?>
+            <div class="content-wrapper">
+        <?php }else{ ?>
+	    <div class="login-page">
+	<?php } ?>
+        <!-- Main content -->
+        <section class="content" id="demo">

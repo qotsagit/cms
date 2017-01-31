@@ -1,0 +1,1 @@
+git pull ssh://git@ws1.navsim.pl:12340/data/navsim_source/scheduler2 scheduler2Source

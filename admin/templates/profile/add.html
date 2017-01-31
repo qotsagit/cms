@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <form method="POST">
+            <fieldset>
+                <legend><?php print $this->Msg('_SETTINGS_','Settings') ?></legend> 
+                
+                    <?php $this->RenderAsSelect($this->Languages,$this->IdLang->Value ,$this->Msg('_LANGUAGE_','Language'),IDLANG) ?>
+
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_NICK_','Nick') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->msg('_NICK_','Nick') ?>" name="<?php print USER_NICK ?>" value="<?php print $this->Nick->Value ?>">
+                        <?php print $this->RenderValidationError($this->Nick->ErrorText); ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_EMAIL_','Email') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print USER_EMAIL ?>" value="<?php print $this->Email->Value ?>">
+                        <?php print $this->RenderValidationError($this->Email->ErrorText); ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_FIRST_NAME_','First Name') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_FIRST_NAME_','First Name') ?>" name="<?php print USER_FIRST_NAME ?>" value="<?php print $this->FirstName->Value ?>">
+                        <?php print $this->RenderValidationError($this->FirstName->ErrorText); ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_LAST_NAME_','Last Name') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_LAST_NAME_','Last Name') ?>" name="<?php print USER_LAST_NAME ?>" value="<?php print $this->LastName->Value ?>">
+                        <?php print $this->RenderValidationError($this->LastName->ErrorText); ?>
+                    </div>
+                    <!--
+                     <div class="form-group">
+                         <label class="control-label"><?php print _PHONE_ ?></label>
+                         <input type="text" class="form-control" placeholder="<?php print _PHONE_ ?>" name="<?php print USER_PHONE ?>" value="<?php print $this->Phone->Value ?>">
+                         <p class='text-danger'><?php print $this->Phone->ErrorText; ?></p>
+                     </div>
+                    -->
+                    <div class="form-group pull-right">
+                        <input type="hidden" name="<?php print IDUSER ?>" value="<?php print $this->IdUser->Value ?>">   
+                        <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                        <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+                        <a href="<?php print CTRL_SETTINGS ?>"  class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
+                    </div>
+               
+
+            </fieldset>
+        </form>
+    </div>
+</div>

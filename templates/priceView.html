@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-12">
+        
+<?php $this->RenderSelectedPage($this); ?>
+    <div class="container">
+<?php        
+        foreach ($this->Items as $item)
+        { ?>   
+        <div class="col-md-4 col1-sm-6">
+            <div class="price-plan">	
+			    <h3 class="price-plan-header"><?php print $item->GetName() ?></h3>
+                    <?php print $item->GetText() ?>
+                        <h1 class="price"><?php print  sprintf("%.0f",$item->GetPrice()) ?> zł</h1>
+                        <div class="price-plan-footer">
+			    <a class="btn btn-black" href="#">Zamów</a>
+			</div>
+            </div>
+        </div>
+        <?php 
+        } ?>              
+        </div>
+        <br><br>
+    </div>
+</div>

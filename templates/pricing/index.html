@@ -1,0 +1,263 @@
+<br>
+<div class="row">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <fieldset>
+                <div class="headline">
+                 <?php if($this->Saved) { ?> <div class="col-sm-12"><div class="alert alert-success"><?php print $this->Msg('_REGISTER_SUCCESS_','Register Success. Check email for config link') ?></div></div> <?php } ?>
+                <h3><?php print $this->Msg('_PRICING_','Pricing') ?></h3>
+                <!--<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem<br class="hidden-xs"></p>-->
+                </div>
+                <form role="form" method="POST">
+              
+                <div class="row">
+                <div class="col-sm-12">
+                    <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_DOMAIN_','Domain') ?>" name="<?php print REGISTER_PASSWORD ?>" value="<?php print $this->Password->Value ?>">
+                    <?php print $this->RenderValidationError($this->Domain->ErrorText); ?>
+                </div>
+                 <div class="col-sm-12">
+                    <input type="password" class="col-xs-12" placeholder="<?php print $this->Msg('_PASSWORD_','Password') ?>" name="<?php print REGISTER_PASSWORD ?>" value="<?php print $this->Password->Value ?>">
+                    <?php print $this->RenderValidationError($this->Password->ErrorText); ?>
+                    </div>
+                 <div class="col-sm-12">
+                    <!--<label><?php print $this->Msg('_PASSWORD_','Password') ?></label>-->
+                    <input type="password" class="col-xs-12" placeholder="<?php print $this->Msg('_PASSWORD_','Password') ?>" name="<?php print REGISTER_PASSWORD ?>" value="<?php print $this->Password->Value ?>">
+                    <?php print $this->RenderValidationError($this->Password->ErrorText); ?>
+                </div>
+                </div>
+              
+              
+                <div class="row">
+                    
+                <div class="col-md-4">
+                    <div class="counter default"><i class="mt-icon-document3"></i>
+                    <div class="counter-value animated" data-value="1176"><span id="price">0</span> zł</div>zł
+                   <!-- <div class="counter-value animated" data-value="1176"><span id="price1">0</span> zł</div>zł -->
+                    <div class="counter-details">Cena</div>
+                    </div>     
+                </div>
+                  
+                     <div class="col-md-8" >
+                <div class="panel-group" id="accordion1">
+                
+                <div class="panel">
+                <div class="panel-heading">
+                <h4 class="panel-title" style="text-align: center"><a aria-expanded="false" data-parent="#accordion1" data-toggle="collapse" href="#collapse1-1">Hosting</a></h4>
+                </div>
+                <!-- panel-heading -->
+                <div class="panel-collapse collapse" id="collapse1-1">
+                <div class="panel-body">
+            
+                <div class="col-sm-4">
+                    <div class="checkbox margin-bottom-201">
+                    <label>
+                        <input name="<?php print REGISTER_NEWSLETTER ?>" type="radio" value="99" onchange="priceRadio(this);" checked>
+                        <h2></h2>Hosting 2GB - opis hostingu tu może być trochę dłuższy (99 zł)</h2>
+                    </label>
+                    </div>
+                </div>
+          
+                <div class="col-sm-4">
+                    <div class="checkbox margin-bottom-201">
+                    <label>
+                        <input name="<?php print REGISTER_NEWSLETTER ?>" type="radio" value="199" onchange="priceRadio(this);">
+                        <h2></h2>Hosting 4GB - opis hostingu tu może być trochę dłuższy (199 zł)</h2>
+                    </label>
+                    </div>
+                </div>
+                
+                <div class="col-sm-4">
+                    <div class="checkbox margin-bottom-201">
+                    <label>
+                        <input name="<?php print REGISTER_NEWSLETTER ?>" type="radio" value="299" onchange="priceRadio(this);">
+                        <h2></h2>Hosting 8GB - opis hostingu tu może być trochę dłuższy (299 zł)</h2>
+                    </label>
+                    </div>
+                </div>
+    
+                </div>
+                </div>
+                </div>
+            
+            
+                <div class="panel">
+                <div class="panel-heading">
+                <h4 class="panel-title" style="text-align: center"><a aria-expanded="false" data-parent="#accordion1" data-toggle="collapse" href="#collapse1-2">Opcje</a></h4>
+                </div>
+                <!-- panel-heading -->
+                <div class="panel-collapse collapse" id="collapse1-2">
+                <div class="panel-body">
+               
+                    <div class="col-sm-12">
+                        <div class="checkbox margin-bottom-201">
+                        <label>
+                            <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" value="10" onchange="priceCheck(this);">
+                            Galeria
+                        </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-12">
+                        <div class="checkbox margin-bottom-201">
+                        <label>
+                            <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" value="50" onchange="priceCheck(this);">
+                            RWD - czy strona ma być responsywna
+                        </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-12">
+                        <div class="checkbox margin-bottom-201">
+                        <label>
+                            <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" value="552" onchange="priceCheck(this);">
+                            Slajder
+                        </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-12">
+                        <div class="checkbox margin-bottom-201">
+                        <label>
+                            <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" value="452" onchange="priceCheck(this);">
+                            Produkty
+                        </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-12">
+                        <div class="checkbox margin-bottom-201">
+                        <label>
+                            <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" value="352" onchange="priceCheck(this);">
+                            Newsletter
+                        </label>
+                        </div>
+                    </div>
+        
+                    <div class="col-sm-12">
+                        <div class="checkbox margin-bottom-201">
+                        <label>
+                            <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" value="252" onchange="priceCheck(this);">
+                            Formularz Kontaktowy
+                        </label>
+                        </div>
+                    </div>
+        
+                    <div class="col-sm-12">
+                        <div class="checkbox margin-bottom-201">
+                        <label>
+                            <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" value="152" onchange="priceCheck(this);">
+                            Reklamy Google
+                        </label>
+                        </div>
+                    </div>
+                </div>
+                
+                 </div>
+                </div>
+                          
+                <div class="panel">
+                <div class="panel-heading">
+                <h4 class="panel-title" style="text-align: center"><a aria-expanded="false" data-parent="#accordion1" data-toggle="collapse" href="#collapse1-3">Portale społecznościowe</a></h4>
+                </div>
+                <!-- panel-heading -->
+                <div class="panel-collapse collapse" id="collapse1-3">
+                <div class="panel-body">
+                <div class="col-sm-12">
+                    <div class="checkbox margin-bottom-201">
+                        <label>
+                            <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" value="15" onchange="priceCheck(this);">
+                            <i class="mt-icon-facebook"></i>
+                            Facebook(15 zł)
+                        </label>
+                    </div>
+                </div>
+            </div> 
+            </div>
+            </div>
+            </div>
+                
+                
+                <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                <button class="btn btn-primary pull-right"><?php print $this->Msg('_REGISTER_','Register') ?></button>                                   
+                </div>
+                </form>
+                </fieldset>
+                </div>    
+            </div>
+        </div>
+      </div>
+    </div>
+
+<br>
+<script>
+    
+    var pr = 0;
+    var old = 0;
+    var i = 0;
+
+    //tm = setInterval(counter, 1);
+    
+    function _(el)
+    {
+        return document.getElementById(el);
+    }
+        
+    function priceRadio(elem)
+    {
+        
+        if(elem.checked)
+        {
+            pr += parseFloat(elem.value) - old;
+            old = 0;
+        }
+        
+        old = parseFloat(elem.value);
+        
+        
+        _("price").innerHTML = pr;    
+    
+    } 
+    
+    function priceCheck(elem)
+    {   
+        if(elem.checked)
+        {
+            pr += parseFloat(elem.value);
+            
+        }
+        else
+        {
+            pr -= parseFloat(elem.value);
+            
+        }
+        
+    }
+    
+    function counter()
+    {
+        //if(i == pr)
+        
+        if(i < pr)
+        {
+            _("price").innerHTML = i++;
+            _("price1").innerHTML = pr;
+            return;
+            
+        }
+        
+        if(i > pr)
+        {
+            _("price").innerHTML = i--;
+             _("price1").innerHTML = pr;
+             return;
+        }
+         _("price").innerHTML = pr;
+        
+        
+          //  alert(i);
+          
+            
+    }
+    
+</script>

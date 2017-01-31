@@ -1,0 +1,84 @@
+<br>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4 col-sm-12">
+        <fieldset>
+            <legend><?php print $this->Msg('_REGISTER_','Register') ?></legend>
+                <form role="form" method="POST">
+                    <div class="form-group">
+                        <label><?php print $this->Msg('_EMAIL_','Email') ?></label>
+                            <input id="email" type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print REGISTER_EMAIL ?>" value="<?php print $this->Email->Value ?>">
+                            <div id="email_valid"></div>
+                            <?php print $this->RenderValidationError($this->Email->ErrorText); ?>
+                        </div>
+                        <div class="form-group">
+                            <label><?php print $this->Msg('_PASSWORD_','Password') ?></label>
+                            <input type="password" class="form-control" placeholder="<?php print $this->Msg('_PASSWORD_','Password') ?>" name="<?php print REGISTER_PASSWORD ?>" value="<?php print $this->Password->Value ?>">
+                            <?php print $this->RenderValidationError($this->Password->ErrorText); ?>
+                        </div>
+                        <hr>
+                    
+                        <div class="form-group">
+                            <label><?php print $this->Msg('_FIRST_NAME_','First Name') ?></label>
+                            <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_FIRST_NAME_','First Name') ?>" name="<?php print REGISTER_FIRST_NAME ?>" value="<?php print $this->FirstName->Value ?>">
+                            <?php print $this->RenderValidationError($this->FirstName->ErrorText); ?>
+                        </div>
+                        <div class="form-group">
+                            <label><?php print $this->Msg('_LAST NAME_','Last Name') ?></label>
+                            <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_LAST_NAME_','Last Name') ?>" name="<?php print REGISTER_LAST_NAME ?>" value="<?php print $this->LastName->Value ?>">
+                            <?php print $this->RenderValidationError($this->LastName->ErrorText); ?>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label><?php print $this->Msg('_CITY_','City') ?></label>
+                            <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_CITY_','City') ?>" name="<?php print REGISTER_CITY ?>" value="<?php print $this->City->Value ?>">
+                            <?php print $this->RenderValidationError($this->City->ErrorText); ?>
+                        </div>
+                       
+                       <div class="form-group">
+                            <label><?php print $this->Msg('_ZIP_CODE_','Zip Code') ?></label>
+                            <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_ZIP_CODE_','Zip Code') ?>" name="<?php print REGISTER_ZIP_CODE ?>" value="<?php print $this->ZipCode->Value ?>">
+                            <?php print $this->RenderValidationError($this->ZipCode->ErrorText); ?>
+                        </div>
+                       
+                        <div class="form-group">
+                            <div class="checkbox margin-bottom-201">
+                            <label>
+                                <?php if($this->Newsletter->Value)
+                                { ?>
+                                <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" checked>
+                                <?php }else{ ?>
+                                <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox">
+                                <?php } ?>
+                                
+                                <?php print $this->Msg('_REGISTER_NEWSLETTER_','Newsletter') ?>
+                            
+                            </label>
+                            </div>
+                        </div>                        
+                        <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                        <button class="btn btn-primary pull-right"><?php print $this->Msg('_REGISTER_','Register') ?></button>                            
+                </form>
+        </fieldset>
+    </div>
+</div>
+<br>
+
+<script>
+    
+     $('#email').keyup(function () { changevalue('#email_valid'); });
+     
+     function changevalue(e1)
+     {
+          $(e1).html('checking');
+          $.get
+          ('page/options' ,
+               function(data)
+               {
+                    //alert(data);
+                    $(e1).html(data);
+               }
+          );
+     }
+</script>
+
+

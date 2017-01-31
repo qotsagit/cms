@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-sm-12">
+  
+        <?php $this->RenderSelectedPage($this);
+            if($this->Count > 0)
+            {
+        ?>
+            <div class="container">
+                <div class="isotope col-3 gutter">   
+                <?php
+                
+                  foreach($this->Items as $item)
+                  {
+                  $images = $item->GetImage();
+                ?>
+                
+                  <div class="isotope-item categ-3">
+                  <div class="portfolio-item">
+                    <div class="portfolio-item-thumbnail">
+                    <?php
+                    foreach($images as $image)
+                    {
+                    ?>
+                
+                        <img src="<?php $this->PrintImageUrl($image->img, 'midi') ?>" alt="">
+                            <div class="portfolio-item-hover">
+                                <a class="fancybox zoom-action" data-fancybox-group="portfolio" href="<?php $this->PrintImageUrl($image->img) ?>"><i class="mt-icon-expand2"></i></a>
+                            </div><!-- portfolio-item-hover -->
+                    <?php } ?>
+                    </div><!-- portfolio-item-thumbnail -->
+                <div class="portfolio-item-details"><h6><?php print $item->GetTitle() ?></h6></div>
+                </div><!-- portfolio-item -->
+                
+                </div>
+                      
+                     
+                <?php
+                }
+                ?>
+                    
+            </div>
+            <?php } ?>
+            <div class="col-sm-12 text-center">
+            <?php $this->RenderTablePagination($this); ?>
+            </div>
+        </div>
+        
+    </div>
+</div>

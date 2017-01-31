@@ -1,0 +1,116 @@
+<footer>
+    <div class="row">
+        <div class="col-md-12 text-center"><hr>
+           <?php print $this->msg('_COPYRIGHT_','2016 Copyright by <a href="http://maxkod.pl">maxkod.pl</a>')?>
+
+        </div>
+    </div>
+</footer>
+
+<?php
+if (Settings::$CKEditorUse) {
+?>
+
+<script>
+CKEDITOR.plugins.addExternal( 'lineutils', '/ckeditor/plugins/lineutils/', 'plugin.js' );
+CKEDITOR.plugins.addExternal( 'dialog', '/ckeditor/plugins/dialog/', 'plugin.js' );
+CKEDITOR.plugins.addExternal( 'widget', '/ckeditor/plugins/widget/', 'plugin.js' );
+CKEDITOR.plugins.addExternal( 'widgetbootstrap', '/ckeditor/plugins/widgetbootstrap/', 'plugin.js' );
+CKEDITOR.plugins.addExternal( 'btgrid', '/ckeditor/plugins/btgrid/', 'plugin.js' );
+//CKEDITOR.plugins.addExternal( 'codesnippet', '/ckeditor/plugins/codesnippet/', 'plugin.js' );
+    CKEDITOR.plugins.addExternal( 'codemirror', '/ckeditor/plugins/codemirror/', 'plugin.js' );
+
+//CKEDITOR.plugins.addExternal( 'fontawesome', '/ckeditor/plugins/fontawesome/', 'plugin.js' );  
+//CKEDITOR.plugins.addExternal( 'templates', '/ckeditor/plugins/templates/', 'plugin.js' );  
+//CKEDITOR.plugins.addExternal( 'colordialog', '/ckeditor/plugins/colordialog/', 'plugin.js' );  
+//CKEDITOR.plugins.addExternal( 'glyphicons', '/ckeditor/plugins/glyphicons/', 'plugin.js' );  
+
+//config.removePlugins = 'image,table,tabletools,horizontalrule';
+//config.removeButtons = 'Anchor,Underline,Strike,Subscript,Superscript';
+//config.format_tags = 'p;h1;h2;pre';
+//CKEDITOR.config.codeSnippet_theme = 'pojoaque';
+
+CKEDITOR.config.height = '600';
+    
+CKEDITOR.config.codemirror = {theme: 'monokai'};
+    
+CKEDITOR.config.coreStyles_italic = { element: 'i', overrides: 'em' };
+CKEDITOR.replace( 'text', {
+    extraPlugins: 'btgrid,widgetbootstrap,codemirror',
+    //contentsCss: 'ckeditor/plugins/glyphicons/css/cssbootstrap.css',
+    //allowedContent:true,
+    filebrowserBrowseUrl : "<?php print SITE_URL ?>/filemanager/elfinder.php"
+});
+
+CKEDITOR.config.baseUrl = "<?php print SITE_URL ?>/filemanager/";
+CKEDITOR.config.baseDir = '/filemanager/';
+CKEDITOR.config.allowedContent = true;
+CKEDITOR.config.protectedSource.push(/<i[^>]*><\/i>/g);
+CKEDITOR.config.entities = false;
+
+    
+    
+    
+/*
+
+ //extraPlugins: 'btgrid,widgetbootstrap,templates,fontawesome,colordialog,glyphicons',
+INSTALLATION:
+
+    Extract the downloaded file (fontawesome.zip)
+    Copy the "fontawesome" folder to "ckeditor/plugins/" folder
+    Open the file "ckeditor/config.js"
+    Add theses lines:
+
+config.extraPlugins = 'fontawesome';
+config.contentsCss = 'path/to/your/font-awesome.css';
+config.allowedContent = true; 
+
+    In your HTML's <head> section add this code:
+
+<script>CKEDITOR.dtd.$removeEmpty['span'] = false;</sc ript>
+
+    Use the toolbargroupname: "FontAwesome" in your toolbar (see the example below)
+
+config.toolbar = [
+    { name: 'insert', items: [ 'FontAwesome', 'Source' ] }
+];
+
+INSTALLATION:
+
+    Extract the downloaded file (glyphicons.zip)
+    Copy the "glyphicons" folder to "ckeditor/plugins/" folder
+    Open the file "ckeditor/config.js"
+    Add theses lines:
+
+config.extraPlugins = 'glyphicons';
+config.contentsCss = 'path/to/your/bootstrap.css';
+config.allowedContent = true; 
+
+    Use the toolbargroupname: "Glyphicons" in your toolbar (see the example below)
+
+config.toolbar = [
+    { name: 'insert', items: [ 'Glyphicons', 'Source' ] }
+];
+
+    In your HTML's <head> section add this code:
+
+<script>CKEDITOR.dtd.$removeEmpty['span'] = false;</sc ript>
+
+*/
+
+
+
+
+</script>      
+<?php
+} ?>
+
+
+
+
+
+
+
+</body>
+
+</html>

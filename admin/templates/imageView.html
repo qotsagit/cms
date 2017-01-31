@@ -1,0 +1,167 @@
+
+<!-- Modal Dialog -->
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!--<h4 class="modal-title"><?php print $this->Msg('_DELETE_','Delete') ?></h4> -->
+      </div>
+      
+      <div class="modal-body text-center">
+        <img id="preview">
+      </div>
+    
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php print $this->Msg('_CLOSE_','Close') ?></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<br>
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs">
+            <li class="active" role="presentation"><a data-toggle="pill" href="#page1"><?php print $this->Msg('_ALL_','All') ?></a></li>
+            <li role="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_UPLOADER_','Uploader') ?></a></li>
+        </ul>
+        
+        
+        
+         <div class="tab-content">
+            <div id="page1" class="tab-pane fade in active">
+        <div class="col-sm-12">   
+      <h3><a href="home"></a> <?php print $this->ViewTitle ?> - <?php print $this->CountAll; ?></h3>
+    </div>      
+                <?php $this->RenderListHeader($this); ?>
+              
+                <div class="panel panel-default">
+                <!-- Default panel contents -->
+              
+              
+                <div class="panel-body text-right">
+                    <?php $this->RenderTablePagination($this,true); ?>
+                </div>
+                <div class="col-md-12" id="picture">
+                    <?php $this->RenderImages($this); ?>
+                </div>
+                <div class="panel-body text-right">
+                    <?php  $this->RenderTablePagination($this,true); ?>
+                </div>
+                </div>
+            </div>
+            
+            <div id="page2" class="tab-pane fade in">
+                  <input class="btn btn-default" type="file" multiple id="imageUpload">
+                   <div id="upload"></div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+<script>
+    
+    
+    
+    
+    var counter = 0;
+      
+    $('#imageUpload').change
+    (
+        function(evt)
+        {
+            var item = evt.target;
+                
+            for(i = 0; i < item.files.length; i++)
+            {
+                var form = renderForm(++counter);
+                $('#upload').after(form);
+                uploadFile(item.files[i],counter);
+                //alert(item.files[0].name);    
+            }    
+        }
+    );
+    
+    $('#imageDelete').click
+    (
+        function()
+        {
+        
+        }        
+    );
+    
+    function renderForm(id)
+    {
+        var form =
+        '<div class="col-md-2" id="upload'+id+'">'+
+        '<div class="text-center">'+
+        '<div class="thumbnail">'+
+        //'<div class="col-md-12">'+
+        '<img id="avatar'+id+'" class="img img-thumbnail" width1=150 height1=150>'+
+        '<div class="caption">'+
+            
+        //'<div id="upload"><span class="glyphicon glyphicon-remove"></span></div>'+
+        '<progress id="progressBar'+id+'" style="width:150px;" max="100">asd</progress>'+
+        
+        '<h3 id="status'+id+'"></h3>'+
+        '<div id="loaded_n_total'+id+'"></div>'+
+        //'<a href="#" class="btn-sm btn-primary" role="button"><?php print $this->Msg('_DELETE_','Delete') ?></a> <a href="#" class="btn-sm btn-default" role="button">Button</a>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>';
+            
+        return form;
+    }
+    
+    // podgląd obrazka w modalnym oknie
+    function loadImage(image)
+    {
+        _('preview').src = image.src;
+        //console.log(image);
+        //alert(image.src);
+    }
+    
+    function drag(evt)
+    {
+        evt.dataTransfer.setDragImage(evt.target, 10, 10);
+        //evt.dataTransfer.setData("text", evt.target.id);
+    }
+        
+    
+
+    
+</script>
+
+
+
+  <script>
+  /*
+   * elfinder browse
+   * 
+  $('#imageUpload12').popupWindow
+  ({ 
+        windowURL:'<?php print SITE_URL ?>/filemanager/elfinder.php', 
+        windowName:'Filebrowser',
+        height:490, 
+        width:950,
+        centerScreen:1
+   }); 
+                    
+    function processFile(file)
+    {
+                        
+        $('#picture').append('<?php print $this->RenderImage(100,100) ?>');
+        $('#image').src(file.url);
+                        
+        //$('#featured_image').val(file);
+    }
+    */
+</script>
+  

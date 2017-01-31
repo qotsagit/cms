@@ -1,0 +1,144 @@
+<?php $this->RenderRegion('slider'); ?>
+<?php $this->RenderRegion('content_top'); ?>
+<?php //$this->RenderSelectedPage($this); ?>
+
+
+ <!-- RENDER PROTFOLIO -->
+ 
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+                <div class="headline">
+                    <h3><?php print $this->Msg('_HOME_PORTFOLIO_TITLE','Wybrane Projekty');?></h3>				
+                </div><!-- headline -->
+			</div><!-- col -->
+        </div><!-- row -->
+    </div><!-- container -->
+<!--
+			<div class="col-md-7">        
+				<ul class="filter text-right">
+					<li>
+						<a class="active" href="#" data-filter="*">All</a>
+					</li>
+					<li>
+						<a href="#" data-filter=".categ-1">Photography</a>
+					</li>
+					<li>
+						<a href="#" data-filter=".categ-2">Design</a>
+					</li>
+					<li>
+						<a href="#" data-filter=".categ-3">Branding</a>
+					</li>
+				</ul>
+			</div>
+            -->
+		<!--/div><!-- row >
+	<1--/div><!-- container -->
+                                    
+
+     <div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						
+						<div class="isotope col-4 gutter wow fadeIn" st yle="margin-bottom:0;">               
+	
+<?php
+    $items = $this->Model->GetContentPortfolio();
+
+    foreach($items as $item)
+    {
+        foreach($item->images as $image)
+        { ?>
+            <div class="isotope-item">
+                <div class="portfolio-item">
+                    <div class="portfolio-item-thumbnail">
+                        <img src="<?php $this->PrintImageUrl($image->img, 'midi') ?>" alt="">
+                            <div class="portfolio-item-hover">
+                                <a class="fancybox zoom-action" data-fancybox-group="portfolio" href="<?php $this->PrintImageUrl($image->img) ?>"><i class="mt-icon-expand2"></i></a>
+                            </div><!-- portfolio-item-hover -->						
+                    </div><!-- portfolio-item-thumbnail -->
+                </div><!-- portfolio-item -->
+            </div>
+	
+    <?php }
+    }
+?>
+                        </div><!-- isotope -->
+					</div><!-- col -->
+				</div><!-- row -->
+			</div><!-- container -->
+ 
+            
+
+
+<?php $this->RenderRegion('content_bottom'); ?>
+
+            <!-- PORTFOLIO LOGOS -->
+            <section class="full-section" id="section-5">
+			
+				<!--div class="full-section-pattern"></div-->
+				
+				<div class="full-section-container">
+					
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12">
+								
+								<h3><?php print $this->Msg('_HOME_CLIENTS_TITLE','Zaufali Nam');?></h3>
+								
+							</div><!-- col -->
+						</div><!-- row -->
+					</div><!-- container -->
+					
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-7">
+																
+								<p><?php print $this->Msg('_HOME_CLIENTS_TEXT_','Poniżej przedstawiamy Państwu loga naszych wybranych klientów');?></p>
+								
+							</div><!-- col -->
+							<div class="col-sm-5">
+								
+								<div class="slider-navigation text-right">
+									<span class="prev"><i class="mt-icon-arrow-left"></i></span>
+									<span class="next"><i class="mt-icon-arrow-right2"></i></span>
+								</div><!-- logos-slider-navigation -->
+								
+							</div><!-- col -->
+						</div><!-- row -->
+					</div><!-- container -->
+					
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12">
+								
+								<div class="owl-carousel logos-slider">
+                                    
+                                    
+                                    <?php
+                                    
+                                    $logos = $this->Model->GetContentPortfolioLogo();
+
+                                    foreach($logos as $logo)
+                                    {
+        
+                                    ?>
+                                    
+                                    <div>
+                                        <img src="<?php $this->PrintImageUrl($logo->img) ?>" alt="<?php print $logo->title; ?>">
+                                    </div>
+                            
+                                    <?php 
+                                    }
+                                    ?>
+                                    
+								</div><!-- logos-slider -->
+								
+							</div><!-- col -->
+						</div><!-- row -->
+					</div><!-- container -->
+					
+				</div><!-- full-section-container -->
+				
+			</section><!-- full-section -->
+

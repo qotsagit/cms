@@ -1,0 +1,253 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+ 
+<?php
+        
+    if (isset($this->FileUploadError)){
+        
+        echo $this->FileUploadError;
+        
+    }
+        
+?>
+        <form method="POST" id="form-content" enctype="multipart/form-data">
+            
+            <fieldset>
+                
+                <legend><?php print $this->Msg('_NEW_','New') ?></legend>
+                
+                <div class="row">
+                
+                    <div class="col-md-6">  
+                        <div class="form-group">
+                            <label class="control-label"><?php print $this->msg('_TITLE_','Title') ?></label>
+                            <input type="text" class="form-control" placeholder="<?php print $this->msg('_TITLE_','Title') ?>" name="<?php print CONTENT_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                            <p class='text-danger'><?php print $this->Title->ErrorText; ?></p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <?php $this->RenderAsSelect($this->Languages,$this->IdLang->Value,$this->Msg('_LANGUAGES_','Languages'),IDLANG) ?>
+                    </div>
+                    
+                </div>
+                
+                <div class="row">
+                
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label"><?php print $this->Msg('_DESCRIPTION_','Description') ?></label>
+                            <textarea class="form-control" name="<?php print CONTENT_TEXT ?>" rows="10" ><?php print $this->Text->Value ?></textarea>                            
+                            <p class='text-danger'><?php print $this->Text->ErrorText; ?></p>
+                        </div>
+                    </div>
+                    
+                </div>
+           
+                
+                
+                <!--div class="row">
+                
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input_fields_multi">
+                                <div class="entry">                             
+                                    <div class="col-xs-4">
+                                        <label class="control-label"><?php print $this->Msg('_CHOOSE_PICTURE','Choose picture') ?></label>
+                                        <input type="file" name="image[]"  class="form-control">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="control-label"><?php print $this->Msg('_NAME_','Name') ?></label>
+                                        <input type="text" name="image_name[]"  class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="control-label"><?php print $this->Msg('_ADD_','Add') ?></label>
+                                        <span class="input-group-btn"><button class="add_field_button btn btn-success btn-add" type="button"><span class="glyphicon glyphicon-plus"></span></button></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                       
+                    
+
+                        <!--div class="form-group">
+                            <label class="col-xs-1 control-label">Book</label>
+                            <div class="col-xs-5">
+                                <input type="file" class="form-control" name="image[0].img" />
+                            </div>
+        
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="image[0].name" placeholder="Name" />
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="button" class="btn btn-default addButton"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+
+                     
+                        <div class="form-group hide" id="imageTemplate">
+                            <div class="col-xs-5 col-xs-offset-1">
+                                <input type="file" class="form-control" name="img" />
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" name="name" placeholder="Name" />
+                            </div>
+        
+                            <div class="col-xs-1">
+                                <button type="button" class="btn btn-default removeButton"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                    </div-->
+                    
+                    
+                    <!--div class="row">
+                
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input_fields_multi_pliki">
+                                <div class="entry">                             
+                                    <div class="col-xs-4">
+                                        <label class="control-label"><?php print $this->Msg('_CHOOSE_FILE','Choose file') ?></label>
+                                        <input type="file" name="plik[]"  class="form-control">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label class="control-label"><?php print $this->Msg('_NAME_','Name') ?></label>
+                                        <input type="text" name="plik_name[]"  class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="control-label"><?php print $this->Msg('_ADD_','Add') ?></label>
+                                        <span class="input-group-btn"><button class="add_field_button_pliki btn btn-success btn-add" type="button"><span class="glyphicon glyphicon-plus"></span></button></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div-->
+                    
+            </fieldset>
+            <div class="row">
+
+                                     
+                                        <div class="col-md-12">
+                                            <label class="control-label"><?php print $this->Msg('_CHOOSE_PICTURE','Choose picture') ?></label>
+                                            <br /><br />
+                                            
+                                                  <input type="file" name="image[]" id="image-uploader" multiple="multiple">
+                                            
+                                        </div>
+                
+    <div class="col-md-12 col-sm-12 text-center">
+        <div class="form-group">            
+            <input type="hidden" name="<?php print CONTENT_IDCONTENT ?>" value="<?php print $this->IdContent->Value ?>">   
+            <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+            <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+            <a href="<?php print CTRL_CONTENT ?>"  class="btn btn-default"><?php print $this->Msg('_CANCEL_','Anuluj') ?></a>
+        </div>
+    </div>
+
+</div>
+    </form>
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#image-uploader').filer({
+        //templates: filer_default_opts.templates,
+        //uploadFile: filer_default_opts.uploadFile,
+        //limit: 5,
+        
+         templates: {
+                box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+                item: '<li class="jFiler-item" style="width:24%">\
+                            <div class="jFiler-item-container">\
+                                <div class="jFiler-item-inner">\
+                                    <div class="jFiler-item-thumb">\
+                                        <div class="jFiler-item-status"></div>\
+                                        <div class="jFiler-item-thumb-overlay">\
+    										<div class="jFiler-item-info">\
+    											<div style="display:table-cell;vertical-align: middle;">\
+    												<span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name}}</b></span>\
+    												<span class="jFiler-item-others">{{fi-size2}}$%$</span>\
+    											</div>\
+    										</div>\
+    									</div>\
+                                        {{fi-image}}\
+                                    </div>\
+                                    <div class="jFiler-item-assets jFiler-row">\
+                                        <ul class="list-inline pull-left">\
+                                            <li>{{fi-progressBar}}<input type="text" name="image_name[]"  class="form-control" placeholder="Image name"> <input type="number" name="image_position[]"  class="form-control" placeholder="Pozycja" ></li>\
+                                        </ul>\
+                                        <ul class="list-inline pull-right">\
+                                            <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                        </ul>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </li>',
+                itemAppend: '<li class="jFiler-item" style="width:24%">\
+                                <div class="jFiler-item-container">\
+                                    <div class="jFiler-item-inner">\
+                                        <div class="jFiler-item-thumb">\
+                                            <div class="jFiler-item-status"></div>\
+                                            <div class="jFiler-item-thumb-overlay">\
+        										<div class="jFiler-item-info">\
+        											<div style="display:table-cell;vertical-align: middle;">\
+        												<span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name}}</b></span>\
+        												<span class="jFiler-item-others">{{fi-size2}}&&&</span>\
+        											</div>\
+        										</div>\
+        									</div>\
+                                            {{fi-image}}\
+                                        </div>\
+                                        <div class="jFiler-item-assets jFiler-row">\
+                                            <ul class="list-inline pull-left">\
+                                                <li><input type="text" name="image_name[]"  class="form-control" placeholder="Image name" value="{{fi-file_title}}"> <input type="number" name="image_position[]"  class="form-control" placeholder="Pozycja" value="{{fi-file_position}}" ></li>\
+                                            </ul>\
+                                            <ul class="list-inline pull-right">\
+                                                <li> <a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                            </ul>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </li>',
+                progressBar: '<div class="bar"></div>',
+                itemAppendToEnd: false,
+                removeConfirmation: true,
+                _selectors: {
+                    list: '.jFiler-items-list',
+                    item: '.jFiler-item',
+                    progressBar: '.bar',
+                    remove: '.jFiler-item-trash-action'
+                }
+            },
+        maxSize: 50,
+        //extensions: ['jpg', 'jpeg', 'png', 'gif','info'],
+        addMore: true,
+        showThumbs: true,
+        files: [
+            {
+                name: "oko",
+                file_title: "tytuł zdjęcia",
+                file_position: 2,
+                size: 5453,
+                type: "image/jpg",
+                file: "http://dummyimage.com/720x480/f9f9f9/191a1a.jpg"
+            },
+            {
+                name: "appended_file_2.jpg",
+                file_title: "tytuł zdjęcia2",
+                file_position: 1,
+                size: 9453,
+                type: "image/jpg",
+                file: "http://dummyimage.com/640x480/f9f9f9/191a1a.jpg"
+            }
+        ]
+        
+        
+    });
+});
+</script>

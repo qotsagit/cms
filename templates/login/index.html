@@ -1,0 +1,37 @@
+<br>
+<div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <?php //$this->renderInfo(_LOGIN_INFO_); ?>
+            <?php $this->renderLoginError(); ?>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <fieldset>
+                        <div class="headline">
+        <h3><?php print $this->Msg('_LOGIN_','Login') ?></h3>
+        <!--<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem<br class="hidden-xs"></p>-->
+</div>
+                        <form  method="POST" action="login">   
+                            <div class="col-sm-12">
+                                <input class="col-xs-12" type="text" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print LOGIN_EMAIL ?>" value="<?php //print $this->Controller->Email ?>"> 
+                            </div>
+
+                            <div class="col-sm-12">
+                                <input class="col-xs-12" type="password" placeholder="<?php print $this->Msg('_PASSWORD_','Password') ?>" name="<?php print LOGIN_PASSWORD ?>">
+                            </div>
+
+                            <div class="checkbox col-sm-12">
+                                <label><input type="checkbox" name="<?php print LOGIN_REMEMBER_ME ?>" <?php if ($this->RememberMe) print 'checked' ?>><?php print $this->Msg('_REMEMBER_ME_','Remember Me') ?></label>
+                            </div>
+                            <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_LOGIN ?>">
+                            <button class="btn btn-primary pull-right"><?php print $this->Msg('_LOGIN_','Login') ?></button>
+                        </form>
+                    </fieldset>
+                </div>
+            </div>   
+        </div>  
+    </div>
+<br>
+<?php //   if( $back_url != false )   ?>
+<!--      <input type="hidden" name="'.ACTION_BACK_URL.'" value="'.$back_url.'">
+<input type=hidden name='.ACTION.' value='.ACTION_LOGIN_CHECK.'>
+-->

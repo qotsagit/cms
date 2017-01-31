@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <form method="POST" action="<?php print $this->CtrlName; ?>">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input class="form-control user_id" type="hidden" name="id">
+                    </div>
+                    
+                    <h4><?php print $this->Msg('_ARE_YOU_SURE_TO_DELETE_','Are You Sure To Delete ?') ?></h4>
+                    
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_DELETE_CONFIRM ?>">
+                    <input type="hidden" name="<?php print ID ?>" value="<?php print $this->Id->Value ?>">
+                    <a href="<?php print $this->CtrlName ?>"  class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
+                    <button type="submit" class="btn btn-danger" data-dismiss="modal"><?php print $this->Msg('_DELETE_','Delete') ?></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

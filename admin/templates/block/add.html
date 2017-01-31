@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <form method="POST">
+            <fieldset>
+                <legend><?php print $this->ViewTitle ?> - <?php print $this->Title->Value ?> </legend>
+                
+                 <a href="<?php print $this->CtrlName ?>"  class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
+               
+                <div class="form-group pull-right">
+                    <input type="hidden" name="<?php print IDBLOCK ?>" value="<?php print $this->IdBlock->Value ?>">
+                    <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                    <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+                    <a href="<?php print $this->CtrlName ?>" class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
+                </div>
+                <hr>
+                <ul class="nav nav-tabs">
+                    <li class="active" role="presentation"><a data-toggle="pill" href="#page1"><?php print $this->Msg('_ALL_','All') ?></a></li>
+                    <li role="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_OPTIONS_','Options') ?></a></li>
+                  <!--  <li role="presentation"><a data-toggle="pill" href="#page3"><?php print $this->Msg('_IMAGE_','Image') ?></a></li> -->
+                </ul>
+                <div class="tab-content">
+                <div id="page1" class="tab-pane fade in active">
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_TITLE_','Title') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_TITLE_','Title') ?>" name="<?php print BLOCK_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                        <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
+                        <textarea class="form-control" name="<?php print BLOCK_TEXT ?>" rows="10"><?php print $this->Text->Value ?></textarea>
+                        <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
+                    </div>
+                </div>
+                <div id="page2" class="tab-pane fade">
+                    <?php $this->RenderAsSelect($this->Statuses,$this->Active->Value ,$this->msg('_ACTIVE_','Active'),USER_STATUS) ?>
+                    <?php //$this->RenderAsSelect($this->Languages,$this->IdLang->Value ,$this->Msg('_LANGUAGE_','Language'),IDLANG) ?>
+                    <?php $this->RenderAsSelect($this->Regions,$this->IdRegion->Value ,$this->Msg('_REGION_','Region'),IDREGION) ?>
+                </div>
+               
+            </fieldset>
+        </form>
+    </div>
+</div>
