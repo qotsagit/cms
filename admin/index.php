@@ -2,7 +2,7 @@
 
     define('DEBUG',false);
     //Admin Style
-    define('STYLE','simplex');
+    define('STYLE','default');
     define('BASE_HREF','/admin/');
     //file templates
     define('TEMPLATE_HEADER_FILE','style/'.STYLE.'/header.html');

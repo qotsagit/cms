@@ -44,14 +44,12 @@ CKEDITOR.replace( 'text', {
 
 CKEDITOR.config.baseUrl = "<?php print SITE_URL ?>/filemanager/";
 CKEDITOR.config.baseDir = '/filemanager/';
-CKEDITOR.config.allowedContent = true;
-CKEDITOR.config.protectedSource.push(/<i[^>]*><\/i>/g);
+CKEDITOR.config.allowedContent = false;
+//CKEDITOR.config.protectedSource.push("/<i[^>]*><\/i>/g{}\'\"");
+CKEDITOR.ProtectedTags = '&#123;|&#125;'
 CKEDITOR.config.entities = false;
-CKEDITOR.config.htmlEncodeOutput = false;
 
-    
-    
-    
+
 /*
 
  //extraPlugins: 'btgrid,widgetbootstrap,templates,fontawesome,colordialog,glyphicons',

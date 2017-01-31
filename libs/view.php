@@ -441,24 +441,51 @@ class View extends Base
         //print '<button class="btn btn btn-danger edit-button" type="button" data-name="test nazwy" data-toggle="modal" data-target="#myModal">'.$view->Msg('_DELETE_', 'Delete').'</button>';
     }
     
-    public function RenderSelectedPage($view)
+    public function RenderSelectedPage($view, $title = true, $code_start = '<section class="page-header page-header-xs"><div class="container"><h1>', $code_end = '</h1></div></section>')
     {
 
         if($view->CurrentItem)
         {
-            //print '<div id="page-content">';
-            print '<div id="page-header">';
-            print '<div class="row">';
-            print '<div class="col-sm-12">';
-            print '<h1><b>'.$view->CurrentItem->title.'</b></h1>';
-            print '</div>';
-            print '</div>';
-            //print '<div class="pattern"></div>';
-            print '</div>';
+            if($title)
+            {
+                /*print '<section class="page-header page-header-xs">';
+                print '<div class="container">';
+                print '<h1>'.$view->CurrentItem->title.'</h1>';
+                print '</div>';
+                print '</section>';*/
+                print $code_start;
+                print $view->CurrentItem->title;
+                print $code_end;
+            }
             
             print $view->CurrentItem->text;
-        
         }
+    }
+    
+    public function RenderSelectedPageTitle($view, $code_start = '<section class="page-header page-header-xs"><div class="container"><h1>', $code_end = '</h1></div></section>')
+    {
+
+        if($view->CurrentItem)
+        {
+            print $code_start;
+            print $view->CurrentItem->title;
+            print $code_end;
+
+        }
+            
+    }
+    
+    public function RenderSelectedPageContent($view, $code_start = '<section><div class="container"><div class="row">', $code_end = '</div></div></section>')
+    {
+
+        if($view->CurrentItem)
+        {
+            print $code_start;
+            print $view->CurrentItem->text;
+            print $code_end;
+
+        }
+            
     }
 
     public function RenderGridBody($view, $columns = 2)
@@ -788,7 +815,7 @@ class View extends Base
         //print '</div>';
     }
 
-    public function RenderRegion($region, $printName = true)
+    public function RenderRegion($region, $printName = false)
     {
         if ($printName)
         {
