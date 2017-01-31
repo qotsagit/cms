@@ -3,7 +3,7 @@
 class fileModel extends Model
 {
 
-    public $Folder = '../templates';
+    public $Folder = TEMPLATE_FOLDER;
     public $Files;
     public $Count = 0;
 

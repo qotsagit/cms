@@ -41,8 +41,6 @@ define('DEFAULT_TEMPLATE','listView');
 //folders
 define('CTRL_FOLDER',"ctrls");
 //define('VIEWS_FOLDER',"views/");
-define('TEMPLATE_FOLDER','templates');
-
 //define('MODELS_FOLDER',"models/");
 
 // ctrl

@@ -5,8 +5,10 @@
     define('STYLE','default');
     define('BASE_HREF','/admin/');
     //file templates
+    define('TEMPLATE_FOLDER','style/'.STYLE.'/templates');
     define('TEMPLATE_HEADER_FILE','style/'.STYLE.'/header.html');
     define('TEMPLATE_FOOTER_FILE','style/'.STYLE.'/footer.html');
+
     define('DEFAULT_AVATAR','avatar.png');
     define('DEFAULT_IMAGE','nophoto.png');
     define('AVATAR_DIR','../filemanager/files/avatar');
