@@ -69,6 +69,13 @@ class Base
         return $this->DB->Query('SELECT * FROM lang WHERE active=:active', $params, PDO::FETCH_CLASS,'Lang');        
     }
     
+    // znajdź jezyk po id lub code
+    public function GetLang($value)
+    {
+        $params = array(':id_lang' => $value,'code' =>$value);
+        return $this->DB->Row('SELECT * FROM lang WHERE id_lang=:id_lang OR code=:code', $params, PDO::FETCH_CLASS,'Lang');
+    }
+    
     public function InitStrings($force = false)
     {
         
@@ -182,6 +189,79 @@ class Base
 
         return $buffer;
     }
+    
+    public function PureText($text, $maxlength=FALSE, $breakCode=FALSE){
+        
+        
+        $IsBreak = strstr($text, $breakCode);
+    
+        if ($breakCode AND $IsBreak) {
+            
+            $textArray = explode($breakCode, $text);
+            
+            $text = $textArray[0];
+            
+        } 
+        
+        if ($IsBreak==FALSE AND $maxlength){
+             
+            $text = mb_strimwidth($text, 0, $maxlength, '...');
+            
+        }
+        
+        $text = strip_tags(trim($text));
+        
+        return $text;
+        
+    }
+    
+    public function DateFormat($time, $dateFormat=FALSE){
+    
+        $data = $time;
+        
+        if ($dateFormat){
+        
+            $mktime = strtotime($time);
+            
+            $data = date($dateFormat, $mktime);
+        }
+    
+        return $data;
+        
+    }
+    
+    public function FilterTextFromEditor($text){
+        
+        /*
+        CKEDYTOR znaki :
+        
+        data-plugin-options='{"items": 1, "autoHeight": true, "navigation": true, "pagination": true, "transitionStyle":"fade", "progressBar":"true"}'
+
+        zmienia na:
+
+        data-plugin-options="{&quot;items&quot;: 1, &quot;autoHeight&quot;: true, &quot;navigation&quot;: true, &quot;pagination&quot;: true, &quot;transitionStyle&quot;:&quot;fade&quot;, &quot;progressBar&quot;:&quot;true&quot;}" 
+        
+        WIĘC POPRAWIAMY...
+        */
+        
+        $text = str_replace('"{&quot;','\'{"',$text);
+        $text = str_replace('&quot;:','":',$text);
+        $text = str_replace(', &quot;',', "',$text);
+        $text = str_replace('&quot;}"','"}\'',$text);
+        
+        //zdjęcia responsywne
+        $text = str_replace('class="dopasuj"','class="img-responsive"',$text);
+        
+        //$text = str_replace('<img class="img-responsive"','<span class="image-hover-icon image-hover-dark"><i class="fa fa-search-plus"></i></span><img class="img-responsive"',$text);
+        
+        //lightbox
+        $text = str_replace('class="powieksz"','class="image-hover lightbox" data-plugin-options=\'{"type":"image"}\'',$text);
+        
+        return $text;
+        
+    }
+    
+    
 
     public function IsValidEmail($email)
     {

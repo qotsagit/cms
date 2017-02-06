@@ -35,16 +35,22 @@ class newsletterModel extends Model
         return $this->name;
     }   
 
+	public function GetActive()
+    {
+        return $this->active;
+    }
+		
 	public function Insert()
 	{
 		$params = array
 		(
 		    ':title'     	=> $this->title,
 			':start_date'	=> $this->start_date,
-		    ':text'     	=> $this->text
+		    ':text'     	=> $this->text,
+			':active'		=> $this->active
 		);
 
-		$this->DB->NonQuery('INSERT INTO newsletter SET title=:title, start_date=:start_date, text=:text  ', $params);
+		$this->DB->NonQuery('INSERT INTO newsletter SET title=:title, start_date=:start_date, text=:text, active=:active  ', $params);
 	}
 	
 	public function Update()
@@ -54,12 +60,11 @@ class newsletterModel extends Model
 			':id_newsletter'=> $this->id_newsletter,	
 		    ':title'     	=> $this->title,
 			':start_date'	=> $this->start_date,
-		    ':text'     	=> $this->text
+		    ':text'     	=> $this->text,
+			':active'		=> $this->active
 		);
-		
-		print_r($params);
-		
-		$this->DB->NonQuery('UPDATE newsletter SET title=:title, start_date=:start_date, text=:text  WHERE id_newsletter=:id_newsletter', $params);
+				
+		$this->DB->NonQuery('UPDATE newsletter SET title=:title, start_date=:start_date, text=:text, active=:active WHERE id_newsletter=:id_newsletter', $params);
 		
 	}
 	

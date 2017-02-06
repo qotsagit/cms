@@ -11,7 +11,9 @@
  */
 
 include 'models/newsletterModel.php';
+include 'models/activeModel.php';
 include 'views/newsletterView.php';
+
 
 class newsletterCtrl extends Ctrl
 {
@@ -26,7 +28,9 @@ class newsletterCtrl extends Ctrl
         $this->View->SetColumns();
 
         $this->Model = new newsletterModel();
-
+        $items = new activeModel();
+        $this->View->Statuses = $items->All();      
+        
         $this->InitFormFields();
         $this->InitRequired();
         $this->InitValidatorFields();
@@ -39,6 +43,8 @@ class newsletterCtrl extends Ctrl
         $this->View->StartDate = new Input();
         $this->View->Title = new Input();
         $this->View->Text = new Input();
+        $this->View->Active = new Input();
+        $this->View->Active->Value = STATUS_ACTIVE;
     }
 
     private function InitRequired()
@@ -65,6 +71,7 @@ class newsletterCtrl extends Ctrl
         $this->View->StartDate->Value = filter_input(INPUT_POST, NEWSLETTER_START_DATE);
         $this->View->Title->Value = filter_input(INPUT_POST, NEWSLETTER_TITLE);
         $this->View->Text->Value = filter_input(INPUT_POST, NEWSLETTER_TEXT);
+        $this->View->Active->Value = filter_input(INPUT_POST, NEWSLETTER_STATUS);
     }
 
     public function ReadDatabase()
@@ -78,7 +85,7 @@ class newsletterCtrl extends Ctrl
             $this->View->StartDate->Value = $item->start_date;
             $this->View->Title->Value = $item->title;
             $this->View->Text->Value = htmlspecialchars($item->text);
-
+            $this->View->Active->Value = $item->active;
             return true;
         }
 
@@ -91,6 +98,7 @@ class newsletterCtrl extends Ctrl
         $this->Model->start_date =  $this->View->StartDate->Value;
         $this->Model->title = $this->View->Title->Value;
         $this->Model->text = $this->View->Text->Value;
+        $this->Model->active = $this->View->Active->Value;
         
         if ($this->View->IdNewsletter->Value > 0)
         {

@@ -25,6 +25,19 @@ class newsletterModel extends Model
         return $this->id_user;
     }
 
+	public function Activate($value)
+	{
+		$params = array
+		(
+			':id_newsletter'=> $this->id_newsletter,	
+			':active'		=> $value
+		);
+			
+		print_r($params);		
+		$this->DB->NonQuery('UPDATE newsletter SET active=:active WHERE id_newsletter=:id_newsletter', $params);
+	}
+	
+	
     public function Insert()
     {
         $params = array(':email' => $this->email, ':newsletter' => true);
@@ -58,8 +71,8 @@ class newsletterModel extends Model
 	// all active newsletters
     public function All()
     {
-		$params = array(':id_page' => $this->id_page);
-        return $this->DB->Query("SELECT * FROM newsletter WHERE start_date < now()", NULL, PDO::FETCH_CLASS);
+		$params = array(':active' => STATUS_ACTIVE);
+        return $this->DB->Query("SELECT * FROM newsletter WHERE active=:active AND start_date < now()", $params, PDO::FETCH_CLASS,__CLASS__);
     }
 
 }

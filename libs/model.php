@@ -117,8 +117,8 @@ class Model extends Base
         
         if($region)
         {
-            $params = array(':id_region' => $region->GetId(),':active' => STATUS_ACTIVE);
-            return $this->DB->Query('SELECT * FROM block WHERE id_region=:id_region AND active=:active', $params, PDO::FETCH_CLASS);
+            $params = array(':id_region' => $region->GetId(),':id_lang' => Session::GetLang(),':active' => STATUS_ACTIVE);
+            return $this->DB->Query('SELECT * FROM block WHERE id_region=:id_region AND id_lang=:id_lang AND active=:active', $params, PDO::FETCH_CLASS);
         }
         
         return NULL;

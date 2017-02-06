@@ -65,6 +65,7 @@ class newsletterCtrl extends Ctrl
         print json_encode($msg);
     }
     
+
     public function Send()
     {
 
@@ -78,6 +79,7 @@ class newsletterCtrl extends Ctrl
 	
 		foreach($newsletters as $newsletter)
 		{
+			print $newsletter->title;
 			foreach($users as $user)
 			{
 				if($user->newsletter)
@@ -87,10 +89,10 @@ class newsletterCtrl extends Ctrl
 						print $this->LastError;
 				}
 			}
+			
+			$newsletter->Activate(false);
 		}
 	
-		//	print_r($users->All());	
-		//print 'send newsletter from cron';
     }
     
     public function Test()

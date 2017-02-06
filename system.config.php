@@ -294,6 +294,7 @@ define('IDNEWSLETTER','id_newsletter');
 define('NEWSLETTER_TITLE','title');
 define('NEWSLETTER_TEXT','text'); // do ckeditora text musi się nazywać
 define('NEWSLETTER_START_DATE','start_date');
+DEFINE('NEWSLETTER_STATUS','STATUS');
 
 define('_DEFAULT_LANG_ID_',1); //defaultowy język systemu 1 = english z bazy
 

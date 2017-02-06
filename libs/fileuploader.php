@@ -277,7 +277,64 @@ class FileUploader extends Base
     
     private function UploadFiles(){
         
-        //print '<br /><br /><br /><br />UPLOADOWNIA PLIKÓW';
+        $FilesToUpload = NULL;
+        
+        $counter = 0;
+        foreach ($this->Files['name'] AS $counter => $value)
+        { 
+            
+            //print $this->TransliterateStringToFile($this->Files['name'][$counter]).'=>'.$this->FileNames[$counter];
+            //[name] => [n], [type] => [n], [tmp_name] => [n], [error] => [n], [size]=> [n] (n - n plikow)
+            
+            $FilesToUpload[$counter]['name'] = $this->Files['name'][$counter];
+            $FilesToUpload[$counter]['type'] = $this->Files['type'][$counter];
+            $FilesToUpload[$counter]['tmp_name'] = $this->Files['tmp_name'][$counter];
+            $FilesToUpload[$counter]['error'] = $this->Files['error'][$counter];
+            $FilesToUpload[$counter]['size'] = $this->Files['size'][$counter];
+            
+            /*$aExtraInfo = getimagesize($this->Files['tmp_name'][$counter]);
+            $sFile = "data:" . $aExtraInfo["mime"] . ";base64," . base64_encode(file_get_contents($this->Files['tmp_name'][$counter]));
+            echo '<p>The image has been uploaded successfully</p><p>Preview:</p><img src="' . $sFile . '" alt="Your File" />';*/
+            
+        }
+        
+        $counter = 0;
+        //echo getcwd();
+        if (is_array($FilesToUpload))
+        {
+            
+            $this->FilesUploaded = array();           
+            
+            foreach ($FilesToUpload AS $UploadFile)
+            {                      
+
+                $UploadResult = $this->SaveUploadedFile($UploadFile,Settings::$FilesFolder);
+
+                if ($UploadResult)
+                {
+                
+                    $FileFileName = $UploadResult;
+                    
+                    $FileSize = filesize(Settings::$FilesFolder.$FileFileName);
+                    
+                    $this->FilesUploaded[$counter]['file'] = $FileFileName;
+                        
+                    $this->FilesUploaded[$counter]['name'] = ($this->FileNames[$counter] == '' ? NULL : $this->FileNames[$counter]);
+                    
+                    $this->FilesUploaded[$counter]['position'] = $this->FilePositions[$counter];
+                    
+                    $this->FilesUploaded[$counter]['size'] = $FileSize;
+                    
+                    $this->PrintArray($this->FileNames);
+                    
+                    $this->PrintArray($this->FilePositions);
+	
+                }
+                
+                ++$counter;
+                
+            } 
+        }    
         
     }
     

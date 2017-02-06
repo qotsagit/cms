@@ -27,7 +27,7 @@
                     </div>
                     <?php print $this->RenderValidationError($this->StartDate->ErrorText); ?>
                 </div>
-                    
+                <?php $this->RenderAsSelect($this->Statuses,$this->Active->Value ,$this->msg('_ACTIVE_','Active'),NEWSLETTER_STATUS) ?>    
                 <div class="form-group">
                     <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
                     <textarea class="form-control" name="<?php print NEWSLETTER_TEXT ?>" rows="20"><?php print $this->Text->Value ?></textarea>

@@ -231,7 +231,10 @@ abstract class Ctrl extends Base
     private function SetLang($value)
     {
         //$this->View->Asc = $value;       
-        Session::SetLang($value);  
+        $lang = $this->GetLang($value);
+        
+        if($lang)
+            Session::SetLang($lang->id_lang);  
     }
     
     private function SetOrder($value)
