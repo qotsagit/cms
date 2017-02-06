@@ -41,18 +41,25 @@ class newsletterModel extends Model
             $this->DB->NonQuery('INSERT INTO user SET email=:email, newsletter=:newsletter', $params);
         }
     }
-    
+
     public function Exists($email)
     {
         $params = array(':email' => $email);
         return $this->DB->Row('SELECT * FROM user WHERE email=:email',$params);
     }
-    
+
     public function Delete()
     {
         //$params = array(':id_user' => $this->id);
         //$this->DB->NonQuery('DELETE  FROM user WHERE id_user=:id_user', $params);
         return;
+    }
+
+	// all active newsletters
+    public function All()
+    {
+		$params = array(':id_page' => $this->id_page);
+        return $this->DB->Query("SELECT * FROM newsletter WHERE start_date < now()", NULL, PDO::FETCH_CLASS);
     }
 
 }

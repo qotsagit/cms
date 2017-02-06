@@ -104,7 +104,7 @@ class settingsCtrl extends Ctrl
 
         $items = new pageModel();
         $items->Tree(0,0,Session::GetLang(),$this->View->Pages);
-        
+                
         if($error)
         {
             //$this->View->RenderError('błąd walidacji');

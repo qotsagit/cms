@@ -5,6 +5,7 @@
     define('STYLE','default');
     define('BASE_HREF','/admin/');
     //file templates
+    define('PAGE_TEMPLATE_FOLDER','../style/default/templates');	//styl dla głównej strony do modelu file
     define('TEMPLATE_FOLDER','style/'.STYLE.'/templates');
     define('TEMPLATE_HEADER_FILE','style/'.STYLE.'/header.html');
     define('TEMPLATE_FOOTER_FILE','style/'.STYLE.'/footer.html');

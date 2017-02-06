@@ -74,7 +74,8 @@ class alterModel extends Model
             new alterModel(2,"ALTER TABLE `image` ADD `size` INT NOT NULL AFTER `name`"),
             new alterModel(2,"ALTER TABLE `menu` ADD `position` INT NOT NULL AFTER `url`"),
             new alterModel(2,"ALTER TABLE `image` ADD `width` INT NOT NULL AFTER `size`"),
-            new alterModel(2,"ALTER TABLE `image` ADD `height` INT NOT NULL AFTER `width`")
+            new alterModel(2,"ALTER TABLE `image` ADD `height` INT NOT NULL AFTER `width`"),
+            new alterModel(2,"ALTER TABLE `page` CHANGE `img` `img` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL")
         );
     }
 }

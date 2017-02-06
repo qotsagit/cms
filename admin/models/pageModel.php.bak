@@ -61,7 +61,7 @@ class pageModel extends Model
             ':id_lang'          => $this->id_lang,
             ':id_parent'        => $this->id_parent,
             ':id_category'      => $this->id_category,
-            ':text'             => $this->FilterTextFromEditor($this->text),
+            ':text'             => $this->text,
             ':img'              => $this->img,
             ':url'              => $this->url,
             ':url_address'      => $this->url_address,
@@ -88,7 +88,7 @@ class pageModel extends Model
             ':id_category'      => $this->id_category,
             ':title'            => $this->title,
             ':id_lang'          => $this->id_lang,
-            ':text'             => $this->FilterTextFromEditor($this->text),
+            ':text'             => $this->text,
             ':url'              => $this->url,
             ':url_address'      => $this->url_address,
             ':template'         => $this->template,
@@ -104,7 +104,6 @@ class pageModel extends Model
         $this->DB->NonQuery('UPDATE page SET id_user=:id_user, id_parent=:id_parent, id_category=:id_category, title=:title, id_lang=:id_lang, text=:text, content_type=:content_type, url=:url, url_address=:url_address, template=:template, status_extra=:status_extra, price=:price, meta_title=:meta_title, meta_description=:meta_description, position=:position, active=:active WHERE id_page=:id_page', $params);
         return;
     }
-    
     
     public function Copy()
     {

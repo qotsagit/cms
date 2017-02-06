@@ -1,6 +1,6 @@
 <script>
 $(document).ready(function(){
-    $('#file-uploader').filer({
+    $('#image-uploader').filer({
         //templates: filer_default_opts.templates,
         //uploadFile: filer_default_opts.uploadFile,
         //limit: 5,
@@ -24,7 +24,7 @@ $(document).ready(function(){
                                     </div>\
                                     <div class="jFiler-item-assets jFiler-row">\
                                         <ul class="list-inline pull-left">\
-                                            <li>{{fi-progressBar}}<input type="text" name="file_name[]"  class="form-control" placeholder="Tytu³ pliku"> <input type="number" name="file_position[]"  class="form-control" placeholder="Pozycja" ></li>\
+                                            <li>{{fi-progressBar}}<input type="text" name="image_name[]"  class="form-control" placeholder="Image name"> <input type="number" name="image_position[]"  class="form-control" placeholder="Pozycja" value="0" ></li>\
                                         </ul>\
                                         <ul class="list-inline pull-right">\
                                             <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
@@ -33,7 +33,6 @@ $(document).ready(function(){
                                 </div>\
                             </div>\
                         </li>',
-                        
                 itemAppend: '<li class="jFiler-item" style="width:24%">\
                                 <div class="jFiler-item-container">\
                                     <div class="jFiler-item-inner">\
@@ -51,7 +50,7 @@ $(document).ready(function(){
                                         </div>\
                                         <div class="jFiler-item-assets jFiler-row">\
                                             <ul class="list-inline pull-left">\
-                                                <li><input type="text" name="file_name_update[]"  class="form-control" placeholder="Tytu³ pliku" value="{{fi-file_title}}"> <input type="number" name="file_position_update[]"  class="form-control" placeholder="Pozycja" value="{{fi-file_position}}" ><input type="hidden" name="id_file_update[]"  value="{{fi-id_file}}"></li>\
+                                                <li><input type="text" name="image_name_update[]"  class="form-control" placeholder="Image name" value="{{fi-file_title}}"> <input type="number" name="image_position_update[]"  class="form-control" placeholder="Pozycja" value="{{fi-file_position}}" ><input type="hidden" name="id_image_update[]"  value="{{fi-id_image}}"></li>\
                                             </ul>\
                                             <ul class="list-inline pull-right">\
                                                 <li> <a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
@@ -70,49 +69,53 @@ $(document).ready(function(){
                     remove: '.jFiler-item-trash-action'
                 }
             },
-        //maxSize: 50,
-        //extensions: ['jpg', 'jpeg', 'png', 'gif','info'],
+        extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
         addMore: true,
         showThumbs: true,
         captions: {
             button: "Wybierz pliki",
             feedback: "Wybierz pliki do wgrania na serwer",
-            feedback2: "wybranych plików",
+            feedback2: "wybranych plikÃ³w",
             drop: "Drop file here to Upload",
-            removeConfirmation: "Czy napewno chcesz usun¹æ ten plik?",
+            removeConfirmation: "Czy napewno chcesz usunÄ…Ä‡ to zdjÄ™cie?",
             errors: {
                 filesLimit: "Only {{fi-limit}} files are allowed to be uploaded.",
-                filesType: "Mo¿na wybraæ tylko zdjêcia JPG, PNG, GIF lub BMP",
-                filesSize: "{{fi-name}} jest za du¿y! Proszê wybieraæ pliki mniejsze ni¿ {{fi-fileMaxSize}} MB.",
-                filesSizeAll: "Wybrane pliki zajmuj¹ zbyt du¿o. Prosimy wybraæ pliki, które zajmuj¹ razem nie wiêcej ni¿ {{fi-maxSize}} MB.",
-                folderUpload: "Nie mo¿na wgrywaæ katalogów."
+                filesType: "MoÅ¼na wybraÄ‡ tylko zdjÄ™cia JPG, PNG, GIF lub BMP",
+                filesSize: "{{fi-name}} jest za duÅ¼y! ProszÄ™ wybieraÄ‡ zdjÄ™cia mniejsze niÅ¼ {{fi-fileMaxSize}} MB.",
+                filesSizeAll: "Wybrane pliki zajmujÄ… zbyt duÅ¼o. Prosimy wybraÄ‡ pliki, ktÃ³re zajmujÄ… razem nie wiÄ™cej niÅ¼ {{fi-maxSize}} MB.",
+                folderUpload: "Nie moÅ¼na wgrywaÄ‡ katalogÃ³w."
             }
         }
+        
         <?php 
                                
-            if(isset($this->FilesInPage) AND is_array($this->FilesInPage))
+            if(isset($this->ImagesInPage) AND is_array($this->ImagesInPage))
             {
         
                 print ',files: [';
                 
-                    foreach ($this->FilesInPage AS $File)
+                    foreach ($this->ImagesInPage AS $Image)
                     {
                         
                         print '
                         {
-                        name: "'.$File['file'].'",
-                        file_title: "'.$File['name'].'",
-                        file_position: '.$File['position'].',
-                        id_file: '.$File['id_file'].',
-                        size: '.$File['size'].',
-                        file: "'.FILES_URL.$File['file'].'"    
+                        name: "'.$Image['img'].'",
+                        file_title: "'.$Image['name'].'",
+                        file_position: '.$Image['position'].',
+                        id_image: '.$Image['id_image'].',
+                        size: '.$Image['size'].',
+                        type: "image/jpg",
+                        file: "'.IMAGES_URL.$Image['img'].'"     
                              
                         },
                         ';
+
                     }
-                print ']';       
-            }              
-        ?>  
+                
+                print ']';
+        
+            }                  
+        ?>
     });
 });
 </script>

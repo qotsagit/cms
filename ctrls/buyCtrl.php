@@ -49,7 +49,7 @@ class buyCtrl extends Ctrl
             case METHOD_ERROR:  $this->Error();     break;
             default:            $this->Listing();   break;
         }
-    } 
+    }
     
     private function True()
     {

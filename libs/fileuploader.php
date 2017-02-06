@@ -190,14 +190,27 @@ class FileUploader extends Base
                         $ImageOrientation = 'portret';
 			
                     }*/
-                       
+                    
                     $ImageFileName = $UploadResult;
+                    
+                    $ImageInfo = getimagesize(Settings::$ImagesFolder.$ImageFileName);
+                    
+                    $ImageSize = filesize(Settings::$ImagesFolder.$ImageFileName);
+                    
+                    $ImageWidth = $ImageInfo[0];
+                    $ImageHeight = $ImageInfo[1];
                     
                     $this->ImagesUploaded[$counter]['img'] = $ImageFileName;
                         
                     $this->ImagesUploaded[$counter]['name'] = ($this->ImageNames[$counter] == '' ? NULL : $this->ImageNames[$counter]);
-                        
+                    
                     $this->ImagesUploaded[$counter]['position'] = $this->ImagePositions[$counter];
+                    
+                    $this->ImagesUploaded[$counter]['width'] = $ImageWidth;
+                        
+                    $this->ImagesUploaded[$counter]['height'] = $ImageHeight;
+                    
+                    $this->ImagesUploaded[$counter]['size'] = $ImageSize;
                 
                 
                     $imageResizeObj = new imageLib(Settings::$ImagesFolder.$ImageFileName);

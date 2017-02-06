@@ -652,7 +652,20 @@ class View extends Base
             print '<input type="hidden" value="'.$item.'" name="'.$name.'[]">';
         }
     }
-     
+    
+    public function RenderTile($href,$title,$icon,$count)
+    {
+        print '<div class="col-xs-6 col-sm-3 col-md-2">';
+        print '<a href="'.$href.'" class="thumbnail">';
+        print '<div class="text-center">';
+        print '<span class="'.$icon.'" style="font-size: 30px;"></span>';
+        print '<h5>'.$title.'</h5>';
+        //print '<h4><span class="label label-info">'.$count.'</span></h4>';
+        print '</div>';
+        print '</a>';
+        print '</div>';
+    }
+    
     public function RenderCheckboxValue($items, $ids)
     {
         $str = '';
@@ -774,6 +787,7 @@ class View extends Base
     {
         /*
          *część odpowiedzialna za edycję w miejscu
+         **/
         ?>
         <script>
             function makeEditable(div)
@@ -799,10 +813,10 @@ class View extends Base
         </script>
         
         <?php
-        */
-        //print '<div name="'.$region.'" class="block" ondblclick="makeEditable(this)" onmouseover="makeOver(this)" onmouseout="makeOut(this)" onblur="makeReadOnly(this)">';
-        //if($this->Model)
-        //{
+        
+        print '<div name="'.$region.'" class="block" ondblclick="makeEditable(this)" onmouseover="makeOver(this)" onmouseout="makeOut(this)" 8>';
+        if($this->Model)
+        {
             $blocks = $this->Model->GetBlocks($region);
             if($blocks)
             {
@@ -811,8 +825,8 @@ class View extends Base
                     print $block->text;
                 }   
             }
-        //}
-        //print '</div>';
+        }
+        print '</div>';
     }
 
     public function RenderRegion($region, $printName = false)

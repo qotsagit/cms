@@ -6,131 +6,32 @@
      <?php //print 'free space'.$this->GetDiskFreeSpace('/home/qotsa2/domains/old') ?>
 </div>
      <hr>
-<div class="row">
-     <div class="col-sm-3 col-md-3">
-          <a href="<?php print CTRL_USER ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-user" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_USERS_','Users') ?></h4>
-                <h1><span class="label label-info"><?php print $this->UserCount ?></span></h1>
-            </div>
-            </a>
-    </div>
-    
-    <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_CATEGORY ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-tags" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_CATEGORIES_','Categories') ?></h4>
-                <h1><span class="label label-info"><?php print $this->CategoryCount ?></span></h1>
-            </div>
-            </a>
-    </div>
+     <div class="row"> 
+          <?php $this->RenderTile(CTRL_USER,$this->Msg('_USERS_','Users'),'glyphicon glyphicon-user',$this->UserCount); ?>
+          <?php $this->RenderTile(CTRL_CATEGORY,$this->Msg('_CATEGORIES_','Categories'),'glyphicon glyphicon-tags',$this->CategoryCount); ?>
+          <?php $this->RenderTile(CTRL_LANG,$this->Msg('_LANGUAGES_','Languages'),'glyphicon glyphicon-flag',$this->LangCount); ?>
+          <?php $this->RenderTile(CTRL_ROLE,$this->Msg('_ROLES_','Roles'),'glyphicon glyphicon-knight',$this->RoleCount); ?>
+          <?php $this->RenderTile(CTRL_MSG,$this->Msg('_MSG_','Messages'),'glyphicon glyphicon-pencil',$this->MsgCount); ?>
+          <?php $this->RenderTile(CTRL_BLOCK,$this->Msg('_BLOCKS_','Blocks'),'glyphicon glyphicon-modal-window',$this->BlockCount); ?>
+          <?php $this->RenderTile(CTRL_MENU,$this->Msg('_MENU_','Menu'),'glyphicon glyphicon-menu-hamburger',$this->MenuCount); ?>
+          
+          <?php $this->RenderTile(CTRL_TEMPLATE,$this->Msg('_TEMPLATES_','Templates'),'glyphicon glyphicon-eye-open',$this->TemplateCount); ?>
+          <?php $this->RenderTile(CTRL_CALENDAR,$this->Msg('_CALENDAR_','Calendar'),'glyphicon glyphicon-calendar',$this->CalendarCount); ?>
+     </div>
+     <hr>
+     <div class="row">
+     <?php $this->RenderTile(CTRL_PAGE,$this->Msg('_PAGES_','Pages'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
+     <?php $this->RenderTile(CTRL_NEWS,$this->Msg('_NEWS_','News'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
+     <?php $this->RenderTile(CTRL_GALLERY,$this->Msg('_GALLERY_','Gallery'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
+     <?php $this->RenderTile(CTRL_PRODUCT,$this->Msg('_PRODUCT_','Product'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
+     </div>
+     <hr>
+     <div class="row">
+          <?php $this->RenderTile(CTRL_SETTINGS,$this->Msg('_SETTINGS_','Settings'),'glyphicon glyphicon-cog',0); ?>
+          <?php $this->RenderTile(CTRL_LOGOUT,$this->Msg('_LOGOUT_','Logout'),'glyphicon glyphicon-off',0); ?>
+     </div>
+     <hr>
 
-    <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_LANG ?>" class="thumbnail">
-            <div class="text-center" >
-               <span class="glyphicon glyphicon-flag" style="font-size: 60px;"></span>
-               <h4><?php print $this->Msg('_LANGUAGES_','Languages') ?></h4>
-                <h1><span class="label label-info"><?php print $this->LangCount ?></span></h1>
-            </div>
-            </a>
-    </div>
-
-    <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_ROLE ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-knight" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_ROLES_','Roles') ?></h4>
-                 <h1><span class="label label-info"><?php print $this->RoleCount ?></span></h1>
-            </div>
-            </a>
-    </div>   
-</div>
-<hr>
-<div class="row">
-     <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_MSG ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-pencil" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_MSG_','Messages') ?></h4>
-                 <h1><span class="label label-info"><?php print $this->MsgCount ?></span></h1>
-            </div>
-        </a>
-    </div>   
-    
-    <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_BLOCK ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-modal-window" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_BLOCKS_','Blocks') ?></h4>
-                 <h1><span class="label label-info"><?php print $this->BlockCount ?></span></h1>
-            </div>
-            </a>
-    </div>
-
-    <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_MENU ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-menu-hamburger" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_MENU_','Menu') ?></h4>
-                 <h1><span class="label label-info"><?php print $this->MenuCount ?></span></h1>
-            </div>
-            </a>
-    </div>
-
-    <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_PAGE ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-duplicate" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_PAGES_','Pages') ?></h4>
-                 <h1><span class="label label-info"><?php print $this->PageCount ?></span></h1>
-            </div>
-            </a>
-    </div>   
-</div>
-<hr>
-<div class="row">
-     <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_TEMPLATE ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-eye-open" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_TEMPLATES_','Templates') ?></h4>
-                 <h1><span class="label label-info"><?php print $this->TemplateCount ?></span></h1>
-            </div>
-        </a>
-    </div>   
-    
-     <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_CALENDAR ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-calendar" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_CALENDAR_','Calendar') ?></h4>
-                 <h1><span class="label label-info"><?php print $this->CalendarCount ?></span></h1>
-            </div>
-            </a>
-    </div>
-    
-    <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_SETTINGS ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-cog" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_SETTINGS_','Settings') ?></h4>
-            </div>
-            </a>
-    </div>
-    
-    <div class="col-sm-3 col-md-3">
-        <a href="<?php print CTRL_LOGOUT ?>" class="thumbnail">
-            <div class="text-center">
-                <span class="glyphicon glyphicon-off" style="font-size: 60px;"></span>
-                <h4><?php print $this->Msg('_LOGOUT_','Logout') ?></h4>
-            </div>
-            </a>
-    </div>
-</div>
-<hr>
-</div>
 <script>
 var myVar = setInterval(myTimer, 1000);
 

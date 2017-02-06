@@ -95,9 +95,10 @@ class userModel extends Model
 
     public function All()
     {
-        $sql = 'SELECT * FROM customer';
+        $sql = 'SELECT * FROM user';
         return $this->DB->Query($sql, NULL, PDO::FETCH_CLASS,__CLASS__);
     }
+
 
     public function Lists()
     {

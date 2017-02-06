@@ -48,8 +48,9 @@
 	<script src="style/<?php print STYLE ?>/js/moment-with-locales.js"></script> <!-- do kalendarza -->
 	<script src="style/<?php print STYLE ?>/js/bootstrap-datetimepicker.js"></script> <!-- do kalendarza -->
 	<script src="style/<?php print STYLE ?>/js/jquery.popupWindow.js"></script><!-- popup window do elfindera -->
-	<script src="style/<?php print STYLE ?>/js/form-add.js"></script>
-    <script src="style/<?php print STYLE ?>/js/treeview.js"></script>
+	<script src="style/<?php print STYLE ?>/js/functions.js"></script><!-- funkcje potrzebne stronie -->
+	<!--<script src="style/<?php print STYLE ?>/js/form-add.js"></script>-->
+    <!--<script src="style/<?php print STYLE ?>/js/treeview.js"></script>-->
 	
 	<!-- włącz popower -->
 	<script>
@@ -88,6 +89,7 @@ if(Settings::$JqueryFileUploader) {
 
 <body>
 	<?php $this->RenderMaintenance() ?>
+	<!-- <div class="alert alert-danger"><?php print $this->GetDiskFreeSpace(); ?></div> -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -142,7 +144,10 @@ if(Settings::$JqueryFileUploader) {
 							<li><a href="<?php print CTRL_MENU ?>"><?php print $this->Msg('_MENUS_','Menus') ?></a></li>
 							<li class="divider"></li>
                             <li><a href="<?php print CTRL_PAGE ?>"><?php print $this->Msg('_PAGES_','Pages') ?></a></li>
-                            <!-- <li><a href="<?php print CTRL_GALLERY ?>"><?php print $this->Msg('_GALLERY_','Gallery') ?></a></li> -->
+                            <li><a href="<?php print CTRL_NEWS ?>"><?php print $this->Msg('_NEWS_','News') ?></a></li>
+							<li><a href="<?php print CTRL_GALLERY ?>"><?php print $this->Msg('_GALLERY_','Gallery') ?></a></li>
+							<li><a href="<?php print CTRL_PRODUCT ?>"><?php print $this->Msg('_PRODUCT_','Product') ?></a></li>
+							<li class="divider"></li>
                             <li><a href="<?php print CTRL_TEMPLATE ?>"><?php print $this->Msg('_TEMPLATES_','Templates') ?></a></li>
 							<li class="divider"></li>
 							<li><a href="<?php print CTRL_SETTINGS ?>"><?php print $this->Msg('_SETTINGS_','Settings') ?></a></li>
@@ -234,25 +239,6 @@ if(Settings::$JqueryFileUploader) {
 
 		</div>
 	</nav>
-<!--	
-<script>	
-	function getPage(id)
-	{
-		$('#output').html('Loading...');
-		
-		jQuery.ajax
-		({
-			url: id,
-			//data:'id='+id,
-			type: "POST",
-			success:function(data){$('#output').html(data);}
-		});
-	}
-
-	//getPage('user');
-</script>
-	<a href="#" onclick="getPage('user');" ><?php print $this->Msg('_SETTINGS_','Settings') ?></a>
-	-->
 	<div class="container-fluid">
-	<!--<div id="output"></div>-->
+	
    

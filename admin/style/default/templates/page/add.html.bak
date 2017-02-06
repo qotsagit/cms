@@ -31,7 +31,7 @@
                         <li role="presentation"><a data-toggle="pill" href="#page5"><?php print $this->Msg('_META_','Meta') ?></a></li>
                         <li role="presentation"><a data-toggle="pill" href="#page6"><?php print $this->Msg('_IMAGE_','Image') ?></a></li>
                         <li role="presentation"><a data-toggle="pill" href="#page7"><?php print $this->Msg('_GALLERY_','Gallery') ?></a></li>
-                        <li role="presentation"><a data-toggle="pill" href="#page8"><?php print $this->Msg('_FILES_','Files') ?></a></li>
+                        <!--li role="presentation"><a data-toggle="pill" href="#page8"><?php print $this->Msg('_FILES_','Files') ?></a></li-->
                     </ul>
                 
                 <div class="tab-content">
@@ -44,7 +44,7 @@
                     <?php $this->RenderAsSelect($this->Categories,$this->IdCategory->Value ,$this->msg('_CATEGORY_','Category'),IDCATEGORY) ?>
                     <div class="form-group">
                         <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
-                        <textarea id="editor" class="form-control" name="<?php print PAGE_TEXT ?>" rows="40" ><?php print $this->Text->Value ?></textarea>                            
+                        <textarea class="form-control" name="<?php print PAGE_TEXT ?>" rows="40" ><?php print $this->Text->Value ?></textarea>                            
                         <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
                     </div>
                 </div>

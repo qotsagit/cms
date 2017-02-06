@@ -80,6 +80,9 @@ define('CTRL_NEWSLETTER','newsletter');
 define('METHOD_LIST','list');
 define('METHOD_ADD','add');
 define('METHOD_ADD_NEWS','add_news');
+define('METHOD_ADD_PRODUCT','add_product');
+define('METHOD_ADD_GALLERY','add_gallery');
+
 define('METHOD_SAVE','save');
 define('METHOD_EDIT','edit');
 define('METHOD_DELETE','delete');
@@ -171,8 +174,10 @@ define('STATUS_EXTRA_IMAGE_LOGO',3); //images & logos
 
 //Content types
 define('CONTENT_PAGE',0);
-define('CONTENT_PORTFOLIO',1);
+define('CONTENT_GALLERY',1);
 define('CONTENT_NEWS',2);
+define('CONTENT_PRODUCT',3);
+define('CONTENT_PORTFOLIO',4);
 
 //FORM content new,edit
 define('CONTENT_IDCONTENT','id_content');
@@ -283,6 +288,12 @@ define('PRICING_CASSETTE_ROAD','cassette_road');
 define('PRICING_SEALANT','sealant');
 define('PRICING_COMMENT','comment');
 
+
+//FORM newsletter
+define('IDNEWSLETTER','id_newsletter');
+define('NEWSLETTER_TITLE','title');
+define('NEWSLETTER_TEXT','text'); // do ckeditora text musi się nazywać
+define('NEWSLETTER_START_DATE','start_date');
 
 define('_DEFAULT_LANG_ID_',1); //defaultowy język systemu 1 = english z bazy
 

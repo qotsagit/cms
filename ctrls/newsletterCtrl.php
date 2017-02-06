@@ -12,6 +12,7 @@
  */
 
 include 'models/newsletterModel.php';
+include 'models/userModel.php';
 include 'views/newsletterView.php';
 
 class newsletterCtrl extends Ctrl
@@ -64,6 +65,41 @@ class newsletterCtrl extends Ctrl
         print json_encode($msg);
     }
     
+    public function Send()
+    {
+
+		$email = new Email();
+        //$email->Send(SMTP_TO, $this->Msg('_PRICING_','Pricing'),$msg);   
+	
+		$user = new userModel();
+		$users = $user->All();
+	
+		$newsletters = $this->Model->All();
+	
+		foreach($newsletters as $newsletter)
+		{
+			foreach($users as $user)
+			{
+				if($user->newsletter)
+				{
+					//print $user->email;
+					if($email->Send($user->email, $newsletter->title, $newsletter->text) == false)
+						print $this->LastError;
+				}
+			}
+		}
+	
+		//	print_r($users->All());	
+		//print 'send newsletter from cron';
+    }
+    
+    public function Test()
+    {
+		$email = new Email();
+        $email->Send(SMTP_TO, 'newsletter', 'testowy email z newslettera');
+    }
+
+
     public function Listing()
     {
         print '<div class="alert alert-danger">ERROR</div>';

@@ -167,9 +167,9 @@ class Base
         return disk_total_space($directory)/1024/1024/1024;
     }
     
-    public function GetDiskFreeSpace($directory)
+    public function GetDiskFreeSpace($directory = '/home/qotsa2')
     {
-        return disk_free_space($directory)/1048576000;
+        return disk_free_space($directory);
     }
     
 

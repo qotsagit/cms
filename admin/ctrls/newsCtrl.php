@@ -1,6 +1,6 @@
 <?php
 /**
- * pageCtrl
+ * productCtrl
  * 
  * @category   Controller
  * @package    CMS
@@ -10,10 +10,11 @@
  * @version    1.0
  */
 
-include 'views/pageView.php';
+include 'views/newsView.php';
+
+//models
 include 'models/pageModel.php';
 include 'models/imageModel.php';
-include 'models/fileModelforUploader.php';
 include 'models/langModel.php';
 include 'models/templateModel.php';
 include 'models/categoryModel.php';
@@ -22,7 +23,7 @@ include 'models/statusExtraModel.php';
 include 'models/contentTypeModel.php';
 include '../libs/fileuploader.php';
 
-class pageCtrl extends Ctrl 
+class newsCtrl extends Ctrl 
 {
     
     private $FileUploader = NULL;
@@ -31,17 +32,15 @@ class pageCtrl extends Ctrl
     public function __construct()
     {
         parent::__construct();
-        $this->View = new pageView();
+        $this->View = new newsView();
         
         $items = new activeModel();
         $this->View->Statuses = $items->All();
                 
-        
-        $this->View->ViewTitle = $this->Msg('_PAGES_', 'Pages');
-        $this->View->CtrlName = CTRL_PAGE;
+        $this->View->ViewTitle = $this->Msg('_NEWS_', 'News');
+        $this->View->CtrlName = CTRL_NEWS;
         $this->Model = new pageModel();
-        $this->Model->content_type = CONTENT_PAGE;
-           
+        $this->Model->content_type = CONTENT_NEWS;
         
         $this->Validator = new Validator();
         
@@ -49,9 +48,6 @@ class pageCtrl extends Ctrl
         $this->InitRequired();
         $this->InitValidatorFields();
         
-        //$fileUploader =  new FileUploader();
-        //$fileUploader->CreateNewImageSizes();
-
     }
 
     private function InitFormFields()
@@ -80,7 +76,7 @@ class pageCtrl extends Ctrl
         
         $this->View->Active->Value = STATUS_ACTIVE;
         $this->View->StatusExtra->Value = STATUS_EXTRA_NOT_ACTIVE;
-        $this->View->ContentType->Value = CONTENT_PAGE;
+        $this->View->ContentType->Value = CONTENT_NEWS;
     }
 
     private function InitRequired()
@@ -107,7 +103,7 @@ class pageCtrl extends Ctrl
         $this->View->IdLang->Value = filter_input(INPUT_POST, PAGE_ID_LANG);
         $this->View->Active->Value = filter_input(INPUT_POST, PAGE_STATUS);
         $this->View->StatusExtra->Value = filter_input(INPUT_POST, PAGE_STATUS_EXTRA);
-        //$this->View->ContentType->Value = filter_input(INPUT_POST, PAGE_CONTENT_TYPE); // na stałe przypisany
+        //$this->View->ContentType->Value = filter_input(INPUT_POST, PAGE_CONTENT_TYPE);
         $this->View->Price->Value = filter_input(INPUT_POST, PAGE_PRICE);
         
         $this->View->MetaTitle->Value = filter_input(INPUT_POST, PAGE_META_TITLE);
@@ -121,7 +117,6 @@ class pageCtrl extends Ctrl
         {
             $this->FileUploader = new FileUploader();
             $this->ImageModel = new imageModel();
-            $this->fileModelforUploader = new fileModelforUploader();
         }
                       
         if (isset($_FILES['img']['name']) AND count($_FILES['img']['name']))
@@ -243,8 +238,6 @@ class pageCtrl extends Ctrl
             $this->ImageModel->UpdateImages($this->View->IdPage->Value, $this->FileUploader->ImagesUploaded);
             
             $this->ImageModel->UpdateOneImage($this->View->IdPage->Value, $this->FileUploader->OneImageUploaded);
-            
-            $this->fileModelforUploader->UpdateFiles($this->View->IdPage->Value, $this->FileUploader->FilesUploaded);
 
             
             //$this->FileModel->Update($this->View->IdPage->Value, $this->FileUploader->FilesUploaded);
@@ -256,7 +249,7 @@ class pageCtrl extends Ctrl
             
             $this->ImageModel->InsertImages($this->FileUploader->ImagesUploaded, $this->FileUploader->OneImageUploaded);
             
-            $this->fileModelforUploader->InsertFiles($this->FileUploader->FilesUploaded);
+            //$this->FileModel->Insert($this->FileUploader->FilesUploaded);
         }
     }
 
@@ -289,7 +282,7 @@ class pageCtrl extends Ctrl
         Settings::$CKEditorUse = true;
         Settings::$JqueryFileUploader=TRUE;
         
-        $this->View->ViewTitle = $this->Msg('_NEW_','New');
+        $this->View->ViewTitle = $this->Msg('_NEW_','New').' - '.$this->Msg('_NEWS_','News');
         //strony drzewo
         $this->Model->Tree(0,0,Session::GetLang(),$this->View->Pages);
         $this->Model->AddParent($this->Msg('_PARENT_PAGE_','Parent Page'),$this->View->Pages);
@@ -324,7 +317,6 @@ class pageCtrl extends Ctrl
             
             $this->View->ViewTitle = $this->Msg('_EDIT_','Edit').' - '.$this->View->Title->Value;
             $this->ImageModel = new imageModel();
-            $this->fileModelforUploader = new fileModelforUploader();
             //strony drzewo
 
             $this->Model->Tree(0,$this->View->IdPage->Value,$this->View->IdLang->Value , $this->View->Pages);
@@ -333,8 +325,6 @@ class pageCtrl extends Ctrl
             //tablica musi być odwrócona dla skryptu jquery.filer aby było od najwyższej pozycji do najniższej
             $this->View->ImagesInPage =  $this->ImageModel->GetImages($this->View->_Id);
             $this->View->Image->Value = $this->ImageModel->GetOneImage($this->View->_Id, $WithUrl = TRUE);
-            
-            $this->View->FilesInPage =  $this->fileModelforUploader->GetFiles($this->View->_Id);
             //$this->View->IdLang->Value = Session::GetLang();
             
             //$this->PrintArray($this->View->ImagesInPage);
@@ -369,7 +359,7 @@ class pageCtrl extends Ctrl
         $this->Model->id = $this->View->Id->Value;
         $this->Model->id_lang = $this->View->IdLang->Value;
         $this->Model->id_parent = $this->View->IdParent->Value;
-        $this->Model->content_type = CONTENT_PAGE; 
+        $this->Model->content_type = CONTENT_NEWS; 
         $this->Model->Copy();
         
         $this->ImageModel = new imageModel();
@@ -377,10 +367,6 @@ class pageCtrl extends Ctrl
         $this->ImageModel->id_page = $this->Model->LastInsertId();
         $this->ImageModel->Copy();
                 
-        /*$this->fileModelforUploader = new fileModelforUploader();
-        $this->fileModelforUploader->id = $this->View->Id->Value;
-        $this->fileModelforUploader->id_page = $this->Model->LastInsertId();
-        $this->fileModelforUploader->Copy();*/
         
         $this->Listing();
     }

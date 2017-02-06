@@ -42,7 +42,7 @@ class contentTypeModel extends Model
         return array
         (
             new contentTypeModel(CONTENT_PAGE,$this->Msg('_PAGE_','Page')),
-            new contentTypeModel(CONTENT_PORTFOLIO,$this->Msg('_PORTFOLIO_','Portfolio')),
+            new contentTypeModel(CONTENT_GALLERY,$this->Msg('_GALLERY_','Gallery')),
             new contentTypeModel(CONTENT_NEWS,$this->Msg('_NEWS_','News'))
         );
     }

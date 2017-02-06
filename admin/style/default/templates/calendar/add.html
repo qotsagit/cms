@@ -41,21 +41,16 @@
                         </div>
                          <?php print $this->RenderValidationError($this->EndDate->ErrorText); ?>
                     </div>
-            
-                
-                
-        <script type="text/javascript">
-            $(function ()
-            {
-                $('#d1').datetimepicker({ locale: 'pl', format: 'YYYY-MM-DD HH:mm' });
-                $('#d2').datetimepicker({ locale: 'pl', format: 'YYYY-MM-DD HH:mm' });
-            });
-        </script>
-                 
-                
-               
-    
             </fieldset>
         </form>
     </div>
 </div>
+
+ <script type="text/javascript">
+    $(function ()
+    {
+        $('#d1').datetimepicker({ locale: 'pl', format: 'YYYY-MM-DD HH:mm' });
+        $('#d2').datetimepicker({ locale: 'pl', format: 'YYYY-MM-DD HH:mm' });
+    });
+</script>
+

@@ -50,6 +50,7 @@ class Email extends Base
         return true;
         echo 'Message could not be sent.';
         echo 'Mailer Error: ' . $mail->ErrorInfo;
+        $this->LastError = $mail->ErrorInfo;
         
     } else {
         

@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <form method="POST">
+            <fieldset>
+                <legend><?php print $this->ViewTitle  ?></legend>
+                <a href="<?php print $this->CtrlName ?>"  class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
+
+                <div class="form-group pull-right">
+                    <input type="hidden" name="<?php print IDNEWSLETTER ?>" value="<?php print $this->IdNewsletter->Value ?>">
+                    <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                    <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+                    <a href="<?php print $this->CtrlName ?>" class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_TITLE_','Title') ?></label>
+                    <input type="text" class="form-control" placeholder="<?php print $this->Msg('_TITLE_','Title') ?>" name="<?php print NEWSLETTER_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                    <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
+                </div>
+                
+                 <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_START_DATE_','Start date') ?></label>
+                    <div class='input-group date' id='d1'>
+                        <input type='text' class="form-control" name="<?php print NEWSLETTER_START_DATE ?>" value="<?php print $this->StartDate->Value ?>">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                    <?php print $this->RenderValidationError($this->StartDate->ErrorText); ?>
+                </div>
+                    
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
+                    <textarea class="form-control" name="<?php print NEWSLETTER_TEXT ?>" rows="20"><?php print $this->Text->Value ?></textarea>
+                    <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+ <script type="text/javascript">
+            $(function ()
+            {
+                $('#d1').datetimepicker({ locale: 'pl', format: 'YYYY-MM-DD HH:mm' });
+                //$('#d2').datetimepicker({ locale: 'pl', format: 'YYYY-MM-DD HH:mm' });
+            });
+        </script>
+                 

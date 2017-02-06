@@ -13,7 +13,7 @@
 include 'views/pageView.php';
 include 'models/pageModel.php';
 include 'models/imageModel.php';
-include 'models/fileModelforUploader.php';
+//include 'models/fileModel.php';
 include 'models/langModel.php';
 include 'models/templateModel.php';
 include 'models/categoryModel.php';
@@ -121,7 +121,6 @@ class pageCtrl extends Ctrl
         {
             $this->FileUploader = new FileUploader();
             $this->ImageModel = new imageModel();
-            $this->fileModelforUploader = new fileModelforUploader();
         }
                       
         if (isset($_FILES['img']['name']) AND count($_FILES['img']['name']))
@@ -243,8 +242,6 @@ class pageCtrl extends Ctrl
             $this->ImageModel->UpdateImages($this->View->IdPage->Value, $this->FileUploader->ImagesUploaded);
             
             $this->ImageModel->UpdateOneImage($this->View->IdPage->Value, $this->FileUploader->OneImageUploaded);
-            
-            $this->fileModelforUploader->UpdateFiles($this->View->IdPage->Value, $this->FileUploader->FilesUploaded);
 
             
             //$this->FileModel->Update($this->View->IdPage->Value, $this->FileUploader->FilesUploaded);
@@ -256,7 +253,7 @@ class pageCtrl extends Ctrl
             
             $this->ImageModel->InsertImages($this->FileUploader->ImagesUploaded, $this->FileUploader->OneImageUploaded);
             
-            $this->fileModelforUploader->InsertFiles($this->FileUploader->FilesUploaded);
+            //$this->FileModel->Insert($this->FileUploader->FilesUploaded);
         }
     }
 
@@ -324,7 +321,6 @@ class pageCtrl extends Ctrl
             
             $this->View->ViewTitle = $this->Msg('_EDIT_','Edit').' - '.$this->View->Title->Value;
             $this->ImageModel = new imageModel();
-            $this->fileModelforUploader = new fileModelforUploader();
             //strony drzewo
 
             $this->Model->Tree(0,$this->View->IdPage->Value,$this->View->IdLang->Value , $this->View->Pages);
@@ -333,8 +329,6 @@ class pageCtrl extends Ctrl
             //tablica musi być odwrócona dla skryptu jquery.filer aby było od najwyższej pozycji do najniższej
             $this->View->ImagesInPage =  $this->ImageModel->GetImages($this->View->_Id);
             $this->View->Image->Value = $this->ImageModel->GetOneImage($this->View->_Id, $WithUrl = TRUE);
-            
-            $this->View->FilesInPage =  $this->fileModelforUploader->GetFiles($this->View->_Id);
             //$this->View->IdLang->Value = Session::GetLang();
             
             //$this->PrintArray($this->View->ImagesInPage);
@@ -377,10 +371,6 @@ class pageCtrl extends Ctrl
         $this->ImageModel->id_page = $this->Model->LastInsertId();
         $this->ImageModel->Copy();
                 
-        /*$this->fileModelforUploader = new fileModelforUploader();
-        $this->fileModelforUploader->id = $this->View->Id->Value;
-        $this->fileModelforUploader->id_page = $this->Model->LastInsertId();
-        $this->fileModelforUploader->Copy();*/
         
         $this->Listing();
     }

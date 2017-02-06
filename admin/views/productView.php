@@ -9,7 +9,7 @@ class pageView extends View
     public $Title;
     public $Description;
     public $Statuses;       // lista statusów
-       
+
     public function __construct()
     {
          parent::__construct();
@@ -17,7 +17,6 @@ class pageView extends View
 
     public function SetColumns()
     {
-    
         $this->Columns = array
         (
             new ColumnText($this->Msg('_EMPTY_STRING_',''),'id_page',false),
@@ -31,7 +30,7 @@ class pageView extends View
             new ColumnIcon($this->Msg('_EMPTY_STRING_',''),'id_parent',true),
             new ColumnLink($this->Msg('_TITLE_','Title'),'title'),
             new ColumnText($this->Msg('_TEXT_','Text'),'text',false),
-            new ColumnText($this->Msg('_PRICE_','Price'),'price',false),
+            new ColumnText($this->Msg('_PRICE_','Price'),'price',true),
             new ColumnText($this->Msg('_EMPTY_STRING_',''),'price_type',false),
             new ColumnText($this->Msg('_META_TITLE_','Meta Title'),'meta_title',true),
             new ColumnText($this->Msg('_EMPTY_STRING_',''),'meta_description',true),

@@ -54,10 +54,13 @@ class imageModel extends Model
                 ':img' => $Image['img'],
                 ':content_type' => NULL,
                 ':name' => $Image['name'],
+                ':size' => $Image['size'],
+                ':width' => $Image['width'],
+                ':height' => $Image['height'],
                 ':position' => $Image['position']
                 );
 
-                $this->DB->NonQuery('INSERT INTO image SET id_page=:id_page,id_lang=:id_lang,img=:img,content_type=:content_type,name=:name,position=:position', $params);
+                $this->DB->NonQuery('INSERT INTO image SET id_page=:id_page,id_lang=:id_lang,img=:img,content_type=:content_type,name=:name,size=:size,width=:width,height=:height,position=:position', $params);
                 
                 $LastIdImage = $this->LastInsertId();
                 
@@ -118,6 +121,8 @@ class imageModel extends Model
                 ); 
                 
                 $this->DB->NonQuery('UPDATE image_to_page SET position=:position WHERE id_image=:id_image AND id_page=:id_page', $params2);
+                
+                
             }
         }  
         
@@ -145,10 +150,13 @@ class imageModel extends Model
                 ':img' => $Image['img'],
                 ':content_type' => NULL,
                 ':name' => $Image['name'],
+                ':size' => $Image['size'],
+                ':width' => $Image['width'],
+                ':height' => $Image['height'],
                 ':position' => $Image['position']
                 );
 
-                $this->DB->NonQuery('INSERT INTO image SET id_page=:id_page,id_lang=:id_lang,img=:img,content_type=:content_type,name=:name,position=:position', $params);
+                $this->DB->NonQuery('INSERT INTO image SET id_page=:id_page,id_lang=:id_lang,img=:img,content_type=:content_type,name=:name,size=:size,width=:width,height=:height,position=:position', $params);
                 
                 $LastIdImage = $this->LastInsertId();
                 
@@ -159,7 +167,7 @@ class imageModel extends Model
                 );
 
                 $this->DB->NonQuery('INSERT INTO image_to_page SET id_image=:id_image,id_page=:id_page,position=:position', $params);
-                
+               
             }
         }
         

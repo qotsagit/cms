@@ -105,10 +105,14 @@ class ColumnImage extends Column
         if(empty($item->$name))
             $image = DEFAULT_IMAGE;
         
+        print '<a href="" data-toggle="modal" data-target="#myModal" >';
+        
         if(file_exists($image))
-            print '<img src ='. $image.' class="img img-circle" width='.$this->Width.' height='.$this->Height.'>';
+            print '<img onclick="loadImage(this)" src ='. $image.' class="img img-circle" width='.$this->Width.' height='.$this->Height.'>';
         else
-            print '<img src ='.IMAGE_DIR.'/'.DEFAULT_IMAGE.' class="img img-circle" width='.$this->Width.' height='.$this->Height.'>' ;
+            print '<img onclick="loadImage(this)" src ='.IMAGE_DIR.'/'.DEFAULT_IMAGE.' class="img img-circle" width='.$this->Width.' height='.$this->Height.'>' ;
+            
+         print '</a>';   
     }
 
 }

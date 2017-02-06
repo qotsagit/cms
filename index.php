@@ -3,7 +3,7 @@
     define('RENDER_DEBUG',false);
     define('RENDER_NAVBAR',false);
     define('RENDER_FOOTER',false);
-        
+
     //Style
     define('STYLE','default');
     define('BASE_HREF','/');
@@ -29,7 +29,7 @@
     include "config/db.config.php";
     include "config/url.config.php";
     // end config files
-    
+
     include "libs/bootstrap.php";
     include "libs/database.php";
     include "libs/base.php";

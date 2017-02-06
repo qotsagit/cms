@@ -18,7 +18,7 @@ CKEDITOR.plugins.addExternal( 'widget', '/ckeditor/plugins/widget/', 'plugin.js'
 CKEDITOR.plugins.addExternal( 'widgetbootstrap', '/ckeditor/plugins/widgetbootstrap/', 'plugin.js' );
 CKEDITOR.plugins.addExternal( 'btgrid', '/ckeditor/plugins/btgrid/', 'plugin.js' );
 //CKEDITOR.plugins.addExternal( 'codesnippet', '/ckeditor/plugins/codesnippet/', 'plugin.js' );
-    CKEDITOR.plugins.addExternal( 'codemirror', '/ckeditor/plugins/codemirror/', 'plugin.js' );
+CKEDITOR.plugins.addExternal( 'codemirror', '/ckeditor/plugins/codemirror/', 'plugin.js' );
 
 //CKEDITOR.plugins.addExternal( 'fontawesome', '/ckeditor/plugins/fontawesome/', 'plugin.js' );  
 //CKEDITOR.plugins.addExternal( 'templates', '/ckeditor/plugins/templates/', 'plugin.js' );  
@@ -44,10 +44,16 @@ CKEDITOR.replace( 'text', {
 
 CKEDITOR.config.baseUrl = "<?php print SITE_URL ?>/filemanager/";
 CKEDITOR.config.baseDir = '/filemanager/';
-CKEDITOR.config.allowedContent = false;
-//CKEDITOR.config.protectedSource.push("/<i[^>]*><\/i>/g{}\'\"");
-CKEDITOR.ProtectedTags = '&#123;|&#125;'
+//CKEDITOR.config.allowedContent = false;
+CKEDITOR.config.protectedSource.push(/<i[^>]*><\/i>/g);
+CKEDITOR.config.htmlEncodeOutput = false;
 CKEDITOR.config.entities = false;
+CKEDITOR.config.basicEntitles = false;
+CKEDITOR.config.disallowedContent = false;
+CKEDITOR.config.allowedContent = true;
+
+            
+
 
 
 /*

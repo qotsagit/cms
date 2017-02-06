@@ -1,6 +1,6 @@
 <?php
 
-class pageView extends View
+class newsView extends View
 {
     // pola formularza
 
@@ -9,7 +9,7 @@ class pageView extends View
     public $Title;
     public $Description;
     public $Statuses;       // lista statusów
-       
+
     public function __construct()
     {
          parent::__construct();
@@ -17,7 +17,6 @@ class pageView extends View
 
     public function SetColumns()
     {
-    
         $this->Columns = array
         (
             new ColumnText($this->Msg('_EMPTY_STRING_',''),'id_page',false),
@@ -83,5 +82,6 @@ class pageView extends View
         
     }
     */
+
 
 }
