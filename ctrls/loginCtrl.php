@@ -18,7 +18,7 @@ class loginCtrl extends Ctrl
     
     public function __construct()
     {
-        parent::__construct(false,USER_TYPE_CUSTOMER);
+        parent::__construct(false);
         $this->View = new loginView($this);       
         $this->Init();
     }

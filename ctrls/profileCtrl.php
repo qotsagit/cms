@@ -12,8 +12,8 @@
  */
 
 include 'models/userModel.php';
-include 'models/langModel.php';
-include 'views/settingsView.php';
+//include 'models/langModel.php';
+include 'views/profileView.php';
 
 
 class profileCtrl extends Ctrl
@@ -22,7 +22,7 @@ class profileCtrl extends Ctrl
     {
         parent::__construct();
                 
-        $this->View = new settingsView();
+        $this->View = new profileView();
         $this->View->ViewTitle = $this->Msg('_SETTINGS_','Settings');
         
         $this->Model = new userModel();        
@@ -114,16 +114,16 @@ class profileCtrl extends Ctrl
 
     public function Listing($error = false)
     {
-        $items = new langModel();
-        $this->View->Languages = $items->All();
+        //$items = new langModel();
+        //$this->View->Languages = $items->All();
         if($error)
         {
-             $this->View->Render('profile/add');
+             $this->View->Render('profile/index');
         }
         else
         {
             if ($this->ReadDatabase())
-                $this->View->Render('profile/add');
+                $this->View->Render('profile/index');
             else
                 $this->View->Render('error');
         }

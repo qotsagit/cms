@@ -1,22 +1,24 @@
+<div class="row">
+	<div class="col-sm-12">
+		<h1><center><b><?php print $this->Msg('_LOGIN_','Login') ?></b></center></h1>
+	</div>
+</div>
 <br>
 <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <?php //$this->renderInfo(_LOGIN_INFO_); ?>
             <?php $this->renderLoginError(); ?>
-            <div class="panel panel-default">
-                <div class="panel-body">
                     <fieldset>
                         <div class="headline">
-        <h3><?php print $this->Msg('_LOGIN_','Login') ?></h3>
         <!--<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem<br class="hidden-xs"></p>-->
 </div>
                         <form  method="POST" action="login">   
-                            <div class="col-sm-12">
-                                <input class="col-xs-12" type="text" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print LOGIN_EMAIL ?>" value="<?php //print $this->Controller->Email ?>"> 
+                            <div class="form-group">
+                                <input class="form-control" type="text" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print LOGIN_EMAIL ?>" value="<?php //print $this->Controller->Email ?>"> 
                             </div>
 
-                            <div class="col-sm-12">
-                                <input class="col-xs-12" type="password" placeholder="<?php print $this->Msg('_PASSWORD_','Password') ?>" name="<?php print LOGIN_PASSWORD ?>">
+                            <div class="form-group">
+                                <input class="form-control" type="password" placeholder="<?php print $this->Msg('_PASSWORD_','Password') ?>" name="<?php print LOGIN_PASSWORD ?>">
                             </div>
 
                             <div class="checkbox col-sm-12">
@@ -26,8 +28,7 @@
                             <button class="btn btn-primary pull-right"><?php print $this->Msg('_LOGIN_','Login') ?></button>
                         </form>
                     </fieldset>
-                </div>
-            </div>   
+            
         </div>  
     </div>
 <br>

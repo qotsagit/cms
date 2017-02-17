@@ -104,38 +104,35 @@ class pageModel extends Model
         $this->DB->NonQuery('UPDATE page SET id_user=:id_user, id_parent=:id_parent, id_category=:id_category, title=:title, id_lang=:id_lang, text=:text, content_type=:content_type, url=:url, url_address=:url_address, template=:template, status_extra=:status_extra, price=:price, meta_title=:meta_title, meta_description=:meta_description, position=:position, active=:active WHERE id_page=:id_page', $params);
         return;
     }
-    
-    
+     
     public function Copy()
     {
-        //print 'ID'.$this->id.'<br>';
-        //print 'IDLANG'.$this->id_lang.'<br>';
-        //print 'IDPARENT'.$this->id_parent.'<br>';
         
         $item = $this->Get($this->id);
-                
-        //$item->id_lang = $this->id_lang;
-        //$item->id_parent = $this->id_parent;
+        $page = $this->Get($this->id_parent);
+        
+        if($page)
+            $this->content_type = $page->content_type;
+        else
+            $this->content_type = $item->content_type;
         
         $this->id_user          = $item->id_user;
         $this->id_page          = $item->id_page;
         //$this->id_parent        = $item->id_parent;
         $this->id_category      = $item->id_category;
         $this->title            = $item->title.' - '.$this->Msg('_COPY_','Copy');
-        //$this->id_lang          = $item->id_lang;
         $this->text             = $item->text;
         $this->url              = $item->url;
         $this->url_address      = $item->url_address;
         $this->template         = $item->template;
         $this->status_extra     = $item->status_extra;
         $this->active           = $item->active;
-        //$this->content_type     = $item->content_type;    // nie kopiujemy
         $this->price            = $item->price;
         $this->img              = $item->img;
         $this->meta_title       = $item->meta_title;
         $this->meta_description = $item->meta_description;
         $this->position         = $item->position;
-        
+       
         $this->Insert();
     }
 
@@ -295,11 +292,11 @@ class pageModel extends Model
         
         }else{
             
-            $params = array(':id_lang' => $this->id_lang,':id_parent' => $this->id_parent,':content_type' => $this->content_type);
+            $params = array(':id_lang' => $this->id_lang,':id_parent' => $this->id_parent,':content_type' => $this->content_type, ':search' => '%'.Session::GetSearch().'%');
             if ($this->Limit > 0)
-                $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND content_type=:content_type ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
+                $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND content_type=:content_type AND (title LIKE :search OR text LIKE :search) ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
             else
-                $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND content_type=:content_type ORDER BY ' . $this->OrderFieldName . ' ' . $asc;
+                $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND content_type=:content_type AND (title LIKE :search OR text LIKE :search) ORDER BY ' . $this->OrderFieldName . ' ' . $asc;
         }
                 
         $items = $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);

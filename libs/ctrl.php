@@ -234,7 +234,10 @@ abstract class Ctrl extends Base
         $lang = $this->GetLang($value);
         
         if($lang)
-            Session::SetLang($lang->id_lang);  
+	{
+            Session::SetLang($lang->id_lang);
+	    Session::SetCurrentPage(NULL);
+	}
     }
     
     private function SetOrder($value)

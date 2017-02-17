@@ -5,7 +5,8 @@ class Database extends PDO
 
     private $sth;
     private static $Instance;
-    public $Result = true;    
+    public $Result = true;
+    public $Exception = true;    
     
     public function __construct()
     {
@@ -16,8 +17,10 @@ class Database extends PDO
             $this->sth->execute();
         } catch (Exception $ex)
         {
-    	    new myException('DATABASE CONNECTION ERROR','');
-            $this->Exception('DATABASE CONNECTION ERROR', ''); //$this->sth->errorInfo( )[2]);
+			if($this->Exception)
+				new myException('DATABASE CONNECTION ERROR','');
+			else
+				print $this->sth->errorInfo( )[2];
         }
     }
 
@@ -46,7 +49,10 @@ class Database extends PDO
                 return $this->sth->fetch();
             }else
             {
-                $this->Exception('DATABASE ERROR',$sql.'<br>'. $this->sth->errorInfo()[2]);
+			    if($this->Exception)
+					$this->Exception('DATABASE ERROR',$sql.'<br>'. $this->sth->errorInfo()[2]);
+				else
+					print $this->sth->errorInfo( )[2];
             }
         }
         else
@@ -68,7 +74,11 @@ class Database extends PDO
                  return $this->sth->fetch($fetchMode);
             }else
             {
-                $this->Exception('DATABASE ERROR',$sql.'<br>'. $this->sth->errorInfo()[2]);
+				if($this->Exception)
+					$this->Exception('DATABASE ERROR',$sql.'<br>'. $this->sth->errorInfo()[2]);
+				else
+					print $this->sth->errorInfo( )[2];
+    
             }
         }
         else
@@ -91,7 +101,10 @@ class Database extends PDO
                     return $this->sth->fetchAll($fetchMode, $class);
             }else
             {
-                $this->Exception('DATABASE ERROR',$sql.'<br>'. $this->sth->errorInfo()[2]);
+				if($this->Exception)
+					$this->Exception('DATABASE ERROR',$sql.'<br>'. $this->sth->errorInfo()[2]);
+				else
+					print $this->sth->errorInfo( )[2];
             }
         }
         else
@@ -112,7 +125,10 @@ class Database extends PDO
             }
             else
             {
-                $this->Exception('DATABASE ERROR',$sql.'<br>'. $this->sth->errorInfo()[2]);
+				if($this->Exception)
+					$this->Exception('DATABASE ERROR',$sql.'<br>'. $this->sth->errorInfo()[2]);
+				else
+					print $this->sth->errorInfo( )[2];
             }
         }
         else

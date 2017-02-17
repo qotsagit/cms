@@ -35,7 +35,7 @@ class userView extends View
             (
 
             new ColumnText($this->Msg('_EMPTY_STRING_',''),'id_user',false),
-            new ColumnAvatar($this->Msg('_IMAGE_','Image'), 'avatar'),
+            new ColumnAvatar($this->Msg('_IMAGE_','Image'), 'avatar',50,50,true),            
             new ColumnText($this->Msg('_NICK_','Nick'), 'nick'),
             new ColumnText($this->Msg('_EMAIL_','Email'), 'email'),
             new ColumnText($this->Msg('_FIRST_NAME_','First Name'), 'first_name'),

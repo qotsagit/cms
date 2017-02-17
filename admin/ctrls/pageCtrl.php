@@ -104,6 +104,7 @@ class pageCtrl extends Ctrl
         $this->View->Title->Value = filter_input(INPUT_POST, PAGE_TITLE);
         $this->View->Text->Value = filter_input(INPUT_POST, PAGE_TEXT);
         $this->View->Url->Value = filter_input(INPUT_POST, PAGE_URL);
+        $this->View->UrlAddress->Value = filter_input(INPUT_POST, PAGE_URL_ADDRESS);
         $this->View->IdLang->Value = filter_input(INPUT_POST, PAGE_ID_LANG);
         $this->View->Active->Value = filter_input(INPUT_POST, PAGE_STATUS);
         $this->View->StatusExtra->Value = filter_input(INPUT_POST, PAGE_STATUS_EXTRA);
@@ -217,7 +218,8 @@ class pageCtrl extends Ctrl
         $this->Model->title = $this->View->Title->Value;
         $this->Model->text = $this->View->Text->Value;
         $this->Model->url = $this->View->Url->Value;
-        $this->Model->content_type = $this->View->ContentType->Value;
+        $this->Model->url_address = $this->View->UrlAddress->Value;
+        //$this->Model->content_type = $this->View->ContentType->Value;
         $this->Model->active = $this->View->Active->Value;
         $this->Model->status_extra = $this->View->StatusExtra->Value;
         $this->Model->price = $this->View->Price->Value;
@@ -229,33 +231,27 @@ class pageCtrl extends Ctrl
         $this->Model->position = $this->View->Position->Value;
         
 
-        $url = NULL;
-        $this->Model->Url($this->Model->id_parent,$url);
-        if($url == NULL)
-            $this->Model->url_address = $this->TransliterateStringToUrl($this->View->Title->Value);
-        else
-            $this->Model->url_address = $this->TransliterateStringToUrl($url.' '.$this->View->Title->Value);
-        
         if ($this->View->IdPage->Value > 0)
         {
             $this->Model->Update();
-            
             $this->ImageModel->UpdateImages($this->View->IdPage->Value, $this->FileUploader->ImagesUploaded);
-            
             $this->ImageModel->UpdateOneImage($this->View->IdPage->Value, $this->FileUploader->OneImageUploaded);
-            
             $this->fileModelforUploader->UpdateFiles($this->View->IdPage->Value, $this->FileUploader->FilesUploaded);
 
-            
-            //$this->FileModel->Update($this->View->IdPage->Value, $this->FileUploader->FilesUploaded);
-            
+            //$this->FileModel->Update($this->View->IdPage->Value, $this->FileUploader->FilesUploaded);            
         }
         else
         {
+            
+            $url = NULL;
+            $this->Model->Url($this->Model->id_parent,$url);
+            if($url == NULL)
+                $this->Model->url_address = $this->TransliterateStringToUrl($this->View->Title->Value);
+            else
+                $this->Model->url_address = $this->TransliterateStringToUrl($url.' '.$this->View->Title->Value);
+            
             $this->Model->Insert();
-            
             $this->ImageModel->InsertImages($this->FileUploader->ImagesUploaded, $this->FileUploader->OneImageUploaded);
-            
             $this->fileModelforUploader->InsertFiles($this->FileUploader->FilesUploaded);
         }
     }
@@ -363,13 +359,18 @@ class pageCtrl extends Ctrl
         }
     }
     
+    
     public function CopyConfirm()
     {
         $this->ReadForm();
+        
+        // dodatkowo czytamy
+        // inna zmienna jest PAGE_ID_PARENT
+        $this->View->IdParent->Value = filter_input(INPUT_POST, PAGE_ID_PARENT);
+                
         $this->Model->id = $this->View->Id->Value;
         $this->Model->id_lang = $this->View->IdLang->Value;
         $this->Model->id_parent = $this->View->IdParent->Value;
-        $this->Model->content_type = CONTENT_PAGE; 
         $this->Model->Copy();
         
         $this->ImageModel = new imageModel();

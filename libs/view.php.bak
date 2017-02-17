@@ -172,7 +172,7 @@ class View extends Base
         print '<span class="btn btn-file">';
         print '<img id="image" src='.$src.' class="img img-circle" width='.$width.' height='.$height.'>'; 
         print '<input type="file" id="inputfile" name="avatar[]" onchange="handleFiles(this.files,image)" accept="image/*"></span>';
-        print '<input type="hidden" name="'.AVATAR.'" value="'.$value.'">';
+        //print '<input type="hidden" name="'.AVATAR.'" value="'.$value.'">';
         print '</div>';
         //print '<div class="panel" id="preview">';  
         //print '<a href="#" class="info" title="Full Image">Delete</a>';  
@@ -268,7 +268,7 @@ class View extends Base
         print '<div class="col-md-7 col-sm-12">';
         print '<form method="POST">';
         print '<div class="input-group">';
-        print '<input onkeyup="getPage(0,\'user\');" type="text" class="form-control" name="'.SEARCH.'" value="'.Session::GetSearch().'" placeholder="'.$this->Msg('_SEARCH_','Search').'">';
+        print '<input type="text" class="form-control" name="'.SEARCH.'" value="'.Session::GetSearch().'" placeholder="'.$this->Msg('_SEARCH_','Search').'">';
         print '<input type="hidden" name="'.METHOD.'" value="'.METHOD_SEARCH.'">';
         print '<span class="input-group-btn">';
         print '<button class="btn btn-default" type="submit">'.$this->Msg('_SEARCH_','Search').'</button>';
@@ -530,44 +530,6 @@ class View extends Base
         
     }
 
-    public function RenderGalleryBody($view, $columns = 2)
-    {
-        $id = 1; //($view->Page * $view->Limit) - $view->Limit + 1;
-        $counter = 1;
-        $col = 12/$columns;
-        $length = sizeof($view->Items);
-        
-        foreach ($view->Items as $item)
-        {
-            if($counter == 1)
-            {
-                print '<div class="row">';
-            }
-
-            print '<div class="col-sm-'.$col.' col-md-'.$col.'">';
-            print '<div class="panel text-center">';
-                       
-            //$item->
-            
-            //$this->RenderRowMenu($view, $item);
-            //print '<b><a href="'.$view->CtrlName.'/'.METHOD_PARENT.'/'.$item->GetId().'">'.$item->GetTitle().'</a></b>';
-            print '</div>';
-            print '</div>';
-            
-            if($counter == $columns || $id == $length)
-            {
-                print '</div>';
-                $counter = 0;
-            }
-
-            $counter++;
-            $id++;
-        }
-        
-    }
-
-
-
 
     public function RenderTablePagination($view,$with_ctrl = false)
     {
@@ -766,28 +728,33 @@ class View extends Base
 
     // render drzewa z danych drzewiastych
     
-    public function RenderMenu($region,$menu_attr='', $item_attr='', $link_attr='',$sub_menu_attr='')
+    private function RenderMenu($menu)
     {
-        $menus = $this->Model->GetMenus($region);
+        //print_r($menu);
         
-        if($menus)
-        {
-            print '<ul '.$menu_attr.'>';
-            foreach($menus as $menu)
-            {
-                //$this->RenderMenu($menu);
-                $this->Model->GetMenuItems($menu->id_menu,$items);
-                $this->RenderMenuItems($items,$menu_attr, $item_attr, $link_attr, $sub_menu_attr);
-            }
-            print '</ul>';
-        }   
+        $this->Model->GetMenuItems($menu->id_menu,$items);
         
+        //print_r($items);
+        //print '<a id="mobile-menu-button" href="#"><i class="mt-icon-menu"></i></a>';
+        //print '<ul>';
+        $this->RenderMenuItems($items);
+        //print '</ul>';
+       //print_r($menu);
+      
+      
+    
     }
     
-    private function RenderMenuItems($items, $menu_attr, $item_attr, $link_attr, $sub_menu_attr,  $link = '', $level = 0)
+    public function RenderMenuItems($items, $link = '', $level = 0)
     {
+        if($level == 0)
+        {
+            //print '<a id="mobile-menu-button" href="#"><i class="mt-icon-menu"></i></a>';
+            print '<ul class="menu1 clearfix" id="menu">';
+        }else{
+        print '<ul>';
+        }
         
-         
         $level++;
         foreach( $items as $item )
         {
@@ -799,21 +766,20 @@ class View extends Base
             if($item->items == NULL)
             {
                 print '<li>';
-                print '<a href="'.$url.'">'.$item->name.'</a>';
-                $this->RenderMenuItems($item->items, $menu_attr, $item_attr, $link_attr, $link.'/'.$item->name, $level);
-                print '</li>';    
-           
+                print '<a href="'.$url.'">'.$item->name.'</a>';   
+
             }else{
 
-                print '<li '.$item_attr.'>';
-                print '<a '.$link_attr.' href="'.$url.'">'.$item->name.'</a>';
-                print '<ul '.$sub_menu_attr.'>';
-                $this->RenderMenuItems($item->items, $menu_attr, $item_attr, $link_attr, $sub_menu_attr, $link.'/'.$item->name, $level);    
-                print '</ul>';
-                
+                print '<li class="dropdown">';
+                print '<a class="dropdown-toggle" href="'.$url.'">'.$item->name.'</a>';   
             }
             
+            $this->RenderMenuItems($item->items,$link.'/'.$item->name, $level);
+            print '</li>';
+            
         }
+        
+        print '</ul>';
              
     }
     
@@ -822,8 +788,7 @@ class View extends Base
         /*
          *część odpowiedzialna za edycję w miejscu
          **/
-        /*
-	?>
+        ?>
         <script>
             function makeEditable(div)
             {
@@ -850,7 +815,6 @@ class View extends Base
         <?php
         
         print '<div name="'.$region.'" class="block" ondblclick="makeEditable(this)" onmouseover="makeOver(this)" onmouseout="makeOut(this)" 8>';
-	*/
         if($this->Model)
         {
             $blocks = $this->Model->GetBlocks($region);
@@ -859,13 +823,13 @@ class View extends Base
                 foreach($blocks as $block)
                 {
                     print $block->text;
-                }
+                }   
             }
         }
-        //print '</div>';
+        print '</div>';
     }
 
-    private function _RenderRegion($region, $printName = false) // old function not used
+    public function RenderRegion($region, $printName = false)
     {
         if ($printName)
         {
@@ -881,7 +845,8 @@ class View extends Base
             {
                 $this->RenderMenu($menu);        
             }
-        }
+            
+        } 
               
         print $this->RenderBlock($region);
         

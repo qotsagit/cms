@@ -15,25 +15,37 @@
 class Alter
 {
 
-    public $User;
-    public $DB;
 
     public function __construct()
     {
-        $this->DB = Database::getInstance();        
+    
     }
 
     public function AsString()
     {
+	
+	
+	
 
 
     }
+
+    public function Update()
+    {
+	$alter = new alterModel();
+	$items = $alter->All();
+
+	foreach($items as $item)
+	{
+	    $item->Update();
+	}
+    
+    }
 }
 
-<?php
 
 /**
- * statusModel
+ * alterModel
  * 
  * @category   Model
  * @package    CMS
@@ -49,14 +61,14 @@ class alterModel extends Model
     public $version;
     public $sql;
 
-    
-    public function __construct($version , $sql )
+
+    public function __construct($version = 0 , $sql = '' )
     {
         parent::__construct();
-        $this->version = $id;
+        $this->version = $version;
         $this->sql = $sql;
     }
-    
+
     public function GetVersion()
     {
         return $this->version;
@@ -65,6 +77,21 @@ class alterModel extends Model
     public function GetSql()
     {
         return $this->sql;
+    }
+    
+
+    public function Update()
+    {
+
+	if($this->version > 0)
+	{
+	    print $this->sql;
+	    print "\n";
+	    $this->DB = Database::getInstance();
+	    $this->DB->Exception = false;
+	    $this->DB->Query($this->sql,NULL);
+	    print "\n";
+	}
     }
 
     public function All()
@@ -76,14 +103,8 @@ class alterModel extends Model
             new alterModel(2,"ALTER TABLE `image` ADD `width` INT NOT NULL AFTER `size`"),
             new alterModel(2,"ALTER TABLE `image` ADD `height` INT NOT NULL AFTER `width`"),
             new alterModel(2,"ALTER TABLE `page` CHANGE `img` `img` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL"),
-            new alterModel(2,"ALTER TABLE `newsletter` ADD `active` TINYINT NOT NULL AFTER `text`")
+            new alterModel(2,"ALTER TABLE `newsletter` ADD `active` TINYINT NOT NULL AFTER `text`"),
+			new alterModel(2,"ALTER TABLE `menu` CHANGE `position` `position` INT NULL DEFAULT NULL;")
         );
     }
 }
-
-
-
-
-
-
-

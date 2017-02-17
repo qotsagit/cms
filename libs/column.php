@@ -123,11 +123,15 @@ class ColumnAvatar extends Column
     {
         $name = $this->FieldName;
               
-        $avatar = AVATAR_DIR.'/'.$item->$name;      
+        $avatar = AVATAR_DIR.'/'.$item->$name;
+        
+        print '<a href="" data-toggle="modal" data-target="#myModal" >';
         if(file_exists($avatar))
-            print '<img src ='.$avatar.' class="img img-circle" width=50 height=50>';
+            print '<img onclick="loadImage(this)" src ='.$avatar.' class="img img-circle" width=50 height=50>';
         else
-            print '<img src ='.DEFAULT_IMAGE.' class="img img-circle" width=50 height=50>' ;
+            print '<img onclick="loadImage(this)" src ='.DEFAULT_IMAGE.' class="img img-circle" width=50 height=50>' ;
+            
+        print '</a>';   
     }
 
 }

@@ -27,7 +27,7 @@ class pageCtrl extends Ctrl
             
     }
 	
-	 public function ReadSession()
+	public function ReadSession()
     {
         $this->View->_Id = Session::GetId();
         $this->View->_IdParent = Session::GetIdParent();
@@ -36,7 +36,7 @@ class pageCtrl extends Ctrl
         $this->View->OrderColumnId = Session::GetOrderColumnId();
         $this->View->Asc = Session::GetAsc();
     }
-		
+    
 	public function FindPage()
 	{
 		// próba odszukania strony po url

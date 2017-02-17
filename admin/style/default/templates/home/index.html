@@ -1,37 +1,50 @@
 <div class="container">
-<div class="row">
-     <div class="col-md-12"><h1><?php print $this->Msg('_CONTROL_PANEL_','Control Panel')  ?></h1></div>
-     <div class="col-md-12"><h4 id="clock"></h4></div>
-     <?php //print 'space'.$this->GetDiskTotalSpace('/home/qotsa2/domains/old') ?>
-     <?php //print 'free space'.$this->GetDiskFreeSpace('/home/qotsa2/domains/old') ?>
-</div>
-     <hr>
-     <div class="row"> 
-          <?php $this->RenderTile(CTRL_USER,$this->Msg('_USERS_','Users'),'glyphicon glyphicon-user',$this->UserCount); ?>
-          <?php $this->RenderTile(CTRL_CATEGORY,$this->Msg('_CATEGORIES_','Categories'),'glyphicon glyphicon-tags',$this->CategoryCount); ?>
-          <?php $this->RenderTile(CTRL_LANG,$this->Msg('_LANGUAGES_','Languages'),'glyphicon glyphicon-flag',$this->LangCount); ?>
-          <?php $this->RenderTile(CTRL_ROLE,$this->Msg('_ROLES_','Roles'),'glyphicon glyphicon-knight',$this->RoleCount); ?>
-          <?php $this->RenderTile(CTRL_MSG,$this->Msg('_MSG_','Messages'),'glyphicon glyphicon-pencil',$this->MsgCount); ?>
-          <?php $this->RenderTile(CTRL_BLOCK,$this->Msg('_BLOCKS_','Blocks'),'glyphicon glyphicon-modal-window',$this->BlockCount); ?>
-          <?php $this->RenderTile(CTRL_MENU,$this->Msg('_MENU_','Menu'),'glyphicon glyphicon-menu-hamburger',$this->MenuCount); ?>
-          
-          <?php $this->RenderTile(CTRL_TEMPLATE,$this->Msg('_TEMPLATES_','Templates'),'glyphicon glyphicon-eye-open',$this->TemplateCount); ?>
-          <?php $this->RenderTile(CTRL_CALENDAR,$this->Msg('_CALENDAR_','Calendar'),'glyphicon glyphicon-calendar',$this->CalendarCount); ?>
-     </div>
-     <hr>
-     <div class="row">
-     <?php $this->RenderTile(CTRL_PAGE,$this->Msg('_PAGES_','Pages'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
-     <?php $this->RenderTile(CTRL_NEWS,$this->Msg('_NEWS_','News'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
-     <?php $this->RenderTile(CTRL_GALLERY,$this->Msg('_GALLERY_','Gallery'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
-     <?php $this->RenderTile(CTRL_PRODUCT,$this->Msg('_PRODUCT_','Product'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
-     </div>
-     <hr>
-     <div class="row">
+<h4 class="text-right" id="clock">maxkod</h4>
+     <ul class="nav nav-tabs">
+          <li class="active" role="presentation"><a data-toggle="pill" href="#page1"><?php print $this->Msg('_Menu_','Menu') ?></a></li>
+          <li role="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_INFO_','Info') ?></a></li>
+     </ul>
+
+     <div class="tab-content">
+          <div id="page1" class="tab-pane fade in active">
+          <div class="row">
+               
+               
+               <?php //print 'space'.$this->GetDiskTotalSpace('/home/qotsa2/domains/old') ?>
+               <?php //print 'free space'.$this->GetDiskFreeSpace('/home/qotsa2/domains/old') ?>
+               </div>
+          <hr>
+          <div class="row"> 
+               <?php $this->RenderTile(CTRL_USER,$this->Msg('_USERS_','Users'),'glyphicon glyphicon-user',$this->UserCount); ?>
+               <?php $this->RenderTile(CTRL_CATEGORY,$this->Msg('_CATEGORIES_','Categories'),'glyphicon glyphicon-tags',$this->CategoryCount); ?>
+               <?php $this->RenderTile(CTRL_LANG,$this->Msg('_LANGUAGES_','Languages'),'glyphicon glyphicon-flag',$this->LangCount); ?>
+               <?php $this->RenderTile(CTRL_ROLE,$this->Msg('_ROLES_','Roles'),'glyphicon glyphicon-knight',$this->RoleCount); ?>
+               <?php $this->RenderTile(CTRL_MSG,$this->Msg('_MSG_','Messages'),'glyphicon glyphicon-pencil',$this->MsgCount); ?>
+               <?php $this->RenderTile(CTRL_BLOCK,$this->Msg('_BLOCKS_','Blocks'),'glyphicon glyphicon-modal-window',$this->BlockCount); ?>
+               <?php $this->RenderTile(CTRL_MENU,$this->Msg('_MENU_','Menu'),'glyphicon glyphicon-menu-hamburger',$this->MenuCount); ?>
+               <?php $this->RenderTile(CTRL_TEMPLATE,$this->Msg('_TEMPLATES_','Templates'),'glyphicon glyphicon-eye-open',$this->TemplateCount); ?>
+               <?php $this->RenderTile(CTRL_CALENDAR,$this->Msg('_CALENDAR_','Calendar'),'glyphicon glyphicon-calendar',$this->CalendarCount); ?>
+          </div>
+          <hr>
+          <div class="row">
+               <?php $this->RenderTile(CTRL_PAGE,$this->Msg('_PAGES_','Pages'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
+               <?php $this->RenderTile(CTRL_NEWS,$this->Msg('_NEWS_','News'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
+               <?php $this->RenderTile(CTRL_GALLERY,$this->Msg('_GALLERY_','Gallery'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
+               <?php $this->RenderTile(CTRL_PRODUCT,$this->Msg('_PRODUCT_','Product'),'glyphicon glyphicon-duplicate',$this->PageCount); ?>
+          </div>
+          <hr>
+          <div class="row">
           <?php $this->RenderTile(CTRL_SETTINGS,$this->Msg('_SETTINGS_','Settings'),'glyphicon glyphicon-cog',0); ?>
           <?php $this->RenderTile(CTRL_LOGOUT,$this->Msg('_LOGOUT_','Logout'),'glyphicon glyphicon-off',0); ?>
-     </div>
-     <hr>
-
+          </div>
+          <hr>
+          </div>
+          <div id="page2" class="tab-pane fade in">page2</div>
+     </div>     
+          
+     
+     
+     
 <script>
 var myVar = setInterval(myTimer, 1000);
 

@@ -8,8 +8,8 @@
                     </div>   
                     <h3><?php print $this->Msg('_COPY_','Copy') ?> ?</h3>
                     <h2><?php print $this->Title->Value; ?></h2>
-                     <?php $this->RenderAsSelect($this->Languages,$this->IdLang->Value,$this->Msg('_LANGUAGES_','Languages'),PAGE_ID_LANG) ?>
-                    <?php $this->RenderTreeAsSelect($this->Pages,$this->IdParent->Value,$this->Msg('_PAGES_','Pages'),IDPARENT) ?>
+                    <?php $this->RenderAsSelect($this->Languages,$this->IdLang->Value,$this->Msg('_LANGUAGES_','Languages'),PAGE_ID_LANG) ?>
+                    <?php $this->RenderTreeAsSelect($this->Pages,$this->IdParent->Value,$this->Msg('_PAGES_','Pages'),PAGE_ID_PARENT) ?>
                     
                 </div>
                 <div class="modal-footer">
@@ -23,7 +23,7 @@
     </div>
 </div>
 <script>
-    $('#page_id_lang').change(function () { changevalue('#page_id_lang','#id_parent'); });
+    $('#page_id_lang').change(function () { changevalue('#page_id_lang','#page_id_parent'); });
      
     function changevalue(e1,e2)
     {

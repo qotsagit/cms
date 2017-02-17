@@ -1,8 +1,8 @@
 <?php
 
-    define('RENDER_DEBUG',false);
-    define('RENDER_NAVBAR',false);
-    define('RENDER_FOOTER',false);
+    define('RENDER_DEBUG',true);
+    define('RENDER_NAVBAR',true);
+    define('RENDER_FOOTER',true);
 
     //Style
     define('STYLE','default');
@@ -43,7 +43,7 @@
     include "libs/settings.php";
     include "libs/column.php";
     include "libs/session.php";
-    require 'libs_other/PHPMailer/PHPMailerAutoload.php';
+    require "libs_other/PHPMailer/PHPMailerAutoload.php";
 
     $start = microtime();
     $app = new Bootstrap();

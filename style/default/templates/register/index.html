@@ -1,54 +1,57 @@
+<div class="row">
+	<div class="col-sm-12">
+		<h1><center><b><?php print $this->Msg('_REGISTER_','Register') ?></b></center></h1>
+	</div>
+</div>
 <br>
 <div class="row">
     <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <fieldset>
-                <div class="headline">
-                 <?php if($this->Saved) { ?> <div class="col-sm-12"><div class="alert alert-success"><?php print $this->Msg('_REGISTER_SUCCESS_','Register Success. Check email for config link') ?></div></div> <?php } ?>
-                <h3><?php print $this->Msg('_REGISTER_','Register') ?></h3>
+        <fieldset>
+            <div class="headline">
+                <?php if($this->Saved) { ?> <div class="col-sm-12"><div class="alert alert-success"><?php print $this->Msg('_REGISTER_SUCCESS_','Register Success. Check email for config link') ?></div></div> <?php } ?>
+                
                 <!--<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem<br class="hidden-xs"></p>-->
                 </div>
                 <form role="form" method="POST">
                 <div class="col-md-6 col-sm-12">
-                    <div class="col-sm-12">
+                    <div class="form-group">
                         <!--<label><?php print $this->Msg('_EMAIL_','Email') ?></label>-->
-                        <input type="email" class="col-xs-12" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print REGISTER_EMAIL ?>" value="<?php print $this->Email->Value ?>">
+                        <input type="email" class="form-control" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print REGISTER_EMAIL ?>" value="<?php print $this->Email->Value ?>">
                         <?php print $this->RenderValidationError($this->Email->ErrorText); ?>
                         </div>
-                    <div class="col-sm-12">
+                    <div class="form-group">
                         <!--<label><?php print $this->Msg('_PASSWORD_','Password') ?></label>-->
-                        <input type="password" class="col-xs-12" placeholder="<?php print $this->Msg('_PASSWORD_','Password') ?>" name="<?php print REGISTER_PASSWORD ?>" value="<?php print $this->Password->Value ?>">
+                        <input type="password" class="form-control" placeholder="<?php print $this->Msg('_PASSWORD_','Password') ?>" name="<?php print REGISTER_PASSWORD ?>" value="<?php print $this->Password->Value ?>">
                         <?php print $this->RenderValidationError($this->Password->ErrorText); ?>
                     </div>
                     <hr>
-                    <div class="col-sm-12">
+                    <div class="form-group">
                         <!--<label><?php print $this->Msg('_FIRST_NAME_','First Name') ?></label>-->
-                        <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_FIRST_NAME_','First Name') ?>" name="<?php print REGISTER_FIRST_NAME ?>" value="<?php print $this->FirstName->Value ?>">
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_FIRST_NAME_','First Name') ?>" name="<?php print REGISTER_FIRST_NAME ?>" value="<?php print $this->FirstName->Value ?>">
                         <?php print $this->RenderValidationError($this->FirstName->ErrorText); ?>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="form-group">
                         <!--<label><?php print $this->Msg('_LAST NAME_','Last Name') ?></label>-->
-                        <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_LAST_NAME_','Last Name') ?>" name="<?php print REGISTER_LAST_NAME ?>" value="<?php print $this->LastName->Value ?>">
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_LAST_NAME_','Last Name') ?>" name="<?php print REGISTER_LAST_NAME ?>" value="<?php print $this->LastName->Value ?>">
                         <?php print $this->RenderValidationError($this->LastName->ErrorText); ?>
                     </div>
                 </div>
                 
                 <div class="col-md-6 col-sm-12">
-                    <div class="col-sm-12">
+                    <div class="form-group">
                         <!--<label><?php print $this->Msg('_CITY_','City') ?></label>-->
-                        <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_PHONE_','Phone') ?>" name="<?php print REGISTER_PHONE ?>" value="<?php print $this->Phone->Value ?>">
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_PHONE_','Phone') ?>" name="<?php print REGISTER_PHONE ?>" value="<?php print $this->Phone->Value ?>">
                         <?php print $this->RenderValidationError($this->Phone->ErrorText); ?>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="form-group">
                         <!--<label><?php print $this->Msg('_CITY_','City') ?></label>-->
-                        <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_CITY_','City') ?>" name="<?php print REGISTER_CITY ?>" value="<?php print $this->City->Value ?>">
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_CITY_','City') ?>" name="<?php print REGISTER_CITY ?>" value="<?php print $this->City->Value ?>">
                         <?php print $this->RenderValidationError($this->City->ErrorText); ?>
                     </div>
                        
-                    <div class="col-sm-12">
+                    <div class="form-group">
                         <!--<label><?php print $this->Msg('_ZIP_CODE_','Zip Code') ?></label>-->
-                        <input type="text" class="col-xs-12" placeholder="<?php print $this->Msg('_ZIP_CODE_','Zip Code') ?>" name="<?php print REGISTER_ZIP_CODE ?>" value="<?php print $this->ZipCode->Value ?>">
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_ZIP_CODE_','Zip Code') ?>" name="<?php print REGISTER_ZIP_CODE ?>" value="<?php print $this->ZipCode->Value ?>">
                         <?php print $this->RenderValidationError($this->ZipCode->ErrorText); ?>
                     </div>
                        
@@ -70,9 +73,6 @@
                 </div>
              </form>
         </fieldset>
-    </div>
-</div>
-      </div>
     </div>
 
 <br>

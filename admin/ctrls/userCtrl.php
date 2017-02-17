@@ -27,6 +27,8 @@ include 'views/userView.php';
 class userCtrl extends Ctrl
 {
 
+    private $md5 = false;
+    
     public function __construct()
     {
         parent::__construct();
@@ -103,10 +105,13 @@ class userCtrl extends Ctrl
         $this->View->OldPassword->Value = filter_input(INPUT_POST, USER_OLD_PASSWORD);
         $this->View->Password->Value = filter_input(INPUT_POST, USER_PASSWORD);
         $this->View->Active->Value = filter_input(INPUT_POST, USER_STATUS);
-        $this->View->Avatar->Value = DEFAULT_AVATAR;
+        //$this->View->Avatar->Value = DEFAULT_AVATAR;
 
-        $this->ReadPassword();
-
+        if ($this->View->IdUser->Value > 0)
+            $this->ReadPasswordUpdate();
+        else
+            $this->ReadPasswordInsert();
+        
         $filename = $this->Upload();
         if(empty($filename))
         {
@@ -124,20 +129,26 @@ class userCtrl extends Ctrl
         
     }
 
-    public function ReadPassword()
+    public function ReadPasswordUpdate()
     {
-         if (!empty($this->View->Password->Value))
+        if (!empty($this->View->Password->Value))
         {
             if ($this->View->OldPassword->Value == $this->View->Password->Value)
             {
                 // nie zmienione
                 $this->View->Password->Value = $this->View->OldPassword->Value;
-            }
-            else
-            {
-                $this->View->Password->Value = md5($this->View->Password->Value);
+            
+            }else{
+                $this->md5 = true;
+                $this->View->Password->Value = $this->View->Password->Value;
             }
         }
+       
+    }
+    
+    public function ReadPasswordInsert()
+    {
+       $this->View->Password->Value = $this->View->Password->Value;
     }
  
     public function Upload()
@@ -208,16 +219,22 @@ class userCtrl extends Ctrl
         $this->Model->email = $this->View->Email->Value;
         $this->Model->first_name = $this->View->FirstName->Value;
         $this->Model->last_name = $this->View->LastName->Value;
-        $this->Model->password = $this->View->Password->Value;
+        
         $this->Model->active = $this->View->Active->Value;
         $this->Model->avatar = $this->View->Avatar->Value;
 
         if ($this->View->IdUser->Value > 0)
         {
+            if($this->md5)
+                $this->Model->password = md5($this->View->Password->Value);
+            else
+                $this->Model->password = $this->View->Password->Value;
+            
             $this->Model->Update();
         }
         else
         {
+            $this->Model->password = md5($this->View->Password->Value);
             $this->Model->Insert();
         }
     }

@@ -63,7 +63,8 @@
                     
                     <div class="form-group">
                         <label class="control-label"><?php print $this->msg('_PAGEURL_','URL') ?></label>
-                        <input disabled type="text" class="form-control" placeholder="<?php print $this->msg('_PAGEURL_ADDRESS_','URL Address') ?>" name="<?php print PAGE_URL_ADDRESS ?>" value="<?php print $this->UrlAddress->Value ?>">
+                        <?php if($this->IdPage->Value == 0) { $disabled = 'disabled'; } else { $disabled = '';} ?>
+                        <input <?php print $disabled ?> type="text" class="form-control" placeholder="<?php print $this->msg('_PAGEURL_ADDRESS_','URL Address') ?>" name="<?php print PAGE_URL_ADDRESS ?>" value="<?php print $this->UrlAddress->Value ?>">
                         <?php print $this->RenderValidationError($this->UrlAddress->ErrorText); ?>
                     </div>
                 </div>

@@ -33,12 +33,12 @@
             ?>
             <!-- Default panel contents -->
             <form method="POST">
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="content">
               <div class="panel-body">
                 <div class="col-md-2"><?php  //$this->RenderTableActions(); ?></div>
                 <div class="col-md-10 text-right"><?php  $this->RenderTablePagination($this,true); ?></div>
               </div>
-              <table class="table table-striped table-hover table-responsive">
+              <table class="table table-striped table-hover table-responsive" id="example">
                 <?php 
                    $this->RenderTableHeader($this);
                    $this->RenderTableBody($this);
@@ -67,7 +67,18 @@
     </div>
 </div>
 
+<!-- DATA TABLE
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"></style>
+-->
 <script>
+
+/* DATA TABLE
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+*/
+  
   
   function loadImage(image)
   {

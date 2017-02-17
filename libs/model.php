@@ -63,8 +63,8 @@ class Model extends Base
     
     public function FindPage($url)
     {
-        $params = array(':id_lang' => Session::GetLang(),':url_address' => $url,':active' => STATUS_ACTIVE);
-        return $this->DB->Row('SELECT * FROM page WHERE id_lang=:id_lang AND url_address=:url_address AND active=:active',$params);
+        $params = array(':url_address' => $url,':active' => STATUS_ACTIVE);
+        return $this->DB->Row('SELECT * FROM page WHERE url_address=:url_address AND active=:active',$params);
     }
 
     public function GetContentPortfolio()
@@ -144,7 +144,7 @@ class Model extends Base
     
         // nie wyświetlamy menuitem aktualnie wybranego do edycji
         $params = array(':id_parent' => $id_menu, ':id_lang' => Session::GetLang(),':active' => STATUS_ACTIVE);    
-        $items = $this->DB->Query('SELECT menu.url as murl,name,id_menu,url_address FROM menu LEFT JOIN page ON menu.id_page=page.id_page WHERE menu.id_parent=:id_parent AND menu.id_lang=:id_lang AND menu.active=:active ORDER BY name', $params, PDO::FETCH_CLASS );
+        $items = $this->DB->Query('SELECT menu.url as murl,name,id_menu,url_address FROM menu LEFT JOIN page ON menu.id_page=page.id_page WHERE menu.id_parent=:id_parent AND menu.id_lang=:id_lang AND menu.active=:active ORDER BY menu.position', $params, PDO::FETCH_CLASS );
        
         foreach($items as $item)
         {

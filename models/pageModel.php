@@ -196,6 +196,13 @@ class pageModel extends Model
         $sql = "SELECT * FROM image,image_to_page WHERE image_to_page.id_page=:id_page AND image.id_image=image_to_page.id_image ORDER BY image.position";
         return $this->DB->Query($sql, $params, PDO::FETCH_CLASS);
 	}
+    
+    public function GetImagesFromPage($id_page)
+	{
+        $params = array(':id_page' => $id_page);
+        $sql = "SELECT * FROM image,image_to_page WHERE image_to_page.id_page=:id_page AND image.id_image=image_to_page.id_image ORDER BY image.position";
+        return $this->DB->Query($sql, $params, PDO::FETCH_CLASS);
+	}
 	
     public function Lists()
     {

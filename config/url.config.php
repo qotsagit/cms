@@ -1,7 +1,8 @@
 <?php
-define('SITE_URL','http://cms.zygadlo.org');
+define('SITE_URL','http://'.$_SERVER['HTTP_HOST']);
 //define('BASE_FOLDER',"");
-define('IMAGES_URL','http://cms.zygadlo.org/filemanager/files/images/');
+define('IMAGES_URL',SITE_URL.'/filemanager/files/images/');
+define('FILES_URL',SITE_URL.'/filemanager/files/files/');
 
 //BUY
 define('BUY_RETURN_URL',SITE_URL.'/page/buy/true'); // print TRUE

@@ -381,5 +381,22 @@ class Base
             return false;
     }
     
+    // przydatne do newsletera wymienia znaczniki img w tekscie na img z pełnym url
+    function replace_img_src($img_tag)
+    {
+        $doc = new DOMDocument();
+        $doc->loadHTML($img_tag);
+        $tags = $doc->getElementsByTagName('img');
+        
+        foreach ($tags as $tag)
+        {
+            $old_src = $tag->getAttribute('src');
+            $new = str_replace(SITE_URL,'',$old_src);
+            $new_src_url = SITE_URL.$new;
+            $tag->setAttribute('src', $new_src_url);
+        }
+        
+        return $doc->saveHTML();
+    }
     
 }

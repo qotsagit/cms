@@ -31,7 +31,7 @@
 		{
 			$('[data-toggle="popover"]').popover()
 		});
-        </script>
+    </script>
 	
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,98 +54,29 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-				<a class="navbar-brand"href="/admin/home"><img src="/admin/style/simplex/img/logo-admin.png"><?php //print $this->Msg('_SITE_TITLE_','CMS') ?></a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-						<li><a > <?php print SITE_URL ?> </a></li>
-                        <li><a href="<?php print CTRL_HOME ?>"><span class="glyphicon glyphicon-home"></span></a></li>
-						<li><a target="_blank" href="/phpmyadmin" role="button"><?php print $this->Msg('_DB_ADMIN_','DBA') ?></a></li>
-                        <li><a target="_blank" href="/" role="button"><?php print $this->Msg('_PREVIEW_','Preview') ?></a></li>
-
-					<?php if (Session::GetValidUser())
-                        { ?>
-
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php print $this->Msg('_CRM_','CRM') ?><span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="<?php print CTRL_CUSTOMER ?>"><?php print $this->Msg('_CUSTOMERS_','Customers') ?></a></li>
-							<li><a href="<?php print CTRL_CONTACT ?>"><?php print $this->Msg('_CONTACTS_','Contacts') ?></a></li>
-							<li><a href="<?php print CTRL_OFFER ?>"><?php print $this->Msg('_OFFERS_','Offers') ?></a></li>
-							<li><a href="<?php print CTRL_ORDER ?>"><?php print $this->Msg('_ORDERS_','Orders') ?></a></li>
-							<li><a href="<?php print CTRL_NEWSLETTER ?>"><?php print $this->Msg('_NEWSLETTERS_','Newsletters') ?></a></li>
-                            <li><a href="<?php print CTRL_TASK ?>"><?php print $this->Msg('_TASKS_','Tasks') ?></a></li>
-							<li><a href="<?php print CTRL_CALENDAR ?>"><?php print $this->Msg('_CALENDAR_','Calendar') ?></a></li>
-							
-                            <li><a href="<?php print CTRL_BLOCK ?>"><?php print $this->Msg('_BLOCKS_','Blocks') ?></a></li>
-							<li><a href="<?php print CTRL_MENU ?>"><?php print $this->Msg('_MENUS_','Menus') ?></a></li>
-							<li><a href="<?php print CTRL_CONTENT ?>"><?php print $this->Msg('_CONTENT_','Content') ?></a></li>
-                            
-						</ul>
-					</li>
-
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php print $this->Msg('_CMS_','CMS') ?><span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="<?php print CTRL_USER ?>"><?php print $this->Msg('_USERS_','Users') ?></a></li>
-							<li><a href="<?php print CTRL_CATEGORY ?>"><?php print $this->Msg('_CATEGORIES_','Categories') ?></a></li>
-							<li><a href="<?php print CTRL_LANG ?>"><?php print $this->Msg('_LANGUAGES_','Languages') ?></a></li>
-							<li><a href="<?php print CTRL_ROLE ?>"><?php print $this->Msg('_ROLES_','Roles') ?></a></li>
-							<li><a href="<?php print CTRL_MSG ?>"><?php print $this->Msg('_MSG_','Messages') ?></a></li>
-							<li><a href="<?php print CTRL_IMAGE ?>"><?php print $this->Msg('_IMAGES_','Images') ?></a></li>
-							<li><a href="<?php print CTRL_BLOCK ?>"><?php print $this->Msg('_BLOCKS_','Blocks') ?></a></li>
-							<li><a href="<?php print CTRL_MENU ?>"><?php print $this->Msg('_MENUS_','Menus') ?></a></li>
-							<li class="divider"></li>
-                            <li><a href="<?php print CTRL_PAGE ?>"><?php print $this->Msg('_PAGES_','Pages') ?></a></li>
-                            <li><a href="<?php print CTRL_GALLERY ?>"><?php print $this->Msg('_GALLERY_','Gallery') ?></a></li>
-                            <li><a href="<?php print CTRL_TEMPLATE ?>"><?php print $this->Msg('_TEMPLATES_','Templates') ?></a></li>
-							<li class="divider"></li>
-							<li><a href="<?php print CTRL_SETTINGS ?>"><?php print $this->Msg('_SETTINGS_','Settings') ?></a></li>
-							
-							
-							<li><a href="<?php print CTRL_CONTENT ?>"><?php print $this->Msg('_CONTENT_','Content') ?></a></li>
-						</ul>
-					</li>
-                    
-					<li class="dropdown">
+				<?php $this->RenderMenu('menu',' class="nav navbar-nav navbar-right1"','class="dropdown"','class="dropdown-toggle" data-toggle="dropdown" role="button"','class="dropdown-menu"'); ?>
+				
+				<!--    
+					<ul class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php print $this->Msg('_MAIL_','Mail') ?><span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="<?php print CTRL_PAGE  ?>">Inbox <span class="label label-danger">4</span></a></li>
 							<li><a href="<?php print CTRL_SETTINGS ?>"><?php print $this->Msg('_SETTINGS_','Settings') ?></a></li>
 						</ul>
-					</li>
-					
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-user"></span> <?php print Session::GetUser()->first_name.' '.Session::GetUser()->last_name ?><span class="caret"></span> </a>
-						<ul class="dropdown-menu">
-							<li><a href="<?php print CTRL_HOME ?>"><?php print $this->Msg('_HOME_','Home') ?></a></li>
-							<li><a href="<?php print CTRL_PAGE ?>"><?php print $this->Msg('_PAGE_','Page') ?></a></li>
-							<li><a href="<?php print CTRL_PROFILE ?>"><?php print $this->Msg('_PROFILE_','Profile') ?></a></li>
-							<li><a href="<?php print CTRL_PASSWORD ?>"><?php print $this->Msg('_CHANGE_PASSWORD_','Change Password') ?></a></li>
-							<li><a href="<?php print CTRL_PAYMENT ?>"><?php print $this->Msg('_PAYMENT_','Payment') ?></a></li>
-							<li class="divider"></li>
-							<li><a href="<?php print CTRL_LOGOUT ?>"><?php print $this->Msg('_LOGOUT_','Logout') ?></a></li>
-						</ul>
-					</li>
+					</ul>
+					-->
 					
 
-					<?php }
-                        else
-                        { ?>
-
-					<li><a href="<?php print CTRL_REGISTER ?>"><span class="glyphicon glyphicon-user"></span> <?php print $this->Msg('_REGISTER_','Register') ?></a></li>
-					<li><a href="<?php print CTRL_LOGIN ?>"><span class="glyphicon glyphicon-log-in"></span>  <?php print $this->Msg('_LOGIN_','Login') ?></a></li>
-					<li><a href="#" onclick='showPage("<?php print CTRL_REGISTER ?>")'><span class="glyphicon glyphicon-user"></span> <?php print $this->Msg('_REGISTER_','Register') ?></a></li>
-					<li><a href="#" onclick='showPage("<?php print CTRL_LOGIN ?>")'><span class="glyphicon glyphicon-log-in"></span>  <?php print $this->Msg('_LOGIN_','Login') ?></a></li>
-                    
-					<?php } ?>
+					
 					
 				<form class="navbar-form navbar-right" method="POST">
 					<div class="form-group">
 						<?php $this->RenderLanguages(); ?>
 					</div>
 				</form>
-                </ul>
+                
 			</div>
 		</div>
 	</nav>

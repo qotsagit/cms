@@ -97,7 +97,7 @@ class newsletterCtrl extends Ctrl
         $this->Model->id_newsletter = $this->View->IdNewsletter->Value;
         $this->Model->start_date =  $this->View->StartDate->Value;
         $this->Model->title = $this->View->Title->Value;
-        $this->Model->text = $this->View->Text->Value;
+        $this->Model->text = $this->replace_img_src($this->View->Text->Value);
         $this->Model->active = $this->View->Active->Value;
         
         if ($this->View->IdNewsletter->Value > 0)
@@ -109,7 +109,7 @@ class newsletterCtrl extends Ctrl
             $this->Model->Insert();
         }
     }
-   
+      
     public function FormAdd()
     {
         Settings::$CKEditorUse = true;

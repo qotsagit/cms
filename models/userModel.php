@@ -78,7 +78,7 @@ class userModel extends Model
     public function Get($id)
     {
         $params = array(':id' => $id);
-        $sql = "SELECT * FROM customer WHERE id_user=:id";
+        $sql = "SELECT * FROM user WHERE id_user=:id";
         return $this->DB->Query($sql, $params, PDO::FETCH_CLASS);
     }
     
@@ -89,7 +89,7 @@ class userModel extends Model
     
     public function Count()
     {
-        $sql = 'SELECT * FROM customer WHERE built_in=0';
+        $sql = 'SELECT * FROM user WHERE built_in=0';
         return $this->DB->Count($sql, NULL);
     }
 

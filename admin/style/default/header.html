@@ -9,10 +9,10 @@
 	<meta HTTP-EQUIV="Pragma" content="no-cache">
 	<meta HTTP-EQUIV="Expires" content="-1">
 	<base href="<?php print BASE_HREF ?>">
-	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/bootstrap.min.css">
     <!--<link rel="stylesheet" type="text/css" href="style/simplex/css/bootstrap-switch.css">-->
 	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/bootstrap-datetimepicker.min.css">
-	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/custom.css">
+	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/custom.min.css">
 	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/treeview.css">
 	
 	
@@ -99,7 +99,8 @@ if(Settings::$JqueryFileUploader) {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-				<a class="navbar-brand"href="/admin/home"><img src="/admin/style/<?php print STYLE ?>/img/logo-admin.png"><?php //print $this->Msg('_SITE_TITLE_','CMS') ?></a>
+				<a class="navbar-brand"href="/admin/home"><!-- <img src="/admin/style/<?php print STYLE ?>/img/logo-admin.png">-->
+				<?php print $this->Msg('_SITE_TITLE_','CMS') ?></a>
 				
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
@@ -122,6 +123,7 @@ if(Settings::$JqueryFileUploader) {
 							<li><a href="<?php print CTRL_ORDER ?>"><?php print $this->Msg('_ORDERS_','Orders') ?></a></li>
 							<li><a href="<?php print CTRL_NEWSLETTER ?>"><?php print $this->Msg('_NEWSLETTERS_','Newsletters') ?></a></li>
                             <li><a href="<?php print CTRL_TASK ?>"><?php print $this->Msg('_TASKS_','Tasks') ?></a></li>
+							<li><a href="<?php print CTRL_CALENDAR ?>"><?php print $this->Msg('_CALENDAR_','Calendar') ?></a></li>
 							<li><a href="<?php print CTRL_CALENDAR ?>"><?php print $this->Msg('_CALENDAR_','Calendar') ?></a></li>
 							<!--
                             <li><a href="<?php print CTRL_BLOCK ?>"><?php print $this->Msg('_BLOCKS_','Blocks') ?></a></li>
