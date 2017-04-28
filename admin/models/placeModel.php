@@ -51,7 +51,7 @@ class blockModel extends Model
             ':id_user' => $this->id_user,
             ':id_region' => $this->id_region,
             ':title' => $this->title,
-            ':text' => $this->text,
+            ':text' => $this->FilterTextFromEditor($this->text),
             ':active' => $this->active
         );
 
@@ -60,7 +60,7 @@ class blockModel extends Model
 
     public function Update()
     {
-        // password md5 w kontrolerze
+    
         $params = array
         (
             ':id_user' => $this->id_user,
@@ -68,7 +68,7 @@ class blockModel extends Model
             ':id_block' => $this->id_block,
             ':id_region' => $this->id_region,
             ':title' => $this->title,
-            ':text' => $this->text,
+            ':text' => $this->FilterTextFromEditor($this->text),
             ':active' => $this->active
         );
 

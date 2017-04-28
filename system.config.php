@@ -75,6 +75,8 @@ define('CTRL_BUY','buy');
 define('CTRL_CALENDAR','calendar');
 define('CTRL_IMAGE','image');
 define('CTRL_NEWSLETTER','newsletter');
+define('CTRL_BACKUP','backup');
+define('CTRL_UPDATE','update');
 
 //method
 define('METHOD_LIST','list');
@@ -86,7 +88,7 @@ define('METHOD_ADD_GALLERY','add_gallery');
 define('METHOD_SAVE','save');
 define('METHOD_EDIT','edit');
 define('METHOD_DELETE','delete');
-define('METHOD_DELETE_CONFIRM','delete_confirm');
+define('METHOD_DELETE_CONFIRM','deleteconfirm');
 define('METHOD_OPTIONS','options');
 define('METHOD_SEARCH','search');
 define('METHOD_JSON','json');
@@ -94,19 +96,20 @@ define('METHOD_UPLOAD','upload');
 define('METHOD_PREVIEW','preview');
 define('METHOD_VIEW','view');   //podgląd formularza przed wysłaniem w formularzu wyceny kół
 define('METHOD_COPY','copy');
-define('METHOD_COPY_CONFIRM','copy_confirm');
+define('METHOD_COPY_CONFIRM','copyconfirm');
+define('METHOD_CONTENT','content');
 // w buy
 define('METHOD_TRUE','true');
 define('METHOD_OK','ok');
 define('METHOD_ERROR','error');
 
 
-define('METHOD_LIMIT','limit');
-define('METHOD_PAGE','page');
-define('METHOD_ASC','asc');
-define('METHOD_ORDER','order');
+define('METHOD_LIMIT','setlimit');
+define('METHOD_PAGE','setpage');
+define('METHOD_ASC','setasc');
+define('METHOD_ORDER','setorder');
 define('METHOD_PARENT','parent');
-define('METHOD_LANG','lang');
+define('METHOD_LANG','setlang');
 
 
 //FORM login fields
@@ -158,6 +161,7 @@ define('USER_ACTIVE','active');
 define('USER_PASSWORD','password');
 define('USER_STATUS','status');
 define('USER_OLD_PASSWORD','old_password');
+define('USER_OLD_AVATAR','old_avatar');
 
 define('STATUS_NOT_ACTIVE',0);
 define('STATUS_ACTIVE',1);
@@ -192,6 +196,7 @@ define('CATEGORY_NAME','name');
 define('ROLE_NAME','name');
 
 //FORM lang
+define('LANG_ID','lang_id');
 define('LANG_NAME','name');
 define('LANG_CODE','code');
 define('LANG_STATUS','status');
@@ -294,7 +299,7 @@ define('IDNEWSLETTER','id_newsletter');
 define('NEWSLETTER_TITLE','title');
 define('NEWSLETTER_TEXT','text'); // do ckeditora text musi się nazywać
 define('NEWSLETTER_START_DATE','start_date');
-DEFINE('NEWSLETTER_STATUS','STATUS');
+define('NEWSLETTER_STATUS','status');
 
 define('_DEFAULT_LANG_ID_',1); //defaultowy język systemu 1 = english z bazy
 
@@ -315,3 +320,11 @@ define('LANG_PL',2);
 define('VALIDATION_NONE','0');
 define('VALIDATION_TRUE','1');
 define('VALIDATION_FALSE','2');
+
+// definicja rozmiaru obrazka wiodącego
+define('ICON_IMAGE_WIDTH',720);
+define('ICON_IMAGE_HEIGHT',540);
+
+//definicja rozmiaru avatara
+define('AVATAR_WIDTH',150);
+define('AVATAR_HEIGHT',150);

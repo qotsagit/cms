@@ -1,6 +1,6 @@
 <?php
 
-    define('DEBUG',false);
+    define('DEBUG',true);
     //Admin Style
     define('STYLE','default');
     define('BASE_HREF','/admin/');
@@ -40,8 +40,8 @@
     include "../libs/settings.php";
     include "../libs/column.php";
     include "../libs/session.php";
+    include "../libs/image.php";
     include "../libs_other/PHPMailer/PHPMailerAutoload.php";
-    include "../libs_other/php_image_magician.php";
 
     $start = microtime();
     $app = new Bootstrap();

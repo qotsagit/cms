@@ -1,0 +1,28 @@
+<div id="page-header">
+	<div class="row">
+		<div class="container">
+
+		
+		 <ul class="nav nav-tabs">
+          <li class="active" role="presentation"><a data-toggle="pill" href="#page1"><?php print  $this->Msg('_BACKUP_','Backup')  ?></a></li>
+          <li role="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_INFO_','Info') ?></a></li>
+		</ul>
+
+     <div class="tab-content">
+          <div id="page1" class="tab-pane fade in active">
+		
+		<div class="row"> 
+			<?php $this->RenderTile(CTRL_USER,$this->Msg('_DATABASE_','Database'),'glyphicon glyphicon-user',0); ?>
+			<div class="alert alert-info">Full Database Backup </div>
+		</div>
+		<div class="row"> 
+			<?php $this->RenderTile(CTRL_CATEGORY,$this->Msg('_SYSTEM_','System'),'glyphicon glyphicon-tags',0); ?>
+			Database and all files backup
+		 </div>
+	</div>
+	 </div>
+	 </div>
+</div>
+
+
+

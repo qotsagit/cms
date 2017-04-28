@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
 	<title>
 	<?php print $this->Msg('_SITE_TITLE_','CMS') ?>
 	</title>
+	<meta charset="utf-8">
 	<meta HTTP-EQUIV="Pragma" content="no-cache">
 	<meta HTTP-EQUIV="Expires" content="-1">
 	<base href="<?php print BASE_HREF ?>">
@@ -14,8 +14,6 @@
 	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/bootstrap-datetimepicker.min.css">
 	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/custom.min.css">
 	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/treeview.css">
-	
-	
 	<?php
 
       //  if(Settings::$CKEditorUse) { ?>
@@ -80,7 +78,7 @@ if(Settings::$JqueryFileUploader) {
     ?>
     
 	
-    <meta charset="utf-8">
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
@@ -88,7 +86,13 @@ if(Settings::$JqueryFileUploader) {
 </head>
 
 <body>
-	<?php $this->RenderMaintenance() ?>
+	<?php
+	$this->RenderMaintenance(); 
+	if(SMTP_NOT_CONFIGURED)
+	{
+		$this->RenderError($this->Msg('_SMTP_NOT_CONFIGURED_','Smtp not configured'));
+	}
+	?>
 	<!-- <div class="alert alert-danger"><?php print $this->GetDiskFreeSpace(); ?></div> -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -124,8 +128,8 @@ if(Settings::$JqueryFileUploader) {
 							<li><a href="<?php print CTRL_NEWSLETTER ?>"><?php print $this->Msg('_NEWSLETTERS_','Newsletters') ?></a></li>
                             <li><a href="<?php print CTRL_TASK ?>"><?php print $this->Msg('_TASKS_','Tasks') ?></a></li>
 							<li><a href="<?php print CTRL_CALENDAR ?>"><?php print $this->Msg('_CALENDAR_','Calendar') ?></a></li>
-							<li><a href="<?php print CTRL_CALENDAR ?>"><?php print $this->Msg('_CALENDAR_','Calendar') ?></a></li>
 							<!--
+							<li><a href="<?php print CTRL_CALENDAR ?>"><?php print $this->Msg('_CALENDAR_','Calendar') ?></a></li>
                             <li><a href="<?php print CTRL_BLOCK ?>"><?php print $this->Msg('_BLOCKS_','Blocks') ?></a></li>
 							<li><a href="<?php print CTRL_MENU ?>"><?php print $this->Msg('_MENUS_','Menus') ?></a></li>
 							<li><a href="<?php print CTRL_CONTENT ?>"><?php print $this->Msg('_CONTENT_','Content') ?></a></li>
@@ -144,11 +148,14 @@ if(Settings::$JqueryFileUploader) {
 							<li><a href="<?php print CTRL_IMAGE ?>"><?php print $this->Msg('_IMAGES_','Images') ?></a></li>
 							<li><a href="<?php print CTRL_BLOCK ?>"><?php print $this->Msg('_BLOCKS_','Blocks') ?></a></li>
 							<li><a href="<?php print CTRL_MENU ?>"><?php print $this->Msg('_MENUS_','Menus') ?></a></li>
+							<li><a href="<?php print CTRL_PLACE ?>"><?php print $this->Msg('_PLACES_','Places') ?></a></li>
 							<li class="divider"></li>
                             <li><a href="<?php print CTRL_PAGE ?>"><?php print $this->Msg('_PAGES_','Pages') ?></a></li>
+							<!--
                             <li><a href="<?php print CTRL_NEWS ?>"><?php print $this->Msg('_NEWS_','News') ?></a></li>
 							<li><a href="<?php print CTRL_GALLERY ?>"><?php print $this->Msg('_GALLERY_','Gallery') ?></a></li>
 							<li><a href="<?php print CTRL_PRODUCT ?>"><?php print $this->Msg('_PRODUCT_','Product') ?></a></li>
+							-->
 							<li class="divider"></li>
                             <li><a href="<?php print CTRL_TEMPLATE ?>"><?php print $this->Msg('_TEMPLATES_','Templates') ?></a></li>
 							<li class="divider"></li>

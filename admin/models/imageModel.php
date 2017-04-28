@@ -232,7 +232,20 @@ class imageModel extends Model
                 ':id_page' => $IdPage
                 );   
             
+                $sql = "SELECT id_image FROM image WHERE img=:img AND id_page=:id_page";
+            
+                $item = $this->DB->Row($sql, $params);
+            
+                $id_image = $item->id_image;
+                
+                $params2 = array(
+                ':id_image' => $id_image,
+                ':id_page' => $IdPage
+                );   
+                
                 $this->DB->NonQuery('DELETE FROM image WHERE img=:img AND id_page=:id_page', $params);
+                
+                $this->DB->NonQuery('DELETE FROM image_to_page WHERE id_image=:id_image AND id_page=:id_page', $params2);
                     
                 //@unlink(Settings::$ImagesFolder.$ImageToDelete);
                     
@@ -268,6 +281,13 @@ class imageModel extends Model
                 );   
             
                 $this->DB->NonQuery('DELETE FROM image WHERE img=:img AND id_page=:id_page', $params);
+                
+                $params2 = array(
+                ':id_image' => $ImageToDelete['id_image'],
+                ':id_page' => $IdPage
+                );   
+                
+                $this->DB->NonQuery('DELETE FROM image_to_page WHERE id_image=:id_image AND id_page=:id_page', $params2);
                     
                 //@unlink(Settings::$ImagesFolder.$ImageToDelete);
                     

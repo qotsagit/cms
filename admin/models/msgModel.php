@@ -36,10 +36,10 @@ class msgModel extends Model
         return;
     }
 
-    public function Delete($id_user)
+    public function Delete()
     {
-        $params = array(':id_user'=> $id_user);
-        $this->DB->NonQuery('DELETE FROM msg WHERE id_user=:id_user', $params);
+        $params = array(':id_msg'=> $this->id);
+        $this->DB->NonQuery('DELETE FROM msg WHERE id_msg=:id_msg', $params);
         return;
     }
     

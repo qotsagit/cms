@@ -26,8 +26,8 @@
                     <ul class="nav nav-tabs">
                         <li class="active" role="presentation"><a data-toggle="pill" href="#page1"><?php print $this->Msg('_ALL_','All') ?></a></li>
                         <li role="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_OPTIONS_','Options') ?></a></li>
-                        <li role="presentation"><a data-toggle="pill" href="#page3"><?php print $this->Msg('_PORTFOLIO_','Portfolio') ?></a></li>
-                        <li role="presentation"><a data-toggle="pill" href="#page4"><?php print $this->Msg('_PRICE_','Price') ?></a></li>
+                        <!--li role="presentation"><a data-toggle="pill" href="#page3"><?php print $this->Msg('_PORTFOLIO_','Portfolio') ?></a></li>
+                        <li role="presentation"><a data-toggle="pill" href="#page4"><?php print $this->Msg('_PRICE_','Price') ?></a></li-->
                         <li role="presentation"><a data-toggle="pill" href="#page5"><?php print $this->Msg('_META_','Meta') ?></a></li>
                         <li role="presentation"><a data-toggle="pill" href="#page6"><?php print $this->Msg('_IMAGE_','Image') ?></a></li>
                         <li role="presentation"><a data-toggle="pill" href="#page7"><?php print $this->Msg('_GALLERY_','Gallery') ?></a></li>
@@ -42,9 +42,13 @@
                         <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
                     </div>
                     <?php $this->RenderAsSelect($this->Categories,$this->IdCategory->Value ,$this->msg('_CATEGORY_','Category'),IDCATEGORY) ?>
+                    <?php $this->RenderAsSelect($this->ContentTypes,$this->ContentType->Value ,$this->msg('_CONTENT_TYPE_','Content Type'),PAGE_CONTENT_TYPE) ?>
                     <div class="form-group">
                         <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
-                        <textarea id="editor" class="form-control" name="<?php print PAGE_TEXT ?>" rows="40" ><?php print $this->Text->Value ?></textarea>                            
+                        <textarea id="editor" class="form-control" name="<?php print PAGE_TEXT ?>" rows="40" ><?php print $this->Text->Value ?></textarea> 
+                        <br /><i class="glyphicon glyphicon-info-sign"></i> Wprowadź:<br />
+                        [GALERIA] - aby wyświetliła się galeria <br/>
+                        [PLIKI] aby wyświetliły się załączane pliki
                         <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
                     </div>
                 </div>
@@ -53,7 +57,7 @@
                     <?php $this->RenderTreeAsSelect($this->Pages,$this->IdParent->Value,$this->Msg('_PAGES_','Pages'),IDPARENT) ?>
                     <?php $this->RenderAsSelect($this->Statuses,$this->Active->Value ,$this->msg('_ACTIVE_','Active'),PAGE_STATUS) ?>
                     <?php $this->RenderAsSelect($this->StatusesExtra,$this->StatusExtra->Value ,$this->msg('_STATUS_EXTRA_','Status Extra'),PAGE_STATUS_EXTRA) ?>
-                    <?php //$this->RenderAsSelect($this->ContentTypes,$this->ContentType->Value ,$this->msg('_CONTENT_TYPE_','Content Type'),PAGE_CONTENT_TYPE) ?>
+                    
                     <?php $this->RenderAsSelect($this->Templates,$this->Template->Value ,$this->msg('_TEMPLATE_','Template'),PAGE_TEMPLATE) ?>
                     <div class="form-group">
                         <label class="control-label"><?php print $this->msg('_POSITION_','Position') ?></label>
@@ -99,7 +103,7 @@
                 </div>
                 <div id="page6" class="tab-pane fade">
                     <?php print $this->Image->Value ?>
-                    <?php $this->RenderOneImage($this->Image->Value,200,200) ?>
+                    <?php $this->RenderOneImage($this->Image->Value,$this->Image->Value,200,200) ?>
                 </div>
                 <div id="page7" class="tab-pane fade">
                    <div class="col-md-12">

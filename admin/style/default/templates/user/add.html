@@ -7,6 +7,7 @@
             
             <div class="form-group pull-right">
                 <input type="hidden" name="<?php print USER_OLD_PASSWORD ?>" value="<?php print $this->OldPassword->Value ?>">
+                <input type="hidden" name="<?php print USER_OLD_AVATAR ?>" value="<?php print $this->OldAvatar->Value ?>">
                 <input type="hidden" name="<?php print IDUSER ?>" value="<?php print $this->IdUser->Value ?>">
                 <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
                 <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>

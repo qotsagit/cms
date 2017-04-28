@@ -1,106 +1,113 @@
-<div id="page-header">
-	<div class="row">
-		<div class="col-sm-12">
-			<h1><b><?php print $this->Msg('_CONTACT_','Contact') ?></b></h1>
-		</div>
+<div class="row">
+	<div class="col-md-10">
+		<div id="map-canvas" style="border:1px solid; height:600px; width:100%"></div>
+	</div>
+	<div class="col-md-2">
+		<ul id="items"><!--
+			<li><a href="#" onclick=panTo();>pozycja1</a></li>
+			<li><a href="#">pozycja2</li>
+			<li><a href="#">pozycja3</li>
+	-->
+		</ul>
 	</div>
 </div>
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="headline">				
-				<h3><?php print $this->Msg('_CONTACT_FORM_','Contact Form'); ?></h3>
-			</div><!-- headline -->		
-		</div><!-- col -->
-	</div><!-- row -->
-</div><!-- container -->
+
+<script>
+    
+    var map;
+    var infowindow;
+    
+    var places =
+    [
+        {"lat":51.2641800,"lon":15.5697000,"title":"<h1>Bolesławiec</h1>","text":"Opis bolesławca"},
+        {"lat":51.2641800,"lon":15.6697000,"title":"<h1>Tomaszów</h1>","text":"Opis tomaszowa"},
+        {"lat":51.5641800,"lon":15.6697000,"title":"<h1>aa</h1>","text":"opis czegoś"},
+    ];
+    
+	function panTo()
+	{
+		map.panTo(curmarker.position);	
+	}
+	
+    function initMap()
+    {
+        var mapStyle = [{'featureType': 'administrative', 'elementType': 'labels.text.fill', 'stylers': [{'color': '#444444'}]}, {'featureType': 'landscape', 'elementType': 'all', 'stylers': [{'color': '#f2f2f2'}]}, {'featureType': 'poi', 'elementType': 'all', 'stylers': [{'visibility': 'off'}]}, {'featureType': 'road', 'elementType': 'all', 'stylers': [{'saturation': -100}, {'lightness': 45}]}, {'featureType': 'road.highway', 'elementType': 'all', 'stylers': [{'visibility': 'simplified'}]}, {'featureType': 'road.arterial', 'elementType': 'labels.icon', 'stylers': [{'visibility': 'off'}]}, {'featureType': 'transit', 'elementType': 'all', 'stylers': [{'visibility': 'off'}]}, {'featureType': 'water', 'elementType': 'all', 'stylers': [{'color': '#4f595d'}, {'visibility': 'on'}]}];
+
+        // Create the map
+        map = new google.maps.Map(document.getElementById('map-canvas'),
+        {
+            zoom: 10,
+            styles: mapStyle,
+            center: new google.maps.LatLng(51.264, 15.569)
+        });
+    }
+    
+    function initinfoWindow()
+    {
+        infowindow = new google.maps.InfoWindow();
+    }
+        
+    function createMarker(lat, lon, title, text)
+    {
+        return marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat, lon),
+        map: map,
+        title: title,
+        text: text
+        });
+    }
+    
+    function createInfoWindowEvent(m)
+    {
+        google.maps.event.addListener(m, 'click', function()
+        {
+            infowindow.setContent(m.title + '<br>' + m.text );
+            infowindow.open(map, m);
+        });
+    }
+	
+	function createListItem(m)
+	{
+		var ul = document.getElementById("items");
+		var li = document.createElement("li");
+		li.innerHTML = m.title;
+		ul.appendChild(li);
+	}
+    
+    function init()
+    {
+        
+        initMap();
+        initinfoWindow();       
+        
+        for (var i = 0; i < places.length; i++)
+        {
+            var marker = createMarker(places[i].lat, places[i].lon, places[i].title,places[i].text);
+            createInfoWindowEvent(marker);
+			createListItem(marker);
+        }
+        
+        /*    
+         = createMarker(51.2641800,15.5697000,content('Bolesławiec','Opis bolesławca'));
+        
+        
+        var marker = createMarker(51.2641800,15.6697000,content('Tomaszów','Opis tomaszowa'));
+        createInfoWindowEvent(marker);
+        */
+    }
+       
+    
+</script>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyAtyXbZQiMV2BFDdztVuCZPfzN_rijV4_U&callback=init"></script>
+<!--<script src="../../dist/snazzy-info-window.min.js"></script>-->
 
 
-<div class="container">
-<div class="row">
-    <div class="col-md-6">
-        <form method="POST" enctype="multipart/form-data" id="form">
-            <fieldset>
-				<h6 class="text-uppercase"><?php print $this->Msg('_CONTACT_US_','Contact Us'); ?></h6>       
-                        <div class="row">
-							
-                            <?php if($this->Saved) { ?> <div class="col-sm-12"><div class="alert alert-success"><?php print $this->Msg('_MESSAGE_SEND_','Message Send') ?></div></div> <?php } ?>
-						
-                             <div class="col-sm-12">
-                               <!-- <label class="control-label"><?php print $this->Msg('_EMAIL_','Email') ?></label> -->
-								<?php print $this->RenderValidationError($this->Email->ErrorText); ?>
-								<div id="email"></div>
-                                <input required onblur='Required(this,email);' class="col-xs-12" type="email" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print CONTACT_EMAIL ?>" value="<?php print $this->Email->Value ?>">
-							</div><!-- col -->
-                            
-							<div class="col-sm-12">
-                                <!-- <label class="control-label"><?php print $this->Msg('_FIRST_NAME_','First Name') ?></label> -->
-                                    <?php print $this->RenderValidationError($this->FirstName->ErrorText); ?>
-                                <input class="col-xs-12" type="text" placeholder="<?php print $this->Msg('_FIRST_NAME_','First Name') ?>" name="<?php print CONTACT_FIRST_NAME ?>" value="<?php print $this->FirstName->Value ?>">
-							</div><!-- col -->
-							
-                            <div class="col-sm-12">
-                                <!-- <label class="control-label"><?php print $this->Msg('_LAST_NAME_','Last Name') ?></label> -->
-                                <?php print $this->RenderValidationError($this->LastName->ErrorText); ?>
-                                <input class="col-xs-12" type="text" placeholder="<?php print $this->Msg('_LAST_NAME_','Last Name') ?>" name="<?php print CONTACT_LAST_NAME ?>" value="<?php print $this->LastName->Value ?>">
-                            </div>   
-                            
-                             <div class="col-sm-12">
-                                <!-- <label class="control-label"><?php print $this->Msg('_PHONE_','Phone') ?></label> -->
-								<?php print $this->RenderValidationError($this->Phone->ErrorText); ?>
-                                <input class="col-xs-12" type="text" placeholder="<?php print $this->Msg('_PHONE_','Phone') ?>" name="<?php print CONTACT_PHONE ?>" value="<?php print $this->Phone->Value ?>">
-							</div><!-- col -->
-						
-                            <div class="col-sm-12">
-                                <!-- <label class="control-label"><?php print $this->Msg('_SUBJECT_','Subject') ?></label> -->
-								<?php print $this->RenderValidationError($this->Subject->ErrorText); ?>
-                                <input required class="col-xs-12" type="text" placeholder="<?php print $this->Msg('_SUBJECT_','Subject') ?>" name="<?php print CONTACT_SUBJECT ?>" value="<?php print $this->Subject->Value ?>">
-                            </div><!-- col -->
-                        
-                            <div class="col-sm-12">
-                                <!-- <label class="control-label"><?php print $this->Msg('_MESSAGE_','Message') ?></label> -->
-                                <textarea  required class="col-xs-12" rows="10" cols="25" placeholder="<?php print $this->Msg('_MESSAGE_','Message') ?>" name="<?php print CONTACT_MESSAGE ?>"><?php print $this->Message->Value ?></textarea>
-                            </div>
-							  <div class="col-sm-12">
-                            <div class="checkbox margin-bottom-201">
-                            <label>
-                                <?php if($this->Newsletter->Value)
-                                { ?>
-                                <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox" checked>
-                                <?php }else{ ?>
-                                <input name="<?php print REGISTER_NEWSLETTER ?>" type="checkbox">
-                                <?php } ?>
-                                
-                                <?php print $this->Msg('_REGISTER_NEWSLETTER_','Newsletter') ?>
-                            
-                            </label>
-                            </div>
-                        </div>                     
-                            <div class="col-sm-12">
-                                <input class="btn btn-default" id="submit" type="submit" name="submit" value="<?php print $this->Msg('_SEND_','Send') ?>">
-                            </div>
-                        <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
-                    </div><!-- row -->
-                </fieldset>
-        </form>			
-	</div><!-- col -->
-    <div class="col-md-6">
-    	<div class="widget widget-contact">
-            <h6 class="widget-title"><?php print $this->Msg('_CONTACT_TEXT_','Visit Us or Call') ?></h6>				
-			<?php $this->RenderBlock('contact'); ?>
-		</div><!-- widget-contact -->
-    </div>
-</div>
+ 
 
 
 
-</div>
-<br><br>
-<iframe
-  width="100%"
-  height="450"
-  frameborder="0" style="border:0; margin-bottom: -8px;"
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1247.8247385877798!2d15.5728777082367!3d51.28077098979926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470f35cc70686e87%3A0x9c57b4427ed1ed5e!2sKo%C5%9Bciuszki+62%2C+59-700+Boles%C5%82awiec!5e0!3m2!1spl!2spl!4v1482919375887" allowfullscreen>
-</iframe>
-<!--ifr ame src="htt ps://www.google.com/maps/embed/v1/place?key=AIzaSyATd0xNPW_H8Hdbn7VUFXPMMaBguGeeoOw
-    &q=Space+Need le,Seattle+WA" wid th="640" height="480"></iframe-->
+
+   
+
+

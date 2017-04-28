@@ -338,6 +338,18 @@ class Base
         return IMAGES_URL.$folder.$img;
     }
     
+    
+    public function FileUrl($file, $folder = NULL)
+    {
+        
+        if(!is_null($folder))
+        {
+            $folder = $folder.'/';   
+        }
+        
+        return FILES_URL.$folder.$file;
+    }
+    
     public function PrintArray($array)
     {
         print '<pre>';

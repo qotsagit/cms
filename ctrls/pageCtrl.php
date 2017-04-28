@@ -56,9 +56,7 @@ class pageCtrl extends Ctrl
             }   
         
 		}
-		
-		//print 'PAGE'.$this->Page;
-		//print 'METHOD'.$this->Method;
+	
 		if(empty($this->Page))
 		{
 			$this->View->_IdParent = 0;
@@ -77,15 +75,27 @@ class pageCtrl extends Ctrl
 		}
 		
 	}
-    
+
+
+	//public function Load()
+	//{
+	//    print $this->Method;
+	    
+	//}    
 	// nadpisany Index inny template wyświetlania
     // tutaj ma czytać z bazy jaki ma być template dla strony i renderować
-    	
+    
+	
+	public function Abc()
+	{
+		print 'abc';
+	}
+	
 	public function Listing()
     {
 		//metoda index znaczy się że nie wybrana żadna strona ustawiamy na główną
 		// a model sobie wyszuka stronę startową
-	
+		$this->FindPage();
 		$this->View->SetColumns();
 		$this->View->Asc = SORT_ASC;
         $this->View->SetModel($this->Model);
@@ -93,12 +103,23 @@ class pageCtrl extends Ctrl
         // set template			
 		
 		$page = $this->View->CurrentItem;
-		
+				
         if($page)
         {
 			$template = $page->template;
-			$this->View->PageTitle = $page->title; 
-            if($this->IsTemplateExists($template))
+			
+			if(empty($page->meta_title))
+				$this->View->MetaTitle = $page->title; 
+			else
+				$this->View->MetaTitle = $page->meta_title; 
+						
+			if(isset($page->meta_description))
+				$this->View->MetaDescription = $page->title; 
+			else
+				$this->View->MetaDescription = $page->meta_description; 
+			
+
+			if($this->IsTemplateExists($template))
                 $this->View->Render($template);
             else
                 $this->View->Render('gridView');

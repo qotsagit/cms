@@ -1,14 +1,15 @@
 // all functions here
 
-function getPage(id,url)
+function getPage(div,id,url)
 {
-	$('#content').html('Loading ... ');
+	$(div).html('Loading ... ');
+	
 	jQuery.ajax
     ({
 		url: url,
 		data:'id='+id,
-		type: "POST",
-		success:function(data){ $('#content').html(data);}
+		type: "GET",
+		success:function(data){ $(div).html(data);}
 	});
 }
 

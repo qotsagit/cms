@@ -19,9 +19,7 @@
     </div>
   </div>
 </div>
-
-
-
+<!-- Modal Dialog -->
 
 <br>
 <div class="row">
@@ -81,7 +79,7 @@
             for(i = 0; i < item.files.length; i++)
             {
                 var form = renderForm(++counter);
-                $('#upload').after(form);
+                $('#upload').before(form);
                 uploadFile(item.files[i],counter);
                 //alert(item.files[0].name);    
             }    
@@ -103,7 +101,7 @@
         '<div class="text-center">'+
         '<div class="thumbnail">'+
         //'<div class="col-md-12">'+
-        '<img id="avatar'+id+'" class="img img-thumbnail" width1=150 height1=150>'+
+        '<img id="avatar'+id+'" class="img img-thumbnail" src="style/default/img/page.png">'+
         '<div class="caption">'+
             
         //'<div id="upload"><span class="glyphicon glyphicon-remove"></span></div>'+

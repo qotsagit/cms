@@ -20,7 +20,7 @@
                     <?php $this->RenderAsSelect($this->Statuses,$this->Active->Value ,$this->msg('_ACTIVE_','Active'),LANG_STATUS) ?>
 
                     <div class="form-group">
-                            <input type="hidden" name="<?php print IDLANG ?>" value="<?php print $this->IdLang->Value ?>">   
+                            <input type="hidden" name="<?php print LANG_ID ?>" value="<?php print $this->IdLang->Value ?>">   
                             <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
                             <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
                             <a href="<?php print Session::GetCtrl(); ?>"  class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>

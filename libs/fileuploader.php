@@ -8,7 +8,7 @@ class FileUploader extends Base
     
     private $NoError = TRUE;
     
-    private $Images = NULL;         //[name] => [n], [type] => [n], [tmp_name] => [n], [error] => [n], [size]=> [n] (n - n plikow)
+    private $Images = array();         //[name] => [n], [type] => [n], [tmp_name] => [n], [error] => [n], [size]=> [n] (n - n plikow)
     private $ImageNames = NULL;
     private $ImagePositions = NULL;
     
@@ -16,7 +16,7 @@ class FileUploader extends Base
     
     public $OneImageUploaded = NULL;
     
-    private $Files = NULL;
+    private $Files = array();
     private $FileNames = NULL;
     private $FilePositions = NULL;
     
@@ -33,8 +33,11 @@ class FileUploader extends Base
         
         $this->GetUploadMaxSize();
         
-        $this->Images = $_FILES['image'];
-        $this->Files = $_FILES['file'];
+        if(isset($_FILES['image']))
+            $this->Images = $_FILES['image'];
+        
+        if(isset($_FILES['file']))
+            $this->Files = $_FILES['file'];
         
         if (isset($_POST['image_name']) AND isset($_POST['image_position'])){
             
@@ -50,19 +53,17 @@ class FileUploader extends Base
             
         }
         
-        if ($this->UploadImagesFilter()){
-            
-            $this->UploadImages();
-            
+        if ($this->UploadImagesFilter())
+        {
+            $this->UploadImages();    
         }
-        
+                
         if ($this->UploadFilesFilter()){
             
             $this->UploadFiles();
             
         }
-        
-    
+            
     }
 
        
@@ -159,7 +160,7 @@ class FileUploader extends Base
 
                 if ($UploadResult)
                 {
-                
+                    
                     /* Example of $ImageInfo
                     Array
                     (
@@ -204,7 +205,7 @@ class FileUploader extends Base
                         
                     $this->ImagesUploaded[$counter]['name'] = ($this->ImageNames[$counter] == '' ? NULL : $this->ImageNames[$counter]);
                     
-                    $this->ImagesUploaded[$counter]['position'] = $this->ImagePositions[$counter];
+                    $this->ImagesUploaded[$counter]['position'] = ($this->ImagePositions[$counter] == (NULL OR '') ? 1000 : $this->ImageNames[$counter]);
                     
                     $this->ImagesUploaded[$counter]['width'] = $ImageWidth;
                         
@@ -213,19 +214,50 @@ class FileUploader extends Base
                     $this->ImagesUploaded[$counter]['size'] = $ImageSize;
                 
                 
-                    $imageResizeObj = new imageLib(Settings::$ImagesFolder.$ImageFileName);
-                
-                
+                    /*
+                    print 'OK';
+                    /*
+                     * jak jest duży plik ponad 3 MB to w konstruktorze tej biblioteki skrypt jest przerywany funkcją die() bez żadnego komunikatu
+                     * nie używac tej biblioteki
+                     * 
+                     
+                    //$imageResizeObj = new imageLib(Settings::$ImagesFolder.$ImageFileName);
+                    
+                    print 'AFTER';
+                                                                                
                     foreach(Settings::$ImageSizes AS $ImgSizeName => $ImgSizeValues)
                     {
                     
-                        $imageResizeObj -> resizeImage($ImgSizeValues['width'], $ImgSizeValues['height'], 'crop-t', true);
+                        $imageResizeObj -> resizeImage($ImgSizeValues['width'], $ImgSizeValues['height'], 'crop', true);
                         $imageResizeObj -> saveImage(Settings::$ImagesFolder.'/'.$ImgSizeValues['folder'].'/'.$ImageFileName, $ImgSizeValues['quality']);
                     
                         $imageResizeObj -> reset();
                     
                     }
-	
+                
+                    */
+                
+                    $Image = new Image();
+                    foreach(Settings::$ImageSizes AS $ImgSizeName => $ImgSizeValues)
+                    {
+                        //$Image->resizeImage($ImgSizeValues['width'], $ImgSizeValues['height'], 'crop', true);
+                        $src = Settings::$ImagesFolder.'/'.$ImageFileName;
+                        $dst = Settings::$ImagesFolder.'/'.$ImgSizeValues['folder'].'/'.$ImageFileName;
+                        @mkdir(Settings::$ImagesFolder.'/'.$ImgSizeValues['folder']);
+                        $Image->ResizeAndCrop($src,$dst,$ImgSizeValues['width'], $ImgSizeValues['height']);
+                        //$Image->saveImage(Settings::$ImagesFolder.'/'.$ImgSizeValues['folder'].'/'.$ImageFileName, $ImgSizeValues['quality']);
+                    
+                        //$imageResizeObj -> reset();
+            
+                    }
+                
+                    
+                
+                
+                
+                
+                
+                    
                 }
                 
                 ++$counter;
@@ -249,7 +281,7 @@ class FileUploader extends Base
         foreach(Settings::$ImageSizes AS $ImgSizeName => $ImgSizeValues)
         {
                     
-            $imageResizeObj -> resizeImage($ImgSizeValues['width'], $ImgSizeValues['height'], 'crop-t', true);
+            $imageResizeObj -> resizeImage($ImgSizeValues['width'], $ImgSizeValues['height'], 'crop', true);
             $imageResizeObj -> saveImage(Settings::$ImagesFolder.'/'.$ImgSizeValues['folder'].'/'.$ImageFileName, $ImgSizeValues['quality']);
                 
             $imageResizeObj -> reset();
@@ -319,15 +351,11 @@ class FileUploader extends Base
                     
                     $this->FilesUploaded[$counter]['file'] = $FileFileName;
                         
-                    $this->FilesUploaded[$counter]['name'] = ($this->FileNames[$counter] == '' ? NULL : $this->FileNames[$counter]);
+                    $this->FilesUploaded[$counter]['name'] = ($this->FileNames[$counter] == (NULL OR '') ? NULL : $this->FileNames[$counter]);
                     
-                    $this->FilesUploaded[$counter]['position'] = $this->FilePositions[$counter];
+                    $this->FilesUploaded[$counter]['position'] = ($this->FilePositions[$counter] == (NULL OR '') ? 1000 : $this->FilePositions[$counter]);
                     
                     $this->FilesUploaded[$counter]['size'] = $FileSize;
-                    
-                    $this->PrintArray($this->FileNames);
-                    
-                    $this->PrintArray($this->FilePositions);
 	
                 }
                 
@@ -369,7 +397,7 @@ class FileUploader extends Base
         
         $counter = 1;
         
-        while (@file_exists($PathName)) {
+        while (file_exists($PathName)) {
             
             $NewFileNameChenged = $NewFileName . '_' . $counter;
             $counter++;
@@ -385,7 +413,7 @@ class FileUploader extends Base
             
         } else {
             
-            return FALSE;
+            return false;
             
         }
         

@@ -1,0 +1,46 @@
+<?php $this->RenderSelectedPage($this); ?>
+
+<section class="section-border editor-content p_t__b">
+    <div class="container">
+        <?php print $this->CurrentItem->text;?>
+    </div>
+</section>	
+
+
+<section id="portfolio" class="portfolio">
+    <div class="container1">
+        <div class="row">
+            <div class="fleetportfolio">  
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div id="mixcontent" class="mixcontent home1_mix_content text-center text-uppercase wow slideInUp" data-wow-dowration="700ms" style="visibility: visible;">                    <!-- Default panel contents -->
+                        <?php foreach ($this->Items as $item) { ?>
+                            <div class="col-sm-6 mix cat2 cat3" data-bound="" style="display: inline-block;">
+                                <div class="single_mixi_portfolio">
+                                    
+                                    <img src="<?php print $this->ImageUrl($item->img); ?>" width=200px alt="">
+                                    <span class="port_overfolio">
+                                        <span class="s_team_overlay_border">
+                                            
+                                            <span class="caption_icon"><a href="<?php print $item->url_address; ?>"><i class="fa fa-link"></i></a></span>
+                                            <span class="caption"><?php print $item->title; ?></span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <h3><a href="<?php print $item->url_address; ?>"><?php print $item->title; ?></a></h3>
+                                <br />
+                            </div>
+                    <?php } ?>       
+                        <div class="panel-body text-right">
+                            <?php $this->RenderTablePagination($this); ?>
+                        </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+</div>
+
+</section>
+

@@ -25,7 +25,6 @@ class Bootstrap
     {
         $this->Ctrl = DEFAULT_CTRL;
         $this->DefaultCtrl = DEFAULT_CTRL;
-        //$this->Method = DEFAULT_METHOD;
     }
 
     public function Run()
@@ -34,6 +33,7 @@ class Bootstrap
         {
             $this->ReadGet();
             $this->ReadPost();
+            $this->CheckRight();
             $this->CheckCtrl();
             $this->SetData();
             $this->LoadController();
@@ -67,7 +67,7 @@ class Bootstrap
         }
     }
 
-    public function ReadGet()
+    private function ReadGet()
     {
         // parse z URL
         if(isset($_GET[URL]))
@@ -85,14 +85,19 @@ class Bootstrap
         
         //zaznaczone rekordy
         if (isset($_REQUEST[IDSELECTED]))   {  print_r($_REQUEST[IDSELECTED]);   }
-        
-        
-        //jezyk systemu
-        if (!empty($_REQUEST[IDLANG]))      { Session::SetLang($_REQUEST[IDLANG]);}
+         
         if (!empty($_REQUEST[METHOD]))      { $this->Method = $_REQUEST[METHOD];  }
     }
     
-    public function SetData()
+    // na razie w fazie rozwoju
+    // trzeba sprawdzać czy w url to jest CTRL czy strona
+    private function CheckRight()
+    {
+        //new myException('NO RIGHT FOR ACTION',$this->Ctrl.'<br>'.$this->Method);
+        //print $this->Ctrl.'<br>'.$this->Method;
+    }
+    
+    private function SetData()
     {
 
         if (Session::GetCtrl() != $this->Ctrl)
@@ -124,9 +129,6 @@ class Bootstrap
 
     }
     
-    
-    //private function 
-
     private function LoadController()
     {   
         include CTRL_FOLDER . '/' . $this->Ctrl . 'Ctrl.php';
@@ -138,6 +140,11 @@ class Bootstrap
         $this->CtrlClass->Params = $this->Params;
         $this->CtrlClass->Page = $this->Page;
         $this->CtrlClass->Init();
+        
+        //if(empty($this->CtrlClass->Method))
+        //{
+          //  $this->CtrlClass->Method = DEFAULT_METHOD;
+        //}
         
         // nie wymaga logowania
         if ($this->CtrlClass->NeedAuth == false)

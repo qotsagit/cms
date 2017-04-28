@@ -70,6 +70,8 @@ class userCtrl extends Ctrl
         //avatar
         $this->View->Avatar = new Input();
         $this->View->Avatar->Value = DEFAULT_AVATAR;
+        
+        $this->View->OldAvatar = new Input();
     }
 
     private function InitRequired()
@@ -115,14 +117,17 @@ class userCtrl extends Ctrl
         $filename = $this->Upload();
         if(empty($filename))
         {
-            $old_avatar = filter_input(INPUT_POST, AVATAR);
+            $old_avatar = filter_input(INPUT_POST, USER_OLD_AVATAR);
             if(!empty($old_avatar))
             {
                 $this->View->Avatar->Value = $old_avatar;
             }
             
         }else{
-        
+            
+            $this->Image = new Image();
+            $avatar = AVATAR_DIR.'/'.$filename;
+            $this->Image->ResizeAndCrop($avatar,$avatar,AVATAR_WIDTH,AVATAR_HEIGHT);
             $this->View->Avatar->Value = $filename;
             
         }
@@ -200,10 +205,18 @@ class userCtrl extends Ctrl
             $this->View->Password->Value = $item->password;
             $this->View->OldPassword->Value = $item->password;
             $this->View->Active->Value = $item->active;
+            
             if(empty($item->avatar))
+            {
                 $this->View->Avatar->Value = DEFAULT_AVATAR;
-            else
+                $this->View->OldAvatar->Value = DEFAULT_AVATAR;
+            
+            }else{
+                
                 $this->View->Avatar->Value = $item->avatar;
+                $this->View->OldAvatar->Value = $item->avatar;
+            }
+            
             return true;
         }
 
@@ -281,5 +294,6 @@ class userCtrl extends Ctrl
         
         }
     }
-
+    
+    
 }

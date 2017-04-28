@@ -1,0 +1,19 @@
+<?php
+    ini_set("display_errors","on");
+    error_reporting(E_ALL);
+    $file = "install.tar.gz";
+    
+    if(file_exists($file))
+    {
+        $result = shell_exec("./install 2>&1");
+        print nl2br($result);        
+    }else{
+        
+        print 'file not exists:'.$file;
+        
+    }
+    
+    
+    
+    
+?>

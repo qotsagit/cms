@@ -104,7 +104,8 @@ class alterModel extends Model
             new alterModel(2,"ALTER TABLE `image` ADD `height` INT NOT NULL AFTER `width`"),
             new alterModel(2,"ALTER TABLE `page` CHANGE `img` `img` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL"),
             new alterModel(2,"ALTER TABLE `newsletter` ADD `active` TINYINT NOT NULL AFTER `text`"),
-			new alterModel(2,"ALTER TABLE `menu` CHANGE `position` `position` INT NULL DEFAULT NULL;")
+			new alterModel(2,"ALTER TABLE `menu` CHANGE `position` `position` INT NULL DEFAULT NULL;"),
+			new alterModel(2,"ALTER TABLE `customer` ADD `phone` VARCHAR(64) NOT NULL AFTER `nip`;"),
         );
     }
 }

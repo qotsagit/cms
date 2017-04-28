@@ -32,6 +32,8 @@ class View extends Base
     public function __construct()
     {
         parent::__construct();
+        $this->MetaTitle = '';
+        $this->MetaDescription = '';
     }
 
     public function SetModel($model)
@@ -45,10 +47,9 @@ class View extends Base
         
         $this->CheckPage();
         $this->SetPage($model);
-        
         $this->CheckColumns($model);        
-        
         $this->SetParent($model);
+        
         
         //$this->RowCount = $model->RowCount();     
     }
@@ -172,7 +173,7 @@ class View extends Base
         print '<span class="btn btn-file">';
         print '<img id="image" src='.$src.' class="img img-circle" width='.$width.' height='.$height.'>'; 
         print '<input type="file" id="inputfile" name="avatar[]" onchange="handleFiles(this.files,image)" accept="image/*"></span>';
-        print '<input type="hidden" name="'.AVATAR.'" value="'.$value.'">';
+        //print '<input type="hidden" name="'.AVATAR.'" value="'.$value.'">';
         print '</div>';
         //print '<div class="panel" id="preview">';  
         //print '<a href="#" class="info" title="Full Image">Delete</a>';  
@@ -180,7 +181,7 @@ class View extends Base
         //print '</div>';
     }
     
-    public function RenderOneImage($src,$width,$height)
+    public function RenderOneImage($src,$file,$width,$height)
     {
         //print '<link rel="stylesheet" href="style/simplex/css/image.css">';
         //print '<link rel="stylesheet" href="style/simplex/css/imageffect.css">';
@@ -189,7 +190,7 @@ class View extends Base
         print '<span class="btn btn-file">';
         print '<img id="image" src="'.$src.'" class="img img-circle" width='.$width.' height='.$height.'>'; 
         print '<input type="file" id="inputfile" name="img" onchange="handleFiles(this.files,image)" accept="image/*"></span>';
-        print '<input type="hidden" name="'.AVATAR.'" value="'.$src.'">';
+        print '<input type="hidden" name="'.AVATAR.'" value="'.$file.'">';
         print '</div>';
         //print '<div class="panel" id="preview">';  
         //print '<a href="#" class="info" title="Full Image">Delete</a>';  
@@ -211,15 +212,24 @@ class View extends Base
         print '</div>';
     }
 
-    public function RenderBreadcrumb($view) 
+    // breadcrumb dla
+    public function RenderBreadcrumb($view,$url = false) 
     {
         //if($view->_IdParent > 0)
         //{
             print '<ul class="breadcrumb">';
-            print '<li><a href="'.$view->CtrlName.'/'.METHOD_PARENT.'/0">'.$view->ViewTitle.'</a></li>';
+            if($url)
+                print '<li><a href="">'.$this->Msg('_HOME_','Home').'</a></li>';
+            else
+                print '<li><a href="'.$view->CtrlName.'/'.METHOD_PARENT.'/0">'.$view->ViewTitle.'</a></li>';
+            
+            
             foreach ($view->BreadcrumbItems as $item)
             {
-                print '<li><a href="'.$view->CtrlName.'/'.METHOD_PARENT.'/'.$item->GetId().'" >'.$item->GetName().'</a></li>';
+                if($url)
+                    print '<li><a href="'.$item->GetUrlAddress().'" >'.$item->GetName().'</a></li>';
+                else
+                    print '<li><a href="'.$view->CtrlName.'/'.METHOD_PARENT.'/'.$item->GetId().'" >'.$item->GetName().'</a></li>';
             }
         
             print '</ul>';
@@ -268,7 +278,7 @@ class View extends Base
         print '<div class="col-md-7 col-sm-12">';
         print '<form method="POST">';
         print '<div class="input-group">';
-        print '<input onkeyup="getPage(0,\'user\');" type="text" class="form-control" name="'.SEARCH.'" value="'.Session::GetSearch().'" placeholder="'.$this->Msg('_SEARCH_','Search').'">';
+        print '<input type="text" class="form-control" name="'.SEARCH.'" value="'.Session::GetSearch().'" placeholder="'.$this->Msg('_SEARCH_','Search').'">';
         print '<input type="hidden" name="'.METHOD.'" value="'.METHOD_SEARCH.'">';
         print '<span class="input-group-btn">';
         print '<button class="btn btn-default" type="submit">'.$this->Msg('_SEARCH_','Search').'</button>';
@@ -475,6 +485,24 @@ class View extends Base
             
     }
     
+    public function RenderPageBack()
+    {
+        //print_r($this->CurrentItem);
+       
+        
+        if($this->CurrentItem)
+        {
+            if($this->CurrentItem->id_parent > 0)
+            {
+                $parent = $this->Model->GetParentItem($this->CurrentItem->id_parent);
+                print '<a href="'.$parent->url_address.'" class="btn btn-3d btn-xs btn-reveal btn-primary">';
+                print '<i class="fa fa-chevron-circle-left"></i>';
+                print '<span>'.$this->Msg('_BACK_','Back').'</span>';
+                print '</a>';
+            }
+        }
+    }
+    
     public function RenderSelectedPageContent($view, $code_start = '<section><div class="container"><div class="row">', $code_end = '</div></div></section>')
     {
 
@@ -503,7 +531,7 @@ class View extends Base
             }
 
             print '<div class="col-sm-'.$col.' col-md-'.$col.'">';
-            print '<div class="panel text-center">';
+            print '<div class="panel panel-info text-center">';
                        
             foreach ($view->Columns as $column)
             {

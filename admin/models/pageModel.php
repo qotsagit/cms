@@ -136,7 +136,7 @@ class pageModel extends Model
         $this->Insert();
     }
 
-    public function Delete()
+    public function Delete_old()
     {
         
         $ImageModel = new imageModel();
@@ -151,9 +151,36 @@ class pageModel extends Model
         $params = array(':id' => $this->id);
         $this->DB->NonQuery('DELETE FROM page WHERE id_page=:id', $params);
         
-        return;
+
+    }
+     
+    public function Delete()
+    {
+        $params = array(':id_page' => $this->id);
+        $sql = 'SELECT * FROM page WHERE id_page=:id_page';
+        $items = $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);
+       	$this->DB->NonQuery('DELETE  FROM page WHERE id_page=:id_page', $params);
+
+        foreach($items as $item)
+		{	
+			$this->DeleteItems($item->id_page);
+		}   
     }
 
+    public function DeleteItems($id)
+	{ 
+	 	$params = array(':id_parent' => $id);
+        $sql = 'SELECT * FROM page WHERE id_parent=:id_parent';
+        $items = $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);
+       
+        foreach($items as $item)
+        {
+			$this->DeleteItems($item->id_page);
+            $params = array(':id_page' => $item->id_page);
+			$this->DB->NonQuery('DELETE FROM page WHERE id_page=:id_page', $params);
+        } 
+	}
+    
     public function Get($id)
     {
         $params = array(':id' => $id);
@@ -184,8 +211,8 @@ class pageModel extends Model
         
         //}else{
             
-        $params = array(':id_lang' => Session::GetLang(),':id_parent' => $this->id_parent,':content_type' => $this->content_type);
-        return $this->DB->Count('SELECT count(*) FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND content_type=:content_type', $params);
+        $params = array(':id_lang' => Session::GetLang(),':id_parent' => $this->id_parent);
+        return $this->DB->Count('SELECT count(*) FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent', $params);
             
         //}
     }
@@ -196,8 +223,8 @@ class pageModel extends Model
         //{
           //  return $this->DB->Count('SELECT count(*) FROM page' , NULL);
         //}else{
-        $params = array(':id_lang' => Session::GetLang(),':content_type' => $this->content_type);
-        return $this->DB->Count('SELECT count(*) FROM page WHERE id_lang=:id_lang AND content_type=:content_type', $params);
+        $params = array(':id_lang' => Session::GetLang());
+        return $this->DB->Count('SELECT count(*) FROM page WHERE id_lang=:id_lang', $params);
         //}
         
     }
@@ -276,31 +303,31 @@ class pageModel extends Model
     {
         
         $this->id_lang = Session::GetLang();
-		if ($this->Asc == SORT_ASC)
-		    $asc = 'ASC';
-		else
-		    $asc = 'DESC';
+	if ($this->Asc == SORT_ASC)
+	    $asc = 'ASC';
+	else
+	    $asc = 'DESC';
 		
         //język nie wybrany
         if($this->id_lang == 0)
         {
-            $params = array(':id_parent' => $this->id_parent,':content_type' => $this->content_type);
+            $params = array(':id_parent' => $this->id_parent);
             if ($this->Limit > 0)
-                $sql = 'SELECT * FROM page WHERE id_parent=:id_parent AND content_type=:content_type ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
+                $sql = 'SELECT * FROM page WHERE id_parent=:id_parent ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
             else
-                $sql = 'SELECT * FROM page WHERE id_parent=:id_parent AND content_type=:content_type ORDER BY ' . $this->OrderFieldName . ' ' . $asc;
-        
+                $sql = 'SELECT * FROM page WHERE id_parent=:id_parent ORDER BY ' . $this->OrderFieldName . ' ' . $asc;
+
         }else{
-            
-            $params = array(':id_lang' => $this->id_lang,':id_parent' => $this->id_parent,':content_type' => $this->content_type, ':search' => '%'.Session::GetSearch().'%');
+
+            $params = array(':id_lang' => $this->id_lang,':id_parent' => $this->id_parent, ':search' => '%'.Session::GetSearch().'%');
             if ($this->Limit > 0)
-                $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND content_type=:content_type AND (title LIKE :search OR text LIKE :search) ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
+    		$sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND (title LIKE :search OR text LIKE :search) ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
             else
-                $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND content_type=:content_type AND (title LIKE :search OR text LIKE :search) ORDER BY ' . $this->OrderFieldName . ' ' . $asc;
+                $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND (title LIKE :search OR text LIKE :search) ORDER BY ' . $this->OrderFieldName . ' ' . $asc;
         }
-                
+
         $items = $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);
-        
+
         return $items;
     }
 

@@ -61,7 +61,7 @@ class langCtrl extends Ctrl
     public function ReadForm()
     {
         $this->View->Id->Value = filter_input(INPUT_POST, ID);
-        $this->View->IdLang->Value = filter_input(INPUT_POST, IDLANG);
+        $this->View->IdLang->Value = filter_input(INPUT_POST, LANG_ID);
         $this->View->Name->Value = filter_input(INPUT_POST, LANG_NAME);
         $this->View->Code->Value = filter_input(INPUT_POST, LANG_CODE);
         $this->View->Active->Value = filter_input(INPUT_POST, LANG_STATUS);

@@ -44,6 +44,7 @@ class ColumnLink extends Column
     }
 }
 
+
 class ColumnPreview extends Column
 {
     public function Render($view,$item)
@@ -61,6 +62,26 @@ class ColumnUrl extends Column
         print '<a target="_blank" href="'.SITE_URL.'/'.$item->$name.'" >'.$item->$name.'</a>';
     }
 }
+
+class ColumnUrlAddress extends Column
+{
+    public function __construct($name, $fieldname, $fieldtitle,  $visible = true)
+    {
+        $this->Name = $name;
+        $this->FieldName = $fieldname;
+        $this->FieldTitle = $fieldtitle;
+        $this->Visible = $visible;
+    }
+    
+    
+    public function Render($view,$item)
+    {
+        $name = $this->FieldName;
+        $title = $this->FieldTitle;
+        print '<h2><a href="'.SITE_URL.'/'.$item->$name.'" >'.$item->$title.'</a></h2>';
+    }
+}
+
 
 
 class ColumnIcon extends Column
@@ -108,10 +129,12 @@ class ColumnImage extends Column
         print '<a href="" data-toggle="modal" data-target="#myModal" >';
         
         if(file_exists($image))
-            print '<img onclick="loadImage(this)" src ='. $image.' class="img img-circle" width='.$this->Width.' height='.$this->Height.'>';
-        else
+        {
+            print '<img onclick="loadImage(this)" src ='.$image.' class="img img-circle" width='.$this->Width.' height='.$this->Height.'>';
+        
+        }else{
             print '<img onclick="loadImage(this)" src ='.IMAGE_DIR.'/'.DEFAULT_IMAGE.' class="img img-circle" width='.$this->Width.' height='.$this->Height.'>' ;
-            
+        }
          print '</a>';   
     }
 

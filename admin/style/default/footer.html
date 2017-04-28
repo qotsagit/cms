@@ -20,6 +20,15 @@ CKEDITOR.plugins.addExternal( 'btgrid', '/ckeditor/plugins/btgrid/', 'plugin.js'
 //CKEDITOR.plugins.addExternal( 'codesnippet', '/ckeditor/plugins/codesnippet/', 'plugin.js' );
 CKEDITOR.plugins.addExternal( 'codemirror', '/ckeditor/plugins/codemirror/', 'plugin.js' );
 
+CKEDITOR.stylesSet.add( 'style_dodatkowe', [
+    
+    //dopasuj, powieksz, header
+    // Block-level styles
+    { name: 'Nagłówek Kropkowany', element: 'div', attributes: { 'class': 'heading-title heading-dotted text-center' } },
+] );
+    
+CKEDITOR.config.stylesSet = 'style_dodatkowe';
+
 //CKEDITOR.plugins.addExternal( 'fontawesome', '/ckeditor/plugins/fontawesome/', 'plugin.js' );  
 //CKEDITOR.plugins.addExternal( 'templates', '/ckeditor/plugins/templates/', 'plugin.js' );  
 //CKEDITOR.plugins.addExternal( 'colordialog', '/ckeditor/plugins/colordialog/', 'plugin.js' );  
@@ -41,20 +50,20 @@ CKEDITOR.replace( 'text', {
     //allowedContent:true,
     filebrowserBrowseUrl : "<?php print SITE_URL ?>/filemanager/elfinder.php"
 });
+    
+    CKEDITOR.config.language = 'pl';
 
 CKEDITOR.config.baseUrl = "<?php print SITE_URL ?>/filemanager/";
 CKEDITOR.config.baseDir = '/filemanager/';
-//CKEDITOR.config.allowedContent = false;
 CKEDITOR.config.protectedSource.push(/<i[^>]*><\/i>/g);
 CKEDITOR.config.htmlEncodeOutput = false;
 CKEDITOR.config.entities = false;
 CKEDITOR.config.basicEntitles = false;
 CKEDITOR.config.disallowedContent = false;
 CKEDITOR.config.allowedContent = true;
-
-            
-
-
+CKEDITOR.dtd.$removeEmpty['span'] = false;
+CKEDITOR.dtd.$removeEmpty['i'] = false;
+CKEDITOR.dtd.$removeEmpty['div'] = false;
 
 /*
 

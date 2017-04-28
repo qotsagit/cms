@@ -69,7 +69,7 @@ class newsletterCtrl extends Ctrl
     public function Send()
     {
 
-		$email = new Email();
+		$email = new Email(SMTP_NEWSLETTER_HOST,SMTP_NEWSLETTER_PORT,SMTP_NEWSLETTER_USER,SMTP_NEWSLETTER_PASSWORD);
         //$email->Send(SMTP_TO, $this->Msg('_PRICING_','Pricing'),$msg);   
 	
 		$user = new userModel();
@@ -85,7 +85,7 @@ class newsletterCtrl extends Ctrl
 				if($user->newsletter)
 				{
 					//print $user->email;
-					if($email->Send($user->email, $newsletter->title, $newsletter->text) == false)
+					if($email->Send(SMTP_NEWSLETTER_FROM, $user->email, $newsletter->title, $newsletter->text) == false)
 						print $this->LastError;
 				}
 			}

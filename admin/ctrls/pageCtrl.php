@@ -64,7 +64,7 @@ class pageCtrl extends Ctrl
         $this->View->IdLang->Value = Session::GetLang();
         $this->View->Title = new Input();
         $this->View->Image = new Input();
-        $this->View->Image->Value = IMAGES_URL.DEFAULT_IMAGE;
+        $this->View->Image->Value = DEFAULT_IMAGE;
         $this->View->Text = new Input();
         $this->View->Url = new Input();
         $this->View->UrlAddress = new Input();
@@ -118,6 +118,7 @@ class pageCtrl extends Ctrl
         $this->View->Position->Value = filter_input(INPUT_POST, PAGE_POSITION);
         
         
+        
         if ((isset($_FILES['image']['name']) AND count($_FILES['image']['name'])) OR (isset($_FILES['file']['name']) AND count($_FILES['file']['name'])))
         {
             $this->FileUploader = new FileUploader();
@@ -129,21 +130,28 @@ class pageCtrl extends Ctrl
         {
             if ($this->FileUploader == NULL)
             {
-                
-                $this->FileUploader = new FileUploader();
-                
+                $this->FileUploader = new FileUploader();   
             }
             
             if ($this->ImageModel == NULL)
             {
-                
-                $this->ImageModel = new imageModel();
-                
+                $this->ImageModel = new imageModel();   
             }
 
-            
             $this->FileUploader->UploadOneImage($_FILES['img']);
-                
+            
+            $fname =  $this->FileUploader->OneImageUploaded['img'];
+            
+            //Resize & crop
+            
+            if(!empty( $fname ))
+            {
+                $file = Settings::$ImagesFolder.$fname;
+                $Image = new Image();
+                $Image->ResizeAndCrop($file,$file,ICON_IMAGE_WIDTH,ICON_IMAGE_HEIGHT);
+
+            }
+             
         }
     }
     
@@ -230,14 +238,37 @@ class pageCtrl extends Ctrl
         $this->Model->meta_description = $this->View->MetaDescription->Value;
         $this->Model->position = $this->View->Position->Value;
         
-
+        // wykomentuj potem
+        // wykomentuj potem
+        // wykomentuj potem
+        // rafał 2017-03-07 przy dodawaniu english wersji
+        /*
+        $url = NULL;
+            $this->Model->Url($this->Model->id_parent,$url);
+            if($url == NULL)
+                $this->Model->url_address = $this->TransliterateStringToUrl($this->View->Title->Value);
+            else
+                $this->Model->url_address = $this->TransliterateStringToUrl($url.' '.$this->View->Title->Value);
+        */
+        // wykomentuj potem
+        // wykomentuj potem
+        // wykomentuj potem
+        
         if ($this->View->IdPage->Value > 0)
         {
+            
             $this->Model->Update();
             $this->ImageModel->UpdateImages($this->View->IdPage->Value, $this->FileUploader->ImagesUploaded);
             $this->ImageModel->UpdateOneImage($this->View->IdPage->Value, $this->FileUploader->OneImageUploaded);
             $this->fileModelforUploader->UpdateFiles($this->View->IdPage->Value, $this->FileUploader->FilesUploaded);
 
+            /*
+            print 'img'.$this->View->Image->Value;
+            if($this->CheckIconImage($this->View->Image->Value))
+            {
+                print 'need resize';
+            }
+            */
             //$this->FileModel->Update($this->View->IdPage->Value, $this->FileUploader->FilesUploaded);            
         }
         else
@@ -253,6 +284,9 @@ class pageCtrl extends Ctrl
             $this->Model->Insert();
             $this->ImageModel->InsertImages($this->FileUploader->ImagesUploaded, $this->FileUploader->OneImageUploaded);
             $this->fileModelforUploader->InsertFiles($this->FileUploader->FilesUploaded);
+            
+           
+            
         }
     }
 
@@ -276,6 +310,9 @@ class pageCtrl extends Ctrl
         
         $items = new templateModel();
         $this->View->Templates = $items->All();
+        
+        //$items = new menuModel();
+        //$this->View->MenuItemsModel->Tree(0,0,$this->View->Menus);
     }
     
     private function Form()
@@ -335,6 +372,8 @@ class pageCtrl extends Ctrl
             
             //$this->PrintArray($this->View->ImagesInPage);
             
+           
+            
             $this->View->Render('page/add');
             
         }else{
@@ -385,6 +424,32 @@ class pageCtrl extends Ctrl
         
         $this->Listing();
     }
+     
+     //sprawdzamy obrazki wiodące i robimy resize and crop
+     public function CheckIconImage($image)
+     {
+        $this->Image = new Image();
+        $file = Settings::$ImagesFolder.$image;         
+        if($this->Image->NeedResize($file,ICON_IMAGE_WIDTH,ICON_IMAGE_HEIGHT))
+        {
+            $this->Image->ResizeAndCrop($file,$file,ICON_IMAGE_WIDTH,ICON_IMAGE_HEIGHT);
+                //print $this->View->RenderError($this->Msg('_IMAGE_RESIZED_','Image resized').' '.$item->title);
+                //else
+                //print 'ERROR';
+        }
+        
+     }
+     
+     //nadpisujemy listing bo trzeba jeszcze sprawdzić rozmiar obrazków  wiodących
+     public function Listing()
+     {
+        $this->View->SetColumns();
+        $this->View->SetModel($this->Model);
+        $this->View->SetItems($this->Model);        
+        $this->View->Render('listView');
+     }
+     
+     
      
     //ajax listuje strony jako opcje
     public function RenderOptionsTree($items,$id, $level = 0) 

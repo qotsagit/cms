@@ -82,7 +82,8 @@ class contactCtrl extends Ctrl
         $this->InsertContact();
         //$this->InsertCustomer(); zrezygnowałem z dodawania użytkownika do bazy 
 
-        $email = new Email();
+        $email = new Email(SMTP_CONTACT_HOST,SMTP_CONTACT_PORT,SMTP_CONTACT_USER,SMTP_CONTACT_PASSWORD);
+        
         $msg  = "<a href=mailto:".$this->View->Email->Value.">".$this->View->Email->Value."</a><br>";
         $msg .= $this->Msg('_FIRST_NAME_','First Name').': '. $this->View->FirstName->Value."<br>";
         $msg .= $this->Msg('_LAST_NAME_','Last Name').': '.$this->View->LastName->Value."<br>";
@@ -90,7 +91,7 @@ class contactCtrl extends Ctrl
         $msg .= $this->Msg('_SUBJECT_','Subject').': '.$this->View->Subject->Value."<br>";
         $msg .= $this->Msg('_MESSAGE_','Message').'<br>'.$this->View->Message->Value."<br>";
         
-        $email->Send(SMTP_TO, $this->View->Subject->Value,$msg);   
+        $email->Send(SMTP_CONTACT_FROM,SMTP_CONTACT_TO, $this->View->Subject->Value,$msg);   
     }
     
     public function InsertContact()
@@ -110,7 +111,7 @@ class contactCtrl extends Ctrl
         $this->Model->Insert();
     }
         
-    public function InsertCustomer()
+    private function InsertCustomer()
     {
         $customer = new customerModel();
         
@@ -126,6 +127,28 @@ class contactCtrl extends Ctrl
             $customer->Insert();
         }
     }
+    
+    // nadpisaliśmy sobie dla formularza z ajax
+    // bo trochę inaczej obsłużymy formularz
+    // jeżeli będziemy chcieli powrócić do strej wersji z
+    // przeładowaniem to tą funkcję trzeba wykomentować
+    public function Save()
+    {
+        $this->ReadForm();
+        if ($this->Validate())
+        {
+           
+            //$this->Insert();
+           
+        }
+        else
+        {
+            $this->View->Validation = VALIDATION_FALSE;
+            //$this->FormAdd();
+        }
+        
+    }
+    
     
     public function FormAdd()
     {

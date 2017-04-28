@@ -27,7 +27,7 @@ class pageView extends View
             new ColumnText($this->Msg('_EMPTY_STRING_',''),'id_lang',false),
             new ColumnText($this->Msg('_EMPTY_STRING_',''),'content_type',false),
             new ColumnImage($this->Msg('_EMPTY_STRING_',''),'img',50,50,true),
-            new ColumnPreview($this->Msg('_EMPTY_STRING_',''),'id_parent',true),
+            new ColumnPreview($this->Msg('_EMPTY_STRING_',''),'id_parent',false),
             new ColumnIcon($this->Msg('_EMPTY_STRING_',''),'id_parent',true),
             new ColumnLink($this->Msg('_TITLE_','Title'),'title'),
             new ColumnText($this->Msg('_TEXT_','Text'),'text',false),

@@ -28,6 +28,7 @@ class msgView extends View
     }
     
     // nadpisujemy menu
+    /*
     public function RenderRowMenu($view, $item)
     {
         
@@ -44,5 +45,5 @@ class msgView extends View
         
         //print '<li><a href="' . $view->CtrlName . '/' . METHOD_EDIT . '/' . $item->GetId() . '">' . $view->Msg('_EDIT_', 'Edit') . '</a></li>';
     }
-
+    */
 }

@@ -12,8 +12,8 @@ abstract class Ctrl extends Base
     // używają inne kontrolery część wspólna dla wszystkich
     public $Method;                     //jak metoda
     public $Params;
-    public $Option = false;             //czy request jest może opcją jeżeli tak to wpływa to na zachowanie page ctrl który wtedy nie wyszukuje strony
     public $Type = USER_TYPE_USER;      // user type for login to admin or page
+	public $Option = false;
    
     
     public function __construct($login = true, $type = USER_TYPE_USER)
@@ -29,6 +29,10 @@ abstract class Ctrl extends Base
     public function Init()
     {
         // ustawiamy widokowi defaultowy model
+		
+		//print 'controller '.$this->Ctrl;
+		//print '<br>';
+		//print 'method'.$this->Method;
         $this->View->Model = $this->Model;
         $form = $this->Read();
         $login = $this->CheckForm($form);   // sprawdzamy login
@@ -36,22 +40,11 @@ abstract class Ctrl extends Base
         $this->ReadSession();               //czytanie z sesji
         $this->ReadOptions();
         $this->CheckRequest();
-        $this->FindPage();                  // odnajdź stronę po url
-        $this->SetVisit();
-        
-        //if($form && $login)
-        //{
-            //$this->Redirect();
-        //}
-
+		//$this->FindPage();
+      
     }
     
-    private function SetVisit()
-    {
-        $this->Model->InsertVisit();
-    }
-    
-    // można nadpisać bo np kontroller page na stronie głównej nie ma pamiętać
+	// można nadpisać bo np kontroller page na stronie głównej nie ma pamiętać
     // niektórych rzeczy
     public function ReadSession()
     {
@@ -69,7 +62,6 @@ abstract class Ctrl extends Base
     private function ReadOptions()
     {
         
-        //$options = explode('/',$this->Method.'/'.$this->Params);
         @$options = explode('/',$_GET[URL]);
 
         foreach($options as $option)
@@ -78,69 +70,57 @@ abstract class Ctrl extends Base
             if(sizeof($values) == 2)
             {
                 @list($option,$value) =  $values;
-                
-                switch ($option)
-                {
-                    case METHOD_LIMIT:  $this->SetLimit($value); $this->Option = true;   break;
-                    case METHOD_PAGE:   $this->SetPage($value);  $this->Option = true;   break;
-                    case METHOD_ORDER:  $this->SetOrder($value); $this->Option = true;   break;
-                    case METHOD_ASC:    $this->SetAsc($value);   $this->Option = true;   break;
-                    case METHOD_LANG:   $this->SetLang($value);  $this->Option = true;   break;
-                   
-                }
+				if(method_exists($this, $option))
+				{
+					$this->Option = true;
+				    $this->$option($value);
+				}   
             }
         }
+		
+		 //jezyk systemu
+        if (!empty($_REQUEST[IDLANG]))
+		{
+			$this->SetLang($_REQUEST[IDLANG]);
+			header("Location: ".BASE_HREF);
+		}
+		
     }
-  
+    
+    // metody wywoływane z loadera na podstawie url zmiennej method
+    public function Load()
+    {
+	
+		$action = $this->Method;
+	
+		if(method_exists($this, $action))
+        {
+            $this->$action();
+        
+		}else{
+           
+			//new myException('METHOD NOT EXISTS',$action);
+			$this->Index();
+		}     
 
-    // odszuliwanie strony nadpisane w kontrolerze page
+    }
+	// odszuliwanie strony nadpisane w kontrolerze page
     public function FindPage()
     { 
         
     }
-    
-    // metody wywoływane z loadera na podstawie url zmiennej method
-    
-    public function Load()
-    {
-        switch ($this->Method)
-        {
-            case METHOD_ADD:            $this->Add();           break;
-            case METHOD_ADD_NEWS:       $this->AddNews();       break;    
-            case METHOD_SAVE:           $this->Save();          break;
-            case METHOD_DELETE:         $this->Delete();        break;
-            case METHOD_DELETE_CONFIRM: $this->DeleteConfirm(); break;    
-                
-            case METHOD_COPY:           $this->Copy();          break;    
-            case METHOD_COPY_CONFIRM:   $this->CopyConfirm();   break;    
-           
-            case METHOD_EDIT:           $this->Edit();          break;
-            case METHOD_VIEW:           $this->View();          break; // form view before send    
-            case METHOD_PREVIEW:        $this->Preview();       break; // podglad strony    
-            case METHOD_PARENT:         $this->Parent();        break;
-            
-            // niestandardowe metody
-            // listing wszystkich rekordów jako html <options>
-            case METHOD_OPTIONS:        $this->Options();       break;
-            case METHOD_JSON:           $this->JSON();          break;
-            
-            case METHOD_SEARCH:         $this->SetSearch();
-                                        $this->Index();         break;
-            
-            default:                    $this->Index();         break;
-        }
-    }
-
+	
     // from POST
-    private function SetSearch()
+    private function Search()
     {
         $value = $_POST[SEARCH];
         $this->View->Search = $value;
         Session::SetSearch($value);
+		$this->Index();
     }
     
     private function Add()
-    {
+	{
         $this->FormAdd();
     }
 
@@ -148,8 +128,7 @@ abstract class Ctrl extends Base
     {
         $this->FormAddNews();
     }
-    
-    
+        
     private function Delete()
     {
         @list($id) = $options = explode('/',$this->Params);
@@ -178,8 +157,6 @@ abstract class Ctrl extends Base
         $this->FormEdit();
     }
     
-    
-
     private function SetLimit($value)
     {
         $this->View->Limit = $value;
@@ -197,7 +174,6 @@ abstract class Ctrl extends Base
         Session::SetId($value);  
     }
     
-    
     public function SetIdParent($value)
     {
         if(is_numeric($value) == false)
@@ -209,7 +185,6 @@ abstract class Ctrl extends Base
         Session::SetIdParent($value);
 
     }
-
     
     private function SetPage($value)
     {
@@ -224,8 +199,8 @@ abstract class Ctrl extends Base
 
     private function SetAsc($value)
     {
-        $this->View->Asc = $value;       
-        Session::SetAsc($value);  
+        $this->View->Asc = $value;
+        Session::SetAsc($value);
     }
 
     private function SetLang($value)
@@ -234,10 +209,12 @@ abstract class Ctrl extends Base
         $lang = $this->GetLang($value);
         
         if($lang)
-	{
+        {
             Session::SetLang($lang->id_lang);
-	    Session::SetCurrentPage(NULL);
-	}
+            Session::SetCurrentPage(NULL);
+            //if($this->)
+			//header("Location: /");
+        }
     }
     
     private function SetOrder($value)
@@ -326,7 +303,6 @@ abstract class Ctrl extends Base
         //print 'redirect dupa';
         //header('Location:/'.$this->Ctrl);
     }
-
 
     private function SetSession()
     {
@@ -451,12 +427,21 @@ abstract class Ctrl extends Base
         new myException('NOT IMPLEMENTED',__FUNCTION__);
     }
     
+
     public function Listing()
     {
         $this->View->SetColumns();
         $this->View->SetModel($this->Model);
         $this->View->SetItems($this->Model);
         $this->View->Render('listView');
+    }
+    
+    public function Content()
+    {
+        $this->View->SetColumns();
+        $this->View->SetModel($this->Model);
+        $this->View->SetItems($this->Model);
+        $this->View->Render('listViewContent',true);
     }
 
     public function Index()

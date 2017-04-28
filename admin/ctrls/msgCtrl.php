@@ -34,6 +34,7 @@ class msgCtrl extends Ctrl
 
     private function InitFormFields()
     {
+        $this->View->Id = new Input();
         $this->View->IdMsg = new Input();
         $this->View->IdLang = new Input();
         $this->View->Const = new Input();
@@ -56,6 +57,7 @@ class msgCtrl extends Ctrl
 
     public function ReadForm()
     {
+        $this->View->Id->Value = filter_input(INPUT_POST, ID);
         $this->View->IdMsg->Value = filter_input(INPUT_POST, IDMSG);
         $this->View->UserValue->Value = filter_input(INPUT_POST, MSG_USER_VALUE);
     }
@@ -66,6 +68,7 @@ class msgCtrl extends Ctrl
 
         foreach ($array as $item)
         {
+            $this->View->Id->Value = $item->id_msg;
             $this->View->IdLang->Value = $item->id_lang;
             $this->View->IdMsg->Value = $item->id_msg;
             $this->View->Const->Value = $item->const;

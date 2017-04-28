@@ -1,0 +1,98 @@
+<script>
+$(document).ready(function(){
+    $('#file-uploader').filer({
+        //templates: filer_default_opts.templates,
+        //uploadFile: filer_default_opts.uploadFile,
+        //limit: 5,
+        
+         templates: {
+                box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+                item: '<li class="jFiler-item" style="width:24%">\
+                            <div class="jFiler-item-container">\
+                                <div class="jFiler-item-inner">\
+                                    <div class="jFiler-item-thumb">\
+                                        <div class="jFiler-item-status"></div>\
+                                        <div class="jFiler-item-thumb-overlay">\
+    										<div class="jFiler-item-info">\
+    											<div style="display:table-cell;vertical-align: middle;">\
+    												<span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name}}</b></span>\
+    												<span class="jFiler-item-others">{{fi-size2}}$%$</span>\
+    											</div>\
+    										</div>\
+    									</div>\
+                                        {{fi-image}}\
+                                    </div>\
+                                    <div class="jFiler-item-assets jFiler-row">\
+                                        <ul class="list-inline pull-left">\
+                                            <li>{{fi-progressBar}}<input type="text" name="file_name[]"  class="form-control" placeholder="Image name"> <input type="number" name="file_position[]"  class="form-control" placeholder="Pozycja" ></li>\
+                                        </ul>\
+                                        <ul class="list-inline pull-right">\
+                                            <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                        </ul>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </li>',
+                itemAppend: '<li class="jFiler-item" style="width:24%">\
+                                <div class="jFiler-item-container">\
+                                    <div class="jFiler-item-inner">\
+                                        <div class="jFiler-item-thumb">\
+                                            <div class="jFiler-item-status"></div>\
+                                            <div class="jFiler-item-thumb-overlay">\
+        										<div class="jFiler-item-info">\
+        											<div style="display:table-cell;vertical-align: middle;">\
+        												<span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name}}</b></span>\
+        												<span class="jFiler-item-others">{{fi-size2}}&&&</span>\
+        											</div>\
+        										</div>\
+        									</div>\
+                                            {{fi-image}}\
+                                        </div>\
+                                        <div class="jFiler-item-assets jFiler-row">\
+                                            <ul class="list-inline pull-left">\
+                                                <li><input type="text" name="file_name[]"  class="form-control" placeholder="Image name" value="{{fi-file_title}}"> <input type="number" name="file_position[]"  class="form-control" placeholder="Pozycja" value="{{fi-file_position}}" ></li>\
+                                            </ul>\
+                                            <ul class="list-inline pull-right">\
+                                                <li> <a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                            </ul>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </li>',
+                progressBar: '<div class="bar"></div>',
+                itemAppendToEnd: false,
+                removeConfirmation: true,
+                _selectors: {
+                    list: '.jFiler-items-list',
+                    item: '.jFiler-item',
+                    progressBar: '.bar',
+                    remove: '.jFiler-item-trash-action'
+                }
+            },
+        maxSize: 50,
+        //extensions: ['jpg', 'jpeg', 'png', 'gif','info'],
+        addMore: true,
+        showThumbs: true,
+        files: [
+            {
+                name: "oko",
+                file_title: "tytuł zdjęcia",
+                file_position: 2,
+                size: 5453,
+                type: "image/jpg",
+                file: "http://dummyimage.com/720x480/f9f9f9/191a1a.jpg"
+            },
+            {
+                name: "appended_file_2.jpg",
+                file_title: "tytuł zdjęcia2",
+                file_position: 1,
+                size: 9453,
+                type: "image/jpg",
+                file: "http://dummyimage.com/640x480/f9f9f9/191a1a.jpg"
+            }
+        ]
+        
+        
+    });
+});
+</script>

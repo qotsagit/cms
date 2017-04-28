@@ -81,6 +81,7 @@ class fileModelforUploader extends Model
         
         if (isset($_POST['id_file_update']))
         {
+    
             $IDFilesUpdated = $_POST['id_file_update'];
             $NumberOfUpdatedFiles = count($IDFilesUpdated);
         }
@@ -189,20 +190,33 @@ class fileModelforUploader extends Model
     
     public function DeleteFiles($FilesToDelete,$IdPage)
     {
+        
         if (count($FilesToDelete))
         {
+ 
             foreach ($FilesToDelete AS $FileToDelete){
                     
                 $params = array(
                 ':file' => $FileToDelete,
                 ':id_page' => $IdPage
                 );   
+                
+                $sql = "SELECT id_file FROM file WHERE file=:file AND id_page=:id_page";
+            
+                $item = $this->DB->Row($sql, $params);
+            
+                $id_file = $item->id_file;
+                
+                $params2 = array(
+                ':id_file' => $id_file,
+                ':id_page' => $IdPage
+                );   
             
                 $this->DB->NonQuery('DELETE FROM file WHERE file=:file AND id_page=:id_page', $params);
                 
-                //$this->DB->NonQuery('DELETE FROM file_to_page WHERE file=:file AND id_page=:id_page', $params);
+                $this->DB->NonQuery('DELETE FROM file_to_page WHERE id_file=:id_file AND id_page=:id_page', $params2);
                     
-                @unlink(Settings::$FilesFolder.$FileToDelete);
+                //@unlink(Settings::$FilesFolder.$FileToDelete);
  
             }    
         }
@@ -210,6 +224,8 @@ class fileModelforUploader extends Model
     
     public function DeleteAllFiles($FilesToDelete,$IdPage)
     {
+        
+    
         if (count($FilesToDelete))
         {
             foreach ($FilesToDelete AS $FileToDelete){
@@ -221,9 +237,14 @@ class fileModelforUploader extends Model
             
                 $this->DB->NonQuery('DELETE FROM file WHERE file=:file AND id_page=:id_page', $params);
                 
-                //$this->DB->NonQuery('DELETE FROM file_to_page WHERE file=:file AND id_page=:id_page', $params);
+                $params2 = array(
+                ':id_file' => $FileToDelete['id_file'],
+                ':id_page' => $IdPage
+                );   
+                
+                $this->DB->NonQuery('DELETE FROM file_to_page WHERE id_file=:id_file AND id_page=:id_page', $params2);
                     
-                @unlink(Settings::$FilesFolder.$FileToDelete);
+                //@unlink(Settings::$FilesFolder.$FileToDelete);
                     
             }    
         }

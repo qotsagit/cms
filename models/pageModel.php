@@ -41,15 +41,20 @@ class pageModel extends Model
         return $this->price;
     }
 
+	public function GetUrlAddress()
+	{
+		return $this->url_address;
+	}
+	
     public function GetText()
     {
         return stripslashes($this->text) ;
     }
 
-    //public function GetImage()
-    //{
-      //  return $this->img;
-    //}
+    /*public function GetImg()
+    {
+        return $this->img;
+    }*/
 
     public function GetLogo()
     {
@@ -132,7 +137,6 @@ class pageModel extends Model
 		
     }
 	
-	
     public function GetParentId($id)
 	{
 		$params = array(':id' => $id);
@@ -140,6 +144,13 @@ class pageModel extends Model
 		return $this->DB->Row($sql, $params);
 	}
 
+	public function GetParentItem($id)
+	{
+		$params = array(':id' => $id);
+		$sql = "SELECT * FROM page WHERE id_page=:id";
+		return $this->DB->Row($sql, $params);
+	}
+	
 	public function GetStartPage()
 	{
 		$params = array(':id_lang' => Session::GetLang() );
@@ -181,6 +192,38 @@ class pageModel extends Model
         } 
     }
     
+    
+    public function GetGalleryAlbums()
+	{
+        $params = array(':active' => 1,'id_lang' => Session::GetLang());
+        $sql = "SELECT id_page, url_address, title, text FROM page WHERE content_type=1 AND id_parent > 0 AND active=:active AND id_lang=:id_lang";
+        
+        $items = $this->DB->Query($sql, $params, PDO::FETCH_CLASS);
+        
+        $albums = array();
+        $params2 = array();
+        
+        $counter  = 0;
+        
+        foreach ($items AS $item){
+            
+            $albums[$counter]['title'] = $item->title;
+            $albums[$counter]['url_address'] = $item->url_address;
+            $albums[$counter]['text'] = $item->text;
+            
+            $sql2 = "SELECT img FROM image WHERE id_page=".$item->id_page." ORDER BY position LIMIT 1";
+            
+            $items2 = $this->DB->Row($sql2, $params2);
+            
+            $albums[$counter]['img'] = $items2->img;
+            
+            $counter++;
+        }
+        
+        return $albums;
+        
+	}
+    
 	
 	public function GetImage()
 	{
@@ -200,13 +243,35 @@ class pageModel extends Model
     public function GetImagesFromPage($id_page)
 	{
         $params = array(':id_page' => $id_page);
-        $sql = "SELECT * FROM image,image_to_page WHERE image_to_page.id_page=:id_page AND image.id_image=image_to_page.id_image ORDER BY image.position";
+        //$sql = "SELECT * FROM image,image_to_page WHERE image_to_page.id_page=:id_page AND image.id_image=image_to_page.id_image ORDER BY image.position";
+		$sql = "SELECT * FROM image WHERE image.id_page=:id_page ORDER BY image.position";
         return $this->DB->Query($sql, $params, PDO::FETCH_CLASS);
 	}
+    
+    public function GetFilesFromPage($id_page)
+	{
+        $params = array(':id_page' => $id_page);
+        //$sql = "SELECT * FROM file,file_to_page WHERE file_to_page.id_page=:id_page AND file.id_file=file_to_page.id_file ORDER BY file.position";
+		$sql = "SELECT * FROM file WHERE file.id_page=:id_page ORDER BY file.position";
+        return $this->DB->Query($sql, $params, PDO::FETCH_CLASS);
+	}
+
+    public function GetSelectedImages($limit)
+    {
+		$params = array(':content_type' => CONTENT_GALLERY);
+		$sql = "SELECT * FROM page,image WHERE page.content_type=:content_type AND page.id_page = image.id_page LIMIT ".$limit;
+        return $this->DB->Query($sql, $params, PDO::FETCH_CLASS);
+    }
 	
+	public function SetOrder($field,$asc)
+	{
+		$this->OrderFieldName = $field;
+		$this->Asc = $asc;
+	}
+		
     public function Lists()
     {
-        $this->OrderFieldName = 'position';
+        //$this->OrderFieldName = 'position';
         
         $params = array(':id_lang' => Session::GetLang(),':id_parent' => $this->id_parent,':active' => STATUS_ACTIVE);
         if($this->Asc == SORT_ASC)
@@ -215,11 +280,12 @@ class pageModel extends Model
             $asc = 'DESC';
         
         if($this->Limit > 0)
-            $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND active=:active AND position > 0 ORDER BY '.$this->OrderFieldName.' '.$asc.' LIMIT '.$this->LimitFrom.','.$this->Limit.'';
+            $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND active=:active  ORDER BY '.$this->OrderFieldName.' '.$asc.' LIMIT '.$this->LimitFrom.','.$this->Limit.'';
         else
-            $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND active=:active AND position > 0 ORDER BY '.$this->OrderFieldName.' '.$asc;
+            $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND active=:active ORDER BY '.$this->OrderFieldName.' '.$asc;
         
-        return $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);
+
+	return $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);
     }
     
 }

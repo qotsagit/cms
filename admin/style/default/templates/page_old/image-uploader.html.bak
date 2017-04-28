@@ -1,0 +1,121 @@
+<script>
+$(document).ready(function(){
+    $('#image-uploader').filer({
+        //templates: filer_default_opts.templates,
+        //uploadFile: filer_default_opts.uploadFile,
+        //limit: 5,
+        
+         templates: {
+                box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+                item: '<li class="jFiler-item" style="width:24%">\
+                            <div class="jFiler-item-container">\
+                                <div class="jFiler-item-inner">\
+                                    <div class="jFiler-item-thumb">\
+                                        <div class="jFiler-item-status"></div>\
+                                        <div class="jFiler-item-thumb-overlay">\
+    										<div class="jFiler-item-info">\
+    											<div style="display:table-cell;vertical-align: middle;">\
+    												<span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name}}</b></span>\
+    												<span class="jFiler-item-others">{{fi-size2}}</span>\
+    											</div>\
+    										</div>\
+    									</div>\
+                                        {{fi-image}}\
+                                    </div>\
+                                    <div class="jFiler-item-assets jFiler-row">\
+                                        <ul class="list-inline pull-left">\
+                                            <li>{{fi-progressBar}}<input type="text" name="image_name[]"  class="form-control" placeholder="Image name"> <input type="number" name="image_position[]"  class="form-control" placeholder="Pozycja" value="0" ></li>\
+                                        </ul>\
+                                        <ul class="list-inline pull-right">\
+                                            <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                        </ul>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </li>',
+                itemAppend: '<li class="jFiler-item" style="width:24%">\
+                                <div class="jFiler-item-container">\
+                                    <div class="jFiler-item-inner">\
+                                        <div class="jFiler-item-thumb">\
+                                            <div class="jFiler-item-status"></div>\
+                                            <div class="jFiler-item-thumb-overlay">\
+        										<div class="jFiler-item-info">\
+        											<div style="display:table-cell;vertical-align: middle;">\
+        												<span class="jFiler-item-title"><a href="{{fi-file}}"><b title="{{fi-name}}">{{fi-name}}</b></a></span>\
+        												<span class="jFiler-item-others">{{fi-size2}}</span>\
+        											</div>\
+        										</div>\
+        									</div>\
+                                            {{fi-image}}\
+                                        </div>\
+                                        <div class="jFiler-item-assets jFiler-row">\
+                                            <ul class="list-inline pull-left">\
+                                                <li><input type="text" name="image_name_update[]"  class="form-control" placeholder="Image name" value="{{fi-file_title}}"> <input type="number" name="image_position_update[]"  class="form-control" placeholder="Pozycja" value="{{fi-file_position}}" ><input type="hidden" name="id_image_update[]"  value="{{fi-id_image}}"></li>\
+                                            </ul>\
+                                            <ul class="list-inline pull-right">\
+                                                <li> <a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                            </ul>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </li>',
+                progressBar: '<div class="bar"></div>',
+                itemAppendToEnd: false,
+                removeConfirmation: true,
+                _selectors: {
+                    list: '.jFiler-items-list',
+                    item: '.jFiler-item',
+                    progressBar: '.bar',
+                    remove: '.jFiler-item-trash-action'
+                }
+            },
+        extensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp'],
+        addMore: true,
+        showThumbs: true,
+        captions: {
+            button: "Wybierz pliki",
+            feedback: "Wybierz pliki do wgrania na serwer",
+            feedback2: "wybranych plików",
+            drop: "Drop file here to Upload",
+            removeConfirmation: "Czy napewno chcesz usunąć to zdjęcie?",
+            errors: {
+                filesLimit: "Only {{fi-limit}} files are allowed to be uploaded.",
+                filesType: "Można wybrać tylko zdjęcia JPG, PNG, GIF lub BMP",
+                filesSize: "{{fi-name}} jest za duży! Proszę wybierać zdjęcia mniejsze niż {{fi-fileMaxSize}} MB.",
+                filesSizeAll: "Wybrane pliki zajmują zbyt dużo. Prosimy wybrać pliki, które zajmują razem nie więcej niż {{fi-maxSize}} MB.",
+                folderUpload: "Nie można wgrywać katalogów."
+            }
+        }
+        
+        <?php 
+                               
+            if(isset($this->ImagesInPage) AND is_array($this->ImagesInPage))
+            {
+        
+                print ',files: [';
+                
+                    foreach ($this->ImagesInPage AS $Image)
+                    {
+                        
+                        print '
+                        {
+                        name: "'.$Image['img'].'",
+                        file_title: "'.$Image['name'].'",
+                        file_position: '.$Image['position'].',
+                        id_image: '.$Image['id_image'].',
+                        size: '.$Image['size'].',
+                        type: "image/jpg",
+                        file: "'.IMAGES_URL.$Image['img'].'"     
+                             
+                        },
+                        ';
+
+                    }
+                
+                print ']';
+        
+            }                  
+        ?>
+    });
+});
+</script>

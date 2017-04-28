@@ -83,12 +83,13 @@ class imageCtrl extends Ctrl
     {
         $ImageFileName = $this->View->Img->Value;
         
-        $imageResizeObj = new imageLib(Settings::$ImagesFolder.$ImageFileName);
+        $image = new Image();
         foreach(Settings::$ImageSizes AS $ImgSizeName => $ImgSizeValues)
-        {            
-            $imageResizeObj -> resizeImage($ImgSizeValues['width'], $ImgSizeValues['height'], 'crop-t', true);
-            $imageResizeObj -> saveImage(Settings::$ImagesFolder.'/'.$ImgSizeValues['folder'].'/'.$ImageFileName, $ImgSizeValues['quality']);
-            $imageResizeObj -> reset();           
+        {
+            $src = Settings::$ImagesFolder.'/'.$ImageFileName;
+            $dst = Settings::$ImagesFolder.'/'.$ImgSizeValues['folder'].'/'.$ImageFileName;
+            @mkdir(Settings::$ImagesFolder.'/'.$ImgSizeValues['folder']);
+            $image->ResizeAndCrop($src,$dst,$ImgSizeValues['width'], $ImgSizeValues['height']);
         }
         
     }
@@ -218,6 +219,14 @@ class imageCtrl extends Ctrl
         $this->View->SetModel($this->Model);
         $this->View->SetItems($this->Model);
         $this->View->Render('imageView');
+    }
+    
+    public function Content()
+    {
+        $this->View->SetColumns();
+        $this->View->SetModel($this->Model);
+        $this->View->SetItems($this->Model);
+        $this->View->Render('imageView',true);
     }
     
 }

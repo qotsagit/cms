@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <form method="POST" action="<?php print $this->CtrlName ?>">
+        <fieldset>
+                <legend>
+                    <?php print $this->Msg('_NEW_','New')  ?>
+                </legend>
+        
+            <a href="<?php print $this->CtrlName ?>"  class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
+                <div class="form-group pull-right">
+                    <input type="hidden" name="<?php print CUSTOMER_IDCUSTOMER ?>" value="<?php print $this->Id->Value ?>">
+                    <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                    <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+                    <a href="<?php print $this->CtrlName ?>" class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_NAME_','Name') ?></label>
+                    <input type="text" class="form-control" placeholder="<?php print $this->Msg('_NAME_','Name') ?>" name="<?php print CUSTOMER_NAME ?>" value="<?php print $this->Name->Value ?>">
+                    <?php print $this->RenderValidationError($this->Name->ErrorText); ?>
+                </div>
+          
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_ADDRESS_','Address') ?></label>
+                    <input type="text" class="form-control" placeholder="<?php print $this->Msg('_ADDRESS_','Address') ?>" name="<?php print CUSTOMER_ADDRESS ?>" value="<?php print $this->Address->Value ?>">
+                    <?php print $this->RenderValidationError($this->Address->ErrorText); ?>
+                </div>
+          
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_WEBSITE_','Website') ?></label>
+                    <input type="text" class="form-control" placeholder="<?php print $this->Msg('_NAME_','Name') ?>" name="<?php print CUSTOMER_WEBSITE ?>" value="<?php print $this->Website->Value ?>">
+                    <?php print $this->RenderValidationError($this->Website->ErrorText); ?>
+                </div>
+          
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_EMAIL_','Email') ?></label>
+                    <input type="text" class="form-control" placeholder="<?php print $this->Msg('_EMAIL_','Email') ?>" name="<?php print CUSTOMER_EMAIL ?>" value="<?php print $this->Email->Value ?>">
+                    <?php print $this->RenderValidationError($this->Email->ErrorText); ?>
+                </div>
+          
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_CITY_','City') ?></label>
+                    <input type="text" class="form-control" placeholder="<?php print $this->Msg('_CITY_','City') ?>" name="<?php print CUSTOMER_CITY ?>" value="<?php print $this->City->Value ?>">
+                    <?php print $this->RenderValidationError($this->City->ErrorText); ?>
+                </div>
+          
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_PHONE_','Phone') ?></label>
+                    <input type="text" class="form-control" placeholder="<?php print $this->Msg('_PHONE_','Phone') ?>" name="<?php print CUSTOMER_PHONE ?>" value="<?php print $this->Phone->Value ?>">
+                    <?php print $this->RenderValidationError($this->Phone->ErrorText); ?>
+                </div>
+          
+                  
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
+                    <textarea class="form-control" name="<?php print CUSTOMER_TEXT ?>" rows="10"><?php print $this->Text->Value ?></textarea>
+                    <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
+                </div>
+                         
+            </fieldset>
+        </form>
+    </div>
+</div>

@@ -109,11 +109,11 @@ function completeHandler(event,id)
 {
     //alert(event.target.responseText);
 	_("avatar"+id).src = event.target.responseText;
-    //$("#upload"+id).fadeIn(500);
-	//$("#upload"+id).delay( 3000 ).fadeOut(2500);
-    //_("status"+id).innerHTML = event.target.responseText;
-	//_("progressBar"+id).value = 0;
-    //_("progressBar"+id).style.display = 'none';
+    $("#upload"+id).fadeIn(500);
+	$("#upload"+id).delay( 1000 ).fadeOut(5500);
+    _("status"+id).innerHTML = '';
+	_("progressBar"+id).value = 0;
+    _("progressBar"+id).style.display = 'none';
 
 }
 

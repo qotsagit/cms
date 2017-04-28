@@ -9,7 +9,10 @@
       </div>
       
       <div class="modal-body text-center">
+        <div id="name"></div>
+        <br>
         <img id="preview" width=100%>
+        <div id="size"></div>
       </div>
     
       <div class="modal-footer">
@@ -83,10 +86,18 @@ $(document).ready(function() {
   function loadImage(image)
   {
       _('preview').src = image.src;
-        //console.log(image);
-        //alert(image.src);
+      _('name').innerHTML = image.src;
+      _('size').innerHTML = image.naturalWidth+' x '+image.naturalHeight;
   }
   
+  $('tr').click
+  (
+    function(event)
+    {
+      //alert(this);
+      console.log(this);
+      }
+  );
   
   $('#select_all').click
   (

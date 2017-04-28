@@ -279,15 +279,11 @@ class regionModel extends Model
             new regionModel(1,'menu'),
             new regionModel(2,'slider'),
             new regionModel(3,'content_top'),
-            new regionModel(4,'sidebar_left'),
-            new regionModel(5,'content'),
-            new regionModel(6,'sidebar_right'),
-            new regionModel(7,'content_bottom'),
-            new regionModel(8,'footer_1'),
-            new regionModel(9,'footer_2'),
-            new regionModel(10,'footer_3'),
-            new regionModel(11,'footer_4'),
-            new regionModel(12,'contact')
+            new regionModel(4,'content'),
+            new regionModel(5,'content_bottom'),
+            new regionModel(6,'footer'),
+            new regionModel(7,'contact'),
+            new regionModel(8,'newsletter'),
 
         );
 

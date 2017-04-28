@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <form method="POST" action="<?php print $this->CtrlName ?>">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input class="form-control" type="hidden" name="id">
+                    </div>   
+                    <h3><?php print $this->Msg('_COPY_','Copy') ?> ?</h3>
+                    <h2><?php print $this->Title->Value; ?></h2>
+                    <?php $this->RenderAsSelect($this->Languages,$this->IdLang->Value,$this->Msg('_LANGUAGES_','Languages'),PAGE_ID_LANG) ?>
+                    <?php $this->RenderTreeAsSelect($this->Pages,$this->IdParent->Value,$this->Msg('_PAGES_','Pages'),PAGE_ID_PARENT) ?>
+                    
+                </div>
+                <div class="modal-footer">
+                  <!--  <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_COPY_CONFIRM ?>"> -->
+                    <input type="hidden" name="<?php print ID ?>" value="<?php print $this->Id->Value ?>">
+                    <a href="<?php print $this->CtrlName ?>"  class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
+                    <button type="submit" name="<?php print METHOD ?>" class="btn btn-danger" value="<?php print METHOD_COPY_CONFIRM ?>""><?php print $this->Msg('_OK_','OK') ?></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $('#page_id_lang').change(function () { changevalue('#page_id_lang','#page_id_parent'); });
+     
+    function changevalue(e1,e2)
+    {
+        var id_lang = $('#page_id_lang').val();
+        var id_page = $('#page_id_page').val();
+        
+        //alert(id_page);
+        
+        $(e2).html('<option value=""><?php print $this->Msg("_LOADING_","Loading...") ?></option>');
+        $.get
+        ('page/options&page_id_lang='+id_lang+'&page_id_page='+id_page+'&id_parent=<?php print $this->IdParent->Value ?>',
+            function(data)
+            {
+                //alert(data);
+                $(e2).html(data);
+            }
+            );
+    }    
+</script>
+
