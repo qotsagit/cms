@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <form method="POST">
+            <fieldset>
+                <legend><?php print $this->ViewTitle ?> - <?php print $this->Title->Value ?> </legend>
+                
+                 <a href="<?php print $this->CtrlName ?>"  class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
+               
+                <div class="form-group pull-right">
+                    <input type="hidden" name="<?php print IDBLOCK ?>" value="<?php print $this->IdBlock->Value ?>">
+                    <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                    <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+                    <a href="<?php print $this->CtrlName ?>" class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
+                </div>
+                <hr>
+            <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_TITLE_','Title') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_TITLE_','Title') ?>" name="<?php print BLOCK_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                        <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_LON_','Lon') ?></label>
+                        <input id="lon" type="text" class="form-control" placeholder="<?php print $this->Msg('_LON_','Lon') ?>" name="<?php print BLOCK_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                        <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_LAT_','Lat') ?></label>
+                        <input id="lat" type="text" class="form-control" placeholder="<?php print $this->Msg('_LAT_','Lat') ?>" name="<?php print BLOCK_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                        <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
+                        <textarea class="form-control" name="<?php print BLOCK_TEXT ?>" rows="10"><?php print $this->Text->Value ?></textarea>
+                        <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
+                    </div>
+                </div>
+            
+            <div class="col-md-6">
+                 <div id="map" style="width:100%; height:360px;margin-top:12px;"></div>
+            </div>
+               
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyAtyXbZQiMV2BFDdztVuCZPfzN_rijV4_U&callback=init" async defer></script>
+<script>
+    function init()
+    {
+        var latlng = new google.maps.LatLng(1.10, 1.10);
+        var myOptions =
+        {
+            zoom: 5,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.HYBRID
+        };
+        map = new google.maps.Map(document.getElementById("map"),myOptions);
+        geocoder = new google.maps.Geocoder();
+        
+        marker = new google.maps.Marker
+        ({
+            position: latlng,
+            map: map
+        });
+        
+        google.maps.event.addListener(map, 'click', function(event)
+        {
+            marker.setPosition(event.latLng);
+
+            var yeri = event.latLng;
+
+            var latlongi = "(" + yeri.lat().toFixed(6) + " , " +
+                + yeri.lng().toFixed(6) + ")";
+
+            //infowindow.setContent(latlongi);
+
+            document.getElementById('lat').value=yeri.lat().toFixed(6);
+            document.getElementById('lon').value=yeri.lng().toFixed(6);
+        });
+
+        
+        
+    }
+    
+
+</script>

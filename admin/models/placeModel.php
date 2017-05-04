@@ -11,23 +11,15 @@
  * @version    1.0
  */
 
-class blockModel extends Model
+class placeModel extends Model
 {
     public $id;
-    public $id_block;
-    public $id_user;
-    public $id_tpl_region;
-    public $position;
-    public $id_lang;
-    public $content_type;
+    public $id_place;
     public $title;
     public $text;
-    public $img;
-    public $show_type;
-    public $show_url;
-    public $added_time;
-    public $active;
-
+    public $lon;
+    public $lat;
+    
     public function __construct()
     {
         parent::__construct();
@@ -35,27 +27,20 @@ class blockModel extends Model
 
     public function GetId()
     {
-        return $this->id_block;
-    }
-
-    public function GetActive()
-    {
-        return $this->active;
+        return $this->id_place;
     }
 
     public function Insert()
     {
         $params = array
         (
-            ':id_lang' => $this->id_lang,
-            ':id_user' => $this->id_user,
-            ':id_region' => $this->id_region,
-            ':title' => $this->title,
-            ':text' => $this->FilterTextFromEditor($this->text),
-            ':active' => $this->active
+            ':title'    => $this->title,
+            ':text'     => $this->text,
+            ':lon'      => $this->lon,
+            ':lat'      => $this->lat
         );
 
-        $this->DB->NonQuery('INSERT INTO block SET id_lang=:id_lang,id_user=:id_user,id_region=:id_region,title=:title,text=:text,added_time=now(),active=:active', $params);
+        $this->DB->NonQuery('INSERT INTO place SET title=:title,text=:text, lon=:lon, lat=:lat', $params);
     }
 
     public function Update()
@@ -63,57 +48,54 @@ class blockModel extends Model
     
         $params = array
         (
-            ':id_user' => $this->id_user,
-            ':id_lang' => $this->id_lang,
-            ':id_block' => $this->id_block,
-            ':id_region' => $this->id_region,
-            ':title' => $this->title,
-            ':text' => $this->FilterTextFromEditor($this->text),
-            ':active' => $this->active
+            ':id_place' => $this->id_place,
+            ':title'    => $this->title,
+            ':text'     => $this->text,
+            ':lon'      => $this->lon,
+            ':lat'      => $this->lat
         );
 
-        $this->DB->NonQuery('UPDATE block SET id_user=:id_user,id_lang=:id_lang,id_region=:id_region,title=:title,text=:text,active=:active WHERE id_block=:id_block', $params);
+        $this->DB->NonQuery('UPDATE place SET title=:title,text=:text,lon=:lon,lat=:lat WHERE id_place=:id_place', $params);
         
     }
     
     public function Delete()
     {
-        $params = array(':id_block' => $this->id);
-        $this->DB->NonQuery('DELETE FROM block WHERE id_block=:id_block', $params);
+        $params = array(':id' => $this->id);
+        $this->DB->NonQuery('DELETE FROM place WHERE id_block=:id', $params);
         return;
     }
 
     public function Get($id)
     {
         $params = array(':id' => $id);
-        $sql = "SELECT * FROM block WHERE id_block=:id";
+        $sql = "SELECT * FROM place WHERE id_place=:id";
         return $this->DB->Query($sql, $params, PDO::FETCH_CLASS);
     }
   
     public function CountAll()
     {
-        $params = array(':id_lang' => Session::GetLang());
-        return $this->DB->Count('SELECT count(*) FROM block WHERE id_lang=:id_lang', $params);
+        return $this->DB->Count('SELECT count(*) FROM place ', NULL);
     }  
     
     public function Count()
     {
-        $params = array(':id_lang' => Session::GetLang(),':search' => '%'.Session::GetSearch().'%');
-        return $this->DB->Count('SELECT count(*) FROM block WHERE id_lang=:id_lang AND title LIKE :search', $params);
+        $params = array(':search' => '%'.Session::GetSearch().'%');
+        return $this->DB->Count('SELECT count(*) FROM place WHERE title LIKE :search', $params);
     }
 
     public function Lists()
     {
-        $params = array(':id_lang' => Session::GetLang(),':search' => '%'.Session::GetSearch().'%');
+        $params = array(':search' => '%'.Session::GetSearch().'%');
         if ($this->Asc == SORT_ASC)
             $asc = 'ASC';
         else
             $asc = 'DESC';
 
         if ($this->Limit > 0)
-            $sql = 'SELECT * FROM block WHERE id_lang=:id_lang AND title LIKE :search ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
+            $sql = 'SELECT * FROM place WHERE title LIKE :search ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
         else
-            $sql = 'SELECT * FROM block WHERE id_lang=:id_lang ORDER BY ' . $this->OrderFieldName . ' ' . $asc;
+            $sql = 'SELECT * FROM place WHERE title LIKE :search ORDER BY ' . $this->OrderFieldName . ' ' . $asc;
 
         return $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);
     }

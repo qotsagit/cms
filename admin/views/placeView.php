@@ -1,49 +1,26 @@
 <?php
 
-class blockView extends View
+class placeView extends View
 {
-    // pola formularza
-    public $_Id;
-    public $IdBlock;
-    public $IdUser;
-    public $IdLang;
-    public $Title;
-    public $Description;
-    public $Active;
-
          
     public function __construct()
     {    
         parent::__construct();
+        $this->ViewTitle = $this->Msg('_PLACE_', 'Place');
+        $this->CtrlName = CTRL_PLACE;
     }
     
     public function SetColumns()
     {
         $this->Columns = array
         (
-            new ColumnText($this->Msg('_EMPTY_STRING_',''),'id_block',false),
-            new ColumnText($this->Msg('_EMPTY_STRING_',''), 'id_user',false),
-            new ColumnText($this->Msg('_EMPTY_STRING_',''), 'id_region',false),
-            new ColumnText($this->Msg('_POSITION_','Position'), 'position',false),
-            new ColumnText($this->Msg('_EMPTY_STRING_',''), 'id_lang',false),
-            new ColumnText($this->Msg('_EMPTY_STRING_',''), 'content_type',false),
+            new ColumnText($this->Msg('_EMPTY_STRING_',''),'id_place',false),
             new ColumnText($this->Msg('_TITLE_','Title'),'title'),
-            new ColumnText($this->Msg('_TEXT_','Text'),'text',false),
-            new ColumnText($this->Msg('_EMPTY_STRING_',''),'img'),
-            new ColumnText($this->Msg('_EMPTY_STRING_',''),'show_type',false),
-            new ColumnText($this->Msg('_EMPTY_STRING_',''),'show_url'),
-            new ColumnText($this->Msg('_ADDED_TIME_','Added Time'),'added_time'),
-            new ColumnActive($this->Msg('_ACTIVE_','Active'), 'active',$this->Statuses)
+            new ColumnText($this->Msg('_TEXT_','Text'),'text'),
+            new ColumnText($this->Msg('_LON_','Lon'),'lon'),
+            new ColumnText($this->Msg('_LAT_','Lat'),'lat')
         );    
     }
     
-    
-    
-    //nadpisujemy 
-    //public function render($view)
-    //{
-      //  include TEMPLATE_FOLDER . '/' . $view . '.html';
-    //}
 
-    
 }

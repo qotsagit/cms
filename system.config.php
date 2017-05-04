@@ -77,6 +77,7 @@ define('CTRL_IMAGE','image');
 define('CTRL_NEWSLETTER','newsletter');
 define('CTRL_BACKUP','backup');
 define('CTRL_UPDATE','update');
+define('CTRL_PLACE','place');
 
 //method
 define('METHOD_LIST','list');

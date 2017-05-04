@@ -597,7 +597,7 @@ class View extends Base
 
 
 
-    public function RenderTablePagination($view,$with_ctrl = false)
+    public function RenderTablePagination($view,$url)
     {
         if($view->Pages > 1)
         {
@@ -610,23 +610,17 @@ class View extends Base
                 $start = 1;
             
             // url z kontrollerem
-            if($with_ctrl)
-            {
-                $url = $view->CtrlName.'/'.METHOD_PAGE;
-            }else{
-                $url = METHOD_PAGE;
-            }
-            
+
             print '<ul class="pagination">';
             for ($i = $start; $i < $end + 1 ; $i++)
             {
                 if ($view->Page == $i)
                 {
-                    print '<li class="active"><a href="'.$url.'-'. $i.'">' . $i . '</a></li>';
+                    print '<li class="active"><a href="'.$url.'/'.METHOD_PAGE.'-'. $i.'">' . $i . '</a></li>';
                 }
                 else
                 {
-                    print '<li><a href="'.$url.'-'.$i.'">' . $i . '</a></li>';
+                    print '<li><a href="'.$url.'/'.METHOD_PAGE.'-'.$i.'">' . $i . '</a></li>';
                 }
             }
             print '</ul>';

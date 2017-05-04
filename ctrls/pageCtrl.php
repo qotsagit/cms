@@ -41,7 +41,7 @@ class pageCtrl extends Ctrl
 	{
 		// próba odszukania strony po url
 		// szukamy wtedy kiedy nie jest to opcja i ustalona jest metoda
-		
+		/*
 		if($this->Option)
         {
 			
@@ -56,7 +56,7 @@ class pageCtrl extends Ctrl
             }   
         
 		}
-	
+	*/
 		if(empty($this->Page))
 		{
 			$this->View->_IdParent = 0;
@@ -75,20 +75,35 @@ class pageCtrl extends Ctrl
 		}
 		
 	}
-
-
-	//public function Load()
-	//{
-	//    print $this->Method;
-	    
-	//}    
-	// nadpisany Index inny template wyświetlania
-    // tutaj ma czytać z bazy jaki ma być template dla strony i renderować
-    
 	
 	public function Abc()
 	{
 		print 'abc';
+	}
+	
+	// content dla requestów ajax
+	public function Content()
+	{
+		$this->View->SetColumns();
+		$this->View->Asc = SORT_ASC;
+        $this->View->SetModel($this->Model);
+		$this->View->SetItems($this->Model);
+        // set template			
+		$page = $this->View->CurrentItem;
+				
+        if($page)
+        {
+			
+			$page->template = str_replace('.','.content.',$page->template);
+			$template = 'page/'.$page->template;
+			
+			if($this->IsTemplateExists($template))
+			    $this->View->Render($template,true);
+            else
+             new myException('NOT IMPLEMENTED',$template);
+         
+		}
+		
 	}
 	
 	public function Listing()
@@ -126,5 +141,6 @@ class pageCtrl extends Ctrl
          
 		}
     }
+	
 
 }

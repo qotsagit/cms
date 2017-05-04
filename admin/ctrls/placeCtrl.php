@@ -24,13 +24,12 @@ class placeCtrl extends Ctrl
         $this->View = new placeView();
 
         // potrzebne przy listingu itp..
-        $items = new activeModel();
-        $this->View->Statuses = $items->All();
-        $this->View->ViewTitle = $this->Msg('_MENU_', 'Menu');
-        $this->View->CtrlName = CTRL_MENU;
+        
+        
+        
         $this->View->SetColumns();
 
-        $this->Model = new menuModel();
+        $this->Model = new placeModel();
 
         $this->InitFormFields();
         $this->InitRequired();
@@ -49,28 +48,27 @@ class placeCtrl extends Ctrl
 
     private function InitRequired()
     {
-        $this->View->Name->SetRequired(true);
-        //$this->View->Url->SetRequired(true);
+        $this->View->Title->SetRequired(true);
+        $this->View->Lon->SetRequired(true);
+        $this->View->Lat->SetRequired(true);
     }
 
     private function InitValidatorFields()
     {
-        $this->Validator->Add($this->View->Name);
+        $this->Validator->Add($this->View->Title);
+        $this->Validator->Add($this->View->Lon);
+        $this->Validator->Add($this->View->Lat);
         //$this->Validator->Add($this->View->Url);
     }
     
     public function ReadForm()
     {
         $this->View->Id->Value = filter_input(INPUT_POST, ID);
-        $this->View->IdMenu->Value = filter_input(INPUT_POST, IDMENU);
-        $this->View->IdParent->Value = filter_input(INPUT_POST, IDPARENT);
-        $this->View->IdLang->Value = filter_input(INPUT_POST, IDLANG);
-        $this->View->IdRegion->Value = filter_input(INPUT_POST, IDREGION);
-        $this->View->IdPage->Value = filter_input(INPUT_POST, IDPAGE);
-        $this->View->Name->Value = filter_input(INPUT_POST, MENU_NAME);
-        $this->View->Url->Value = filter_input(INPUT_POST, MENU_URL);
-        $this->View->Active->Value = filter_input(INPUT_POST, MENU_STATUS);
-        $this->View->Position->Value = filter_input(INPUT_POST, MENU_POSITION);
+        $this->View->IdPlace->Value = filter_input(INPUT_POST, PLACE_ID);
+        $this->View->Title->Value = filter_input(INPUT_POST, PLACE_TITLE);
+        $this->View->Text->Value = filter_input(INPUT_POST, PLACE_TEXT);
+        $this->View->Lon->Value = filter_input(INPUT_POST, PLACE_LON);
+        $this->View->Lat->Value = filter_input(INPUT_POST, PLACE_LAT);
     }
 
     public function ReadDatabase()
@@ -80,55 +78,44 @@ class placeCtrl extends Ctrl
         foreach ($array as $item)
         {
             $this->View->Id->Value = $item->id_menu;
-            $this->View->IdMenu->Value = $item->id_menu;
-            $this->View->IdParent->Value = $item->id_parent;
-            $this->View->IdLang->Value = $item->id_lang;
-            $this->View->IdRegion->Value = $item->id_region;
-            $this->View->IdPage->Value = $item->id_page;
-            $this->View->Name->Value = $item->name;
-            $this->View->Url->Value = $item->url;
-            $this->View->Active->Value = $item->active;
-            $this->View->Position->Value = $item->position;
+            $this->View->IdPlace->Value = $item->id_place;
+            $this->View->Title->Value = $item->title;
+            $this->View->Text->Value = $item->text;
+            $this->View->Lon->Value = $item->lon;
+            $this->View->Lat->Value = $item->lat;
             return true;
         }
 
         return false;
     }
 
+    private function SetModel()
+    {
+        $this->Model->id_place = $this->View->IdMenu->Value;
+        $this->Model->title = $this->View->Name->Value;
+        $this->Model->text = $this->View->Url->Value;
+        $this->Model->lon = $this->View->Active->Value;
+        $this->Model->lat = $this->View->Position->Value;
+    }
+    
     public function Insert()
     {
-        $this->Model->id_menu = $this->View->IdMenu->Value;
-        $this->Model->id_parent = $this->View->IdParent->Value;
-        $this->Model->id_lang = Session::GetLang(); //$this->View->IdLang->Value;
-        $this->Model->id_region = $this->View->IdRegion->Value;
-        $this->Model->id_page = $this->View->IdPage->Value;
-        $this->Model->name = $this->View->Name->Value;
-        $this->Model->url = $this->View->Url->Value;
-        $this->Model->active = $this->View->Active->Value;
-        $this->Model->position = $this->View->Position->Value;
-
-        if ($this->View->IdMenu->Value > 0)
-        {
-            $this->Model->Update();
-        }
-        else
-        {
-            $this->Model->Insert();
-        }
+        print 'insert';
+        $this->SetModel();
+        $this->Model->Insert();
+    }
+    
+    public function Update()
+    {
+        print 'update';
+        $this->SetModel();
+        $this->Model->Update();
     }
    
     public function FormAdd()
     {
         $this->View->ViewTitle = $this->Msg('_NEW_', 'New');
-               
-        $this->View->IdLang->Value = Session::GetLang();
-        $this->View->IdParent->Value = Session::GetIdParent();
-        $this->View->Active->Value = STATUS_ACTIVE;
-        
-        if($this->View->IdParent->Value > 0)
-             $this->View->Render('menu/addItem');
-        else
-            $this->View->Render('menu/addMenu');
+        $this->View->Render('place/add');
     }
 
     public function FormEdit()
@@ -137,26 +124,8 @@ class placeCtrl extends Ctrl
        
         if ($this->ReadDatabase())
         {
-            $items = new langModel();
-            $this->View->Languages = $items->All();
 
-            $items = new regionModel();
-            $this->View->Regions = $items->All();
-
-            // strony drzewo
-            $items = new pageModel();
-            $items->Tree(0, 0, Session::GetLang(), $this->View->Pages);
-            $items->AddParent($this->Msg('_CHOOSE_PAGE_','Choose Page'), $this->View->Pages);
- 
-        
-            $this->Model->Tree(0,$this->View->IdMenu->Value, $this->View->Menus);
-            $this->Model->AddParent($this->View->Menus);
-       
-        
-            if($this->View->IdParent->Value > 0)
-                $this->View->Render('menu/addItem');
-            else
-                $this->View->Render('menu/addMenu');
+            $this->View->Render('place/add');
         
         }else{
             
@@ -167,4 +136,3 @@ class placeCtrl extends Ctrl
 
     
 }
-aaaa

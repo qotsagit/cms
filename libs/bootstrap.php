@@ -73,7 +73,7 @@ class Bootstrap
         if(isset($_GET[URL]))
         {
              @list($this->Ctrl, $this->Method, $this->Params) = explode("/", $_GET[URL], 3);
-             @list($this->Page) = explode("/", $_GET[URL], 1);    
+             @list($this->Page) = explode("/", $_GET[URL], 3);
         }
 
     }

@@ -72,7 +72,7 @@ abstract class Ctrl extends Base
                 @list($option,$value) =  $values;
 				if(method_exists($this, $option))
 				{
-					$this->Option = true;
+					//$this->Option = true;
 				    $this->$option($value);
 				}   
             }
@@ -438,10 +438,11 @@ abstract class Ctrl extends Base
     
     public function Content()
     {
-        $this->View->SetColumns();
-        $this->View->SetModel($this->Model);
-        $this->View->SetItems($this->Model);
-        $this->View->Render('listViewContent',true);
+		new myException('NOT IMPLEMENTED',__FUNCTION__);
+        //$this->View->SetColumns();
+        //$this->View->SetModel($this->Model);
+        //$this->View->SetItems($this->Model);
+        //$this->View->Render('listViewContent',true);
     }
 
     public function Index()
