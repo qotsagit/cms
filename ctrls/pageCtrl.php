@@ -128,7 +128,7 @@ class pageCtrl extends Ctrl
 			else
 				$this->View->MetaTitle = $page->meta_title; 
 						
-			if(isset($page->meta_description))
+			if(empty($page->meta_description))
 				$this->View->MetaDescription = $page->title; 
 			else
 				$this->View->MetaDescription = $page->meta_description; 

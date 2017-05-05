@@ -19,6 +19,7 @@ class placeModel extends Model
     public $text;
     public $lon;
     public $lat;
+    public $zoom;
     
     public function __construct()
     {
@@ -37,32 +38,35 @@ class placeModel extends Model
             ':title'    => $this->title,
             ':text'     => $this->text,
             ':lon'      => $this->lon,
-            ':lat'      => $this->lat
+            ':lat'      => $this->lat,
+            ':zoom'     => $this->zoom
         );
 
-        $this->DB->NonQuery('INSERT INTO place SET title=:title,text=:text, lon=:lon, lat=:lat', $params);
+        $this->DB->NonQuery('INSERT INTO place SET title=:title, text=:text, lon=:lon, lat=:lat, zoom=:zoom', $params);
     }
 
     public function Update()
     {
-    
+
         $params = array
         (
             ':id_place' => $this->id_place,
             ':title'    => $this->title,
             ':text'     => $this->text,
             ':lon'      => $this->lon,
-            ':lat'      => $this->lat
+            ':lat'      => $this->lat,
+            ':zoom'     => $this->zoom
         );
 
-        $this->DB->NonQuery('UPDATE place SET title=:title,text=:text,lon=:lon,lat=:lat WHERE id_place=:id_place', $params);
+        $this->DB->NonQuery('UPDATE place SET title=:title, text=:text, lon=:lon, lat=:lat, zoom=:zoom WHERE id_place=:id_place', $params);
         
     }
     
     public function Delete()
     {
         $params = array(':id' => $this->id);
-        $this->DB->NonQuery('DELETE FROM place WHERE id_block=:id', $params);
+        print_r($params);
+        $this->DB->NonQuery('DELETE FROM place WHERE id_place=:id', $params);
         return;
     }
 

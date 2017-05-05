@@ -1,0 +1,107 @@
+<section id="about" class="title">
+    <div class="home-overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="main_about_benner text-center padding-top-60 padding-bottom-60">
+                <div class="col-sm-12">
+                    <div class="single_about_benner padding-top-60 padding-bottom-40 textwhite">
+                        <h1><?php print $this->CurrentItem->title;?></h1>                                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<? $this->Model->SetOrder("added_time",SORT_DESC); ?>
+<? $this->SetItems($this->Model); ?>
+
+<!-- Zawartość jest pobierana z kontrolera news i widoku -->
+<!-- do tego jeszcze dochodzi plik w templates/news/index.html który zwraca sekcję newsów -->
+<script>
+    
+    
+    function request(div,page)
+	{
+        var result;
+        
+		$.ajax
+		({
+			type: "POST",
+			url: "page/content/setpage-"+page,
+			success: function(html)
+			{
+				$(div).append(html);
+			},
+
+			error: function()
+			{
+				result = '<div class="alert alert-danger">There was an error sending the message!</div>';
+				$(div).html(result);
+			}
+
+		});
+
+	}
+    
+   
+    $(document).ready(function()
+    {
+        $("#blog-post").load
+        (
+            //request("#blog-content")
+        );
+
+    });
+   
+    
+</script>
+<section id="blog-post" class="blog_post">
+    <div class="container">
+        <div class="row">
+            <div class="fleetdetails_area home1_main_blog blog_post_area blog_post_02_area sections">
+                <div class="col-sm-8">
+					<div class="blog_post_content">
+                    <?php foreach ($this->Items as $item) { ?>
+                            <div class="single_blog margin-top-50">
+                                <div class="container">
+                                
+									<div class="row">
+									    <div class="col-md-4">
+									        <div class="single_blog_img">
+									        <img src="<?php print $this->ImageUrl($item->img); ?>" alt="">
+												<div class="blog_update_date text-center textwhite">
+												    <p><?php print date("Y - m",strtotime($item->added_time)); ?></p>
+												    <h4><?php print date("d",strtotime($item->added_time)); ?></h4>
+												</div>
+											</div>
+										</div>
+								
+										<div class="col-md-8">
+										    <div class="single_blog_text">
+										        <h6><a href="blog-single.html"><?php print $item->title ?></a></h6>
+												<!--
+										            <a href=""><span class="icon icon-User"></span>Admin</a>
+										            <a href=""><span class="icon icon-MessageLeft"></span> Comments 20</a>
+										            <a href=""><span class="icon icon-Share"></span> Share <i class="fa fa-facebook share"></i><i class="fa fa-google-plus share"></i><i class="fa fa-twitter share"></i><i class="fa fa-linkedin share"></i> </a>
+												-->
+										        <p>
+												<?php print $this->PureText($item->text,640,false,false); ?>
+												</p>
+											</div>
+											<br>
+											<a href="<?php print $item->url_address ?>" class="btn btn-md">Read More</a>
+										</div>
+									</div>
+								</div>
+                            </div>
+					  <?php } ?>
+					  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="text-center">
+		<?php $this->RenderTablePagination($this,$this->CurrentItem->url_address); ?>
+	</div>
+</section>

@@ -38,6 +38,7 @@ class View extends Base
 
     public function SetModel($model)
     {
+        //print $model->AsString();
         $this->Model = $model;
         $model->id_parent = $this->_IdParent; // ustawiamy przed Count
         $this->Count = $model->Count();
@@ -56,6 +57,7 @@ class View extends Base
  
     public function SetItems($model)
     {
+        //print $model->AsString();
         $this->Items = $model->Lists();
     }
     

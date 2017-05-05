@@ -7,34 +7,37 @@
                  <a href="<?php print $this->CtrlName ?>"  class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
                
                 <div class="form-group pull-right">
-                    <input type="hidden" name="<?php print IDBLOCK ?>" value="<?php print $this->IdBlock->Value ?>">
+                    <input type="hidden" name="<?php print ID ?>" value="<?php print $this->IdPlace->Value ?>">
                     <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
                     <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
                     <a href="<?php print $this->CtrlName ?>" class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
                 </div>
                 <hr>
-            <div class="col-md-6">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label class="control-label"><?php print $this->Msg('_TITLE_','Title') ?></label>
-                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_TITLE_','Title') ?>" name="<?php print BLOCK_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                        <input id="title" type="text" class="form-control" placeholder="<?php print $this->Msg('_TITLE_','Title') ?>" name="<?php print PLACE_TITLE ?>" value="<?php print $this->Title->Value ?>">
                         <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
                     </div>
+                    
                     <div class="form-group">
                         <label class="control-label"><?php print $this->Msg('_LON_','Lon') ?></label>
-                        <input id="lon" type="text" class="form-control" placeholder="<?php print $this->Msg('_LON_','Lon') ?>" name="<?php print BLOCK_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                        <input id="lon" type="text" class="form-control" placeholder="<?php print $this->Msg('_LON_','Lon') ?>" name="<?php print PLACE_LON ?>" value="<?php print $this->Lon->Value ?>">
                         <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
                     </div>
+                    
                     <div class="form-group">
                         <label class="control-label"><?php print $this->Msg('_LAT_','Lat') ?></label>
-                        <input id="lat" type="text" class="form-control" placeholder="<?php print $this->Msg('_LAT_','Lat') ?>" name="<?php print BLOCK_TITLE ?>" value="<?php print $this->Title->Value ?>">
+                        <input id="lat" type="text" class="form-control" placeholder="<?php print $this->Msg('_LAT_','Lat') ?>" name="<?php print PLACE_LAT ?>" value="<?php print $this->Lat->Value ?>">
                         <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
                     </div>
                     
                     <div class="form-group">
                         <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
-                        <textarea class="form-control" name="<?php print BLOCK_TEXT ?>" rows="10"><?php print $this->Text->Value ?></textarea>
+                        <textarea id="text" class="form-control" name="<?php print PLACE_TEXT ?>" rows="10"><?php print $this->Text->Value ?></textarea>
                         <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
                     </div>
+                    <input id="zoom" type="hidden" name="<?php print PLACE_ZOOM ?>" value="<?php print $this->Zoom->Value ?>">
                 </div>
             
             <div class="col-md-6">
@@ -49,13 +52,17 @@
 <script>
     function init()
     {
-        var latlng = new google.maps.LatLng(1.10, 1.10);
+        var lon = document.getElementById('lon').value;
+        var lat = document.getElementById('lat').value;
+        var latlng = new google.maps.LatLng(lat, lon);
+        var zoom = parseInt(document.getElementById('zoom').value);
         var myOptions =
         {
-            zoom: 5,
+            zoom: zoom,
             center: latlng,
-            mapTypeId: google.maps.MapTypeId.HYBRID
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
+        
         map = new google.maps.Map(document.getElementById("map"),myOptions);
         geocoder = new google.maps.Geocoder();
         
@@ -65,24 +72,32 @@
             map: map
         });
         
+        //infowindow
+        infowindow = new google.maps.InfoWindow();
+        
+        google.maps.event.addListener(marker, 'click', function()
+        {
+            var title = document.getElementById('title').value;
+            var text = document.getElementById('text').value;
+            infowindow.setContent('<h1>'+title+'</h1>' + '<br>' + text );
+            infowindow.open(map, marker);
+        });
+        
+        //map.setZoom(); 
+        //map.panTo(curmarker.position);
+        
         google.maps.event.addListener(map, 'click', function(event)
         {
             marker.setPosition(event.latLng);
 
             var yeri = event.latLng;
-
-            var latlongi = "(" + yeri.lat().toFixed(6) + " , " +
-                + yeri.lng().toFixed(6) + ")";
-
-            //infowindow.setContent(latlongi);
-
-            document.getElementById('lat').value=yeri.lat().toFixed(6);
-            document.getElementById('lon').value=yeri.lng().toFixed(6);
+            var latlongi = "(" + yeri.lat().toFixed(6) + " , " + yeri.lng().toFixed(6) + ")";
+               
+            document.getElementById('lat').value = yeri.lat().toFixed(6);
+            document.getElementById('lon').value = yeri.lng().toFixed(6);
+            document.getElementById('zoom').value = map.zoom;
         });
 
-        
-        
     }
-    
 
 </script>

@@ -2,7 +2,7 @@
 
 class Settings
 {   
-    public static $Limits = array(30, 60, 90);
+    public static $Limits = array(2,5, 30, 60, 90);
     public static $ContentTypes = array('page', 'news', 'prod', 'gall');
     public static $CKEditorUse = false;  
     public static $JqueryFileUploader = false;

@@ -22,13 +22,7 @@ class placeCtrl extends Ctrl
         parent::__construct();
 
         $this->View = new placeView();
-
-        // potrzebne przy listingu itp..
-        
-        
-        
-        $this->View->SetColumns();
-
+        //$this->View->SetColumns();
         $this->Model = new placeModel();
 
         $this->InitFormFields();
@@ -44,6 +38,8 @@ class placeCtrl extends Ctrl
         $this->View->Text = new Input();
         $this->View->Lat = new Input();
         $this->View->Lon = new Input();
+        $this->View->Zoom = new Input();
+        $this->View->Zoom->Value = PLACE_DEFAULT_ZOOM;
     }
 
     private function InitRequired()
@@ -64,11 +60,12 @@ class placeCtrl extends Ctrl
     public function ReadForm()
     {
         $this->View->Id->Value = filter_input(INPUT_POST, ID);
-        $this->View->IdPlace->Value = filter_input(INPUT_POST, PLACE_ID);
+        $this->View->IdPlace->Value = filter_input(INPUT_POST, ID);
         $this->View->Title->Value = filter_input(INPUT_POST, PLACE_TITLE);
         $this->View->Text->Value = filter_input(INPUT_POST, PLACE_TEXT);
         $this->View->Lon->Value = filter_input(INPUT_POST, PLACE_LON);
         $this->View->Lat->Value = filter_input(INPUT_POST, PLACE_LAT);
+        $this->View->Zoom->Value = filter_input(INPUT_POST, PLACE_ZOOM);
     }
 
     public function ReadDatabase()
@@ -77,12 +74,13 @@ class placeCtrl extends Ctrl
 
         foreach ($array as $item)
         {
-            $this->View->Id->Value = $item->id_menu;
+            $this->View->Id->Value = $item->id_place;
             $this->View->IdPlace->Value = $item->id_place;
             $this->View->Title->Value = $item->title;
             $this->View->Text->Value = $item->text;
             $this->View->Lon->Value = $item->lon;
             $this->View->Lat->Value = $item->lat;
+            $this->View->Zoom->Value = $item->zoom;
             return true;
         }
 
@@ -91,23 +89,22 @@ class placeCtrl extends Ctrl
 
     private function SetModel()
     {
-        $this->Model->id_place = $this->View->IdMenu->Value;
-        $this->Model->title = $this->View->Name->Value;
-        $this->Model->text = $this->View->Url->Value;
-        $this->Model->lon = $this->View->Active->Value;
-        $this->Model->lat = $this->View->Position->Value;
+        $this->Model->id_place = $this->View->IdPlace->Value;
+        $this->Model->title = $this->View->Title->Value;
+        $this->Model->text = $this->View->Text->Value;
+        $this->Model->lon = $this->View->Lon->Value;
+        $this->Model->lat = $this->View->Lat->Value;
+        $this->Model->zoom = $this->View->Zoom->Value;
     }
     
     public function Insert()
     {
-        print 'insert';
         $this->SetModel();
         $this->Model->Insert();
     }
     
     public function Update()
     {
-        print 'update';
         $this->SetModel();
         $this->Model->Update();
     }

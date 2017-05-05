@@ -302,6 +302,16 @@ define('NEWSLETTER_TEXT','text'); // do ckeditora text musi się nazywać
 define('NEWSLETTER_START_DATE','start_date');
 define('NEWSLETTER_STATUS','status');
 
+//FORM place
+define('PLACE_ID','place_id');
+define('PLACE_TITLE','place_title');
+define('PLACE_TEXT','place_text');
+define('PLACE_LON','place_lon');
+define('PLACE_LAT','place_lat');
+define('PLACE_ZOOM','zoom');
+define('PLACE_DEFAULT_ZOOM',5);
+
+
 define('_DEFAULT_LANG_ID_',1); //defaultowy język systemu 1 = english z bazy
 
 //typy pól w Input

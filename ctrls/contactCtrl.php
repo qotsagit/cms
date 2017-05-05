@@ -12,6 +12,7 @@
  */
 
 include 'models/contactModel.php';
+include 'models/placeModel.php';
 include 'views/contactView.php';
 
 class contactCtrl extends Ctrl
@@ -156,8 +157,33 @@ class contactCtrl extends Ctrl
         $this->View->Render('contact/index');
     }
     
+    
+    //returns a JSON places list from place model
+    public function PlacesJson()
+    {
+     
+        $placeModel = new placeModel();
+        print $placeModel->Json();
+            
+        //print '[{"lat":51.2641800,"lon":15.5697000,"title":"<h1>Bolesławiec</h1>","text":"Opis bolesławca"},{"lat":51.2641800,"lon":15.6697000,"title":"<h1>Tomaszów</h1>","text":"Opis tomaszowa"},{"lat":51.5641800,"lon":15.6697000,"title":"<h1>aa</h1>","text":"opis czegoś"}]';
+        
+        // jak jest debug żeby nie był renderowany
+        exit; 
+    }
+    
+    
     public function Listing()
     {
+        // tego używamy do wyświetlenia listy miejsc w html
+        //. . . . . . . . . . . . . . . .
+
+        $placeModel = new placeModel();
+        $this->View->Places = $placeModel->All();
+        $this->View->SetModel($placeModel);
+        $this->View->SetItems($placeModel);
+        
+        //. . . . . . . . . . . . . . . .
+        
         $this->ClearFormFields();
         $this->View->Render('contact/index');
     }

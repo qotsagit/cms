@@ -190,26 +190,24 @@ class Base
         return $buffer;
     }
     
-    public function PureText($text, $maxlength=FALSE, $breakCode=FALSE){
-        
-        
+    public function PureText($text, $maxlength = FALSE, $breakCode = FALSE,$striptags = TRUE)
+    {
+            
         $IsBreak = strstr($text, $breakCode);
     
-        if ($breakCode AND $IsBreak) {
-            
-            $textArray = explode($breakCode, $text);
-            
+        if ($breakCode AND $IsBreak)
+        {
+            $textArray = explode($breakCode, $text);    
             $text = $textArray[0];
-            
         } 
         
-        if ($IsBreak==FALSE AND $maxlength){
-             
-            $text = mb_strimwidth($text, 0, $maxlength, '...');
-            
+        if ($IsBreak == FALSE AND $maxlength)
+        {     
+            $text = mb_strimwidth($text, 0, $maxlength, '...');   
         }
         
-        $text = strip_tags(trim($text));
+        if($striptags)
+            $text = strip_tags(trim($text));
         
         return $text;
         

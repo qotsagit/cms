@@ -13,7 +13,6 @@ abstract class Ctrl extends Base
     public $Method;                     //jak metoda
     public $Params;
     public $Type = USER_TYPE_USER;      // user type for login to admin or page
-	public $Option = false;
    
     
     public function __construct($login = true, $type = USER_TYPE_USER)
@@ -40,7 +39,6 @@ abstract class Ctrl extends Base
         $this->ReadSession();               //czytanie z sesji
         $this->ReadOptions();
         $this->CheckRequest();
-		//$this->FindPage();
       
     }
     
@@ -72,7 +70,6 @@ abstract class Ctrl extends Base
                 @list($option,$value) =  $values;
 				if(method_exists($this, $option))
 				{
-					//$this->Option = true;
 				    $this->$option($value);
 				}   
             }
@@ -104,11 +101,7 @@ abstract class Ctrl extends Base
 		}     
 
     }
-	// odszuliwanie strony nadpisane w kontrolerze page
-    public function FindPage()
-    { 
-        
-    }
+	
 	
     // from POST
     private function Search()
@@ -356,7 +349,14 @@ abstract class Ctrl extends Base
         {
             $this->View->Saved = true;
             $this->View->Validation = VALIDATION_TRUE;
-            $this->Insert();
+			
+			if($this->View->Id->Value == 0)
+			{
+				$this->Insert();
+			}else{
+				$this->Update();
+			}
+			
             $this->Listing();
         }
         else
@@ -380,6 +380,11 @@ abstract class Ctrl extends Base
     }
     
     public function Insert()
+    {
+        new myException('NOT IMPLEMENTED',__FUNCTION__);
+    }
+	
+	public function Update()
     {
         new myException('NOT IMPLEMENTED',__FUNCTION__);
     }
