@@ -193,6 +193,7 @@ class Bootstrap
     {
         print '<div class="alert alert-danger">';
         print "Debug<br>";
+        print "Page: [" . $this->Page . "]<br>";
         print "Controller: [" . $this->Ctrl . "]<br>";
         print "Method: [" . $this->Method . "]<br>";
         print "Params: [" . var_export($this->Params,true) . "]<br>";

@@ -13,6 +13,7 @@ abstract class Ctrl extends Base
     public $Method;                     //jak metoda
     public $Params;
     public $Type = USER_TYPE_USER;      // user type for login to admin or page
+	public $Option;						// czy to opcja
    
     
     public function __construct($login = true, $type = USER_TYPE_USER)
@@ -59,17 +60,19 @@ abstract class Ctrl extends Base
     // opcje nie powodują żadnych akcji zmiany metody
     private function ReadOptions()
     {
-        
+
         @$options = explode('/',$_GET[URL]);
 
         foreach($options as $option)
         {
+			
             $values = explode('-',$option,2);
             if(sizeof($values) == 2)
             {
                 @list($option,$value) =  $values;
 				if(method_exists($this, $option))
 				{
+					$this->Option = true;
 				    $this->$option($value);
 				}   
             }
@@ -198,8 +201,8 @@ abstract class Ctrl extends Base
 
     private function SetLang($value)
     {
-        //$this->View->Asc = $value;       
-        $lang = $this->GetLang($value);
+        //$this->View->Asc = $value;
+		$lang = $this->GetLang($value);
         
         if($lang)
         {

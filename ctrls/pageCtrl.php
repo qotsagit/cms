@@ -41,10 +41,13 @@ class pageCtrl extends Ctrl
 	{
 		// próba odszukania strony po url
 		// szukamy wtedy kiedy nie jest to opcja i ustalona jest metoda
-		/*
+		
+		//print 'CTRL'.$this->Ctrl.'<br>';
+		//print 'METHOD'.$this->Method.'<br>';
+		//print 'PAGE:'.$this->Page.'<br>';
+		
 		if($this->Option)
-        {
-			
+        {		
             $this->Page = Session::GetCurrentPage();
         
 		}else{
@@ -55,8 +58,8 @@ class pageCtrl extends Ctrl
                 $this->Page = $this->Method;
             }   
         
-		}
-	*/
+		}		
+		
 		if(empty($this->Page))
 		{
 			$this->View->_IdParent = 0;

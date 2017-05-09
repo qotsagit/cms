@@ -111,12 +111,14 @@ class placeCtrl extends Ctrl
    
     public function FormAdd()
     {
+        Settings::$CKEditorUse = true;
         $this->View->ViewTitle = $this->Msg('_NEW_', 'New');
         $this->View->Render('place/add');
     }
 
     public function FormEdit()
     {
+        Settings::$CKEditorUse = true;
         $this->View->ViewTitle = $this->Msg('_EDIT_', 'Edit');
        
         if ($this->ReadDatabase())

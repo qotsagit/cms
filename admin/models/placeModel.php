@@ -65,7 +65,6 @@ class placeModel extends Model
     public function Delete()
     {
         $params = array(':id' => $this->id);
-        print_r($params);
         $this->DB->NonQuery('DELETE FROM place WHERE id_place=:id', $params);
         return;
     }
