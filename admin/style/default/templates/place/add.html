@@ -14,11 +14,6 @@
                 </div>
                 <hr>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label"><?php print $this->Msg('_TITLE_','Title') ?></label>
-                        <input id="title" type="text" class="form-control" placeholder="<?php print $this->Msg('_TITLE_','Title') ?>" name="<?php print PLACE_TITLE ?>" value="<?php print $this->Title->Value ?>">
-                        <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
-                    </div>
                     
                     <div class="form-group">
                         <label class="control-label"><?php print $this->Msg('_LON_','Lon') ?></label>
@@ -32,11 +27,32 @@
                         <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
                     </div>
                     
+                     <ul class="nav nav-tabs">
+                        <li class="active" role="presentation"><a data-toggle="pill" href="#page1"><?php print $this->Msg('_TITLE_','Title') ?></a></li>
+                        <li role="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_TEXT_','Text') ?></a></li>
+                    </ul>
+                
+                <div class="tab-content">
+                <div id="page1" class="tab-pane fade in active">
+                    
+                    <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_TITLE_','Title') ?></label>
+                        <textarea class="form-control" name="<?php print PLACE_TITLE ?>" rows="10"><?php print $this->Title->Value ?></textarea>
+                        <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
+                    </div>
+                </div>  
+                <div id="page2" class="tab-pane fade">
                     <div class="form-group">
                         <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
                         <textarea id="text" class="form-control" name="<?php print PLACE_TEXT ?>" rows="10"><?php print $this->Text->Value ?></textarea>
                         <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
                     </div>
+                </div>
+                </div>
+                                    
+                    
+                    
+                    
                     <input id="zoom" type="hidden" name="<?php print PLACE_ZOOM ?>" value="<?php print $this->Zoom->Value ?>">
                 </div>
             
@@ -50,6 +66,7 @@
 </div>
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyAtyXbZQiMV2BFDdztVuCZPfzN_rijV4_U&callback=init" async defer></script>
 <script>
+    
     function init()
     {
         var lon = document.getElementById('lon').value;
