@@ -30,13 +30,13 @@ class Email extends Base
     $this->Mail->SMTPAuth = true;                                 // Enable SMTP authentication
     //$this->mail->Username = SMTP_USER;                            // SMTP username
     //$this->mail->Password = SMTP_PASSWORD;                        // SMTP password
-    $this->mail->SMTPSecure = 'tls';                              // Enable TLS encryption, `ssl` also accepted
+    $this->Mail->SMTPSecure = 'tls';                              // Enable TLS encryption, `ssl` also accepted
     //$this->mail->Port = 587;                                      // TCP port to connect to
     $this->Mail->SMTPOptions = array
     (
         'ssl' => array
         (
-            'verify_peer' => true,
+            'verify_peer' => false,
             'verify_peer_name' => false,
             'allow_self_signed' => true
         )
@@ -58,13 +58,13 @@ class Email extends Base
 
     if($this->Mail->send())
     {
-        echo 'Message has been sent';
+        //echo 'Message has been sent';
         return true;
         
     } else {
         
-        echo 'Message could not be sent.';
-        echo 'Mailer Error: ' . $this->Mail->ErrorInfo;
+        //echo 'Message could not be sent.';
+        //echo 'Mailer Error: ' . $this->Mail->ErrorInfo;
         $this->LastError = $this->Mail->ErrorInfo;
         return false;
         

@@ -82,7 +82,7 @@ class customerCtrl extends Ctrl
         foreach ($array as $item)
         {
             $this->View->Id->Value = $item->id_customer;            
-            $this->View->Name->Value = $item->name;
+            $this->View->Name->Value = htmlspecialchars($item->name);
             $this->View->Address->Value = $item->address;
             $this->View->Website->Value = $item->website;
             $this->View->Email->Value = $item->email;

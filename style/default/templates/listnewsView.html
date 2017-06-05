@@ -12,7 +12,8 @@
         </div>
     </div>
 </section>
-
+<? $this->SetLimit(2); ?>
+<? $this->SetValues(); ?>
 <? $this->Model->SetOrder("added_time",SORT_DESC); ?>
 <? $this->SetItems($this->Model); ?>
 
@@ -20,18 +21,32 @@
 <!-- do tego jeszcze dochodzi plik w templates/news/index.html który zwraca sekcję newsów -->
 <script>
     
-    
-    function request(div,page)
+     var n_page = 1;
+	var n_pages = 0;
+    function request(div,url,url_address)
 	{
         var result;
-        
+        var url = url + n_page;
+		console.log(url);
+		
+		if(n_pages < n_page)
+		{
+			n_page = n_pages + 1;
+			console.log("return"+n_page);
+			return;
+		}
+		
+		n_page += 1;
+				
 		$.ajax
 		({
+			async: false,
 			type: "POST",
-			url: "page/content/setpage-"+page,
+			url: url,
 			success: function(html)
 			{
 				$(div).append(html);
+				
 			},
 
 			error: function()
@@ -41,27 +56,48 @@
 			}
 
 		});
-
+    
 	}
-    
-   
-    $(document).ready(function()
+			
+	$(document).ready(function()
     {
-        $("#blog-post").load
+		$("#load_more").hide();
+		n_page = Number("<?php print Session::GetPageTo(); ?>"),
+		n_pages = Number("<?php print $this->Pages; ?>"),
+		
+		console.log("load" + n_page + "pages" + n_pages);
+		$("#blog-content").load
         (
-            //request("#blog-content")
+			request("#blog-content","page/content/setpageto-","<?php print $this->CurrentItem->url_address; ?>")
         );
-
+		
+		$(document).scroll(function()
+		{
+			//console.log($(window).scrollTop());
+			//console.log($(window).height());
+			//console.log($(document).height());
+			//request("#blog-content","page/content/setpage-","<?php print $this->CurrentItem->url_address; ?>") ;
+			console.log("scroll");
+			if ($(window).scrollTop() + $(window).height() > ($(document).height() - 200))
+			{
+				// Reached page bottom. Call the ajax function or any other foo here.
+				request("#blog-content","page/content/setpage-","<?php print $this->CurrentItem->url_address; ?>") ;
+				//alert('bottom');
+			}
+		});
+	
     });
-   
-    
+		
 </script>
 <section id="blog-post" class="blog_post">
     <div class="container">
         <div class="row">
             <div class="fleetdetails_area home1_main_blog blog_post_area blog_post_02_area sections">
                 <div class="col-sm-8">
-					<div class="blog_post_content">
+					<?php print '<h2>Session'.Session::GetPage().'</h2>'; ?>
+					<div class="blog_post_content" id="blog-content">
+					
+						<!--
                     <?php foreach ($this->Items as $item) { ?>
                             <div class="single_blog margin-top-50">
                                 <div class="container">
@@ -80,11 +116,11 @@
 										<div class="col-md-8">
 										    <div class="single_blog_text">
 										        <h6><a href="blog-single.html"><?php print $item->title ?></a></h6>
-												<!--
+												
 										            <a href=""><span class="icon icon-User"></span>Admin</a>
 										            <a href=""><span class="icon icon-MessageLeft"></span> Comments 20</a>
 										            <a href=""><span class="icon icon-Share"></span> Share <i class="fa fa-facebook share"></i><i class="fa fa-google-plus share"></i><i class="fa fa-twitter share"></i><i class="fa fa-linkedin share"></i> </a>
-												-->
+												
 										        <p>
 												<?php print $this->PureText($item->text,640,false,false); ?>
 												</p>
@@ -96,12 +132,11 @@
 								</div>
                             </div>
 					  <?php } ?>
-					  </div>
-                </div>
+					  -->
+					</div>
+				</div>
             </div>
         </div>
     </div>
-	<div class="text-center">
-		<?php $this->RenderTablePagination($this,$this->CurrentItem->url_address); ?>
-	</div>
+	
 </section>

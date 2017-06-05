@@ -68,6 +68,14 @@ class Session
             return DEFAULT_PAGE;
     }
 
+    public static function GetPageTo()
+    {
+        if(isset($_SESSION['page_to']))
+            return $_SESSION['page_to'];
+        else
+            return DEFAULT_PAGE;
+    }
+
     public static function GetLimit()
     {
         if(isset($_SESSION['limit']))
@@ -157,6 +165,11 @@ class Session
         $_SESSION['page'] = $value;
     }
 
+    public static function SetPageTo($value)
+    {
+        $_SESSION['page_to'] = $value;
+    }
+    
     public static function SetLimit($value)
     {
         $_SESSION['limit'] = $value;

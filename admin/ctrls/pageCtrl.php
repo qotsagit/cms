@@ -31,16 +31,16 @@ class pageCtrl extends Ctrl
     public function __construct()
     {
         parent::__construct();
+        
+        $this->Model = new pageModel();
+        $this->Model->content_type = CONTENT_PAGE;
         $this->View = new pageView();
         
         $items = new activeModel();
-        $this->View->Statuses = $items->All();
-                
+        $this->View->Statuses = $items->All();       
         
         $this->View->ViewTitle = $this->Msg('_PAGES_', 'Pages');
         $this->View->CtrlName = CTRL_PAGE;
-        $this->Model = new pageModel();
-        $this->Model->content_type = CONTENT_PAGE;
            
         
         $this->Validator = new Validator();
@@ -344,7 +344,6 @@ class pageCtrl extends Ctrl
         $this->Form();
     }
     
-    
     public function FormEdit()
     {
         $this->InitModels();
@@ -371,8 +370,6 @@ class pageCtrl extends Ctrl
             //$this->View->IdLang->Value = Session::GetLang();
             
             //$this->PrintArray($this->View->ImagesInPage);
-            
-           
             
             $this->View->Render('page/add');
             
@@ -441,6 +438,7 @@ class pageCtrl extends Ctrl
      }
      
      //nadpisujemy listing bo trzeba jeszcze sprawdzić rozmiar obrazków  wiodących
+     /*
      public function Listing()
      {
         $this->View->SetColumns();
@@ -448,8 +446,7 @@ class pageCtrl extends Ctrl
         $this->View->SetItems($this->Model);        
         $this->View->Render('listView');
      }
-     
-     
+    */  
      
     //ajax listuje strony jako opcje
     public function RenderOptionsTree($items,$id, $level = 0) 

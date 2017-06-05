@@ -88,7 +88,7 @@ class msgModel extends Model
         else
             $sql = 'SELECT * FROM msg WHERE id_lang=:id_lang ORDER BY '.$this->OrderFieldName.' '.$asc;
         
-        return $this->DB->Query($sql, $params, PDO::FETCH_CLASS, 'msgModel');
+        return $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);
     }
     
 }

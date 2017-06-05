@@ -78,6 +78,8 @@ define('CTRL_NEWSLETTER','newsletter');
 define('CTRL_BACKUP','backup');
 define('CTRL_UPDATE','update');
 define('CTRL_PLACE','place');
+define('CTRL_COURSE','course');
+define('CTRL_COURSE_USER','courseuser');
 
 //method
 define('METHOD_LIST','list');

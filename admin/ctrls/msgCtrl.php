@@ -21,7 +21,8 @@ class msgCtrl extends Ctrl
     {
         parent::__construct();
         $this->Model = new msgModel();
-        $this->View = new msgView($this);
+        $this->View = new msgView();
+        
         $this->View->ButtonNew = false;
         $this->View->ViewTitle = $this->Msg('_MSG_','Messages');
         $this->View->CtrlName = CTRL_MSG;
@@ -122,5 +123,5 @@ class msgCtrl extends Ctrl
             new myException('DATABASE READ ERROR');
         }
     }
-
+    
 }

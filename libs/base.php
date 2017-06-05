@@ -193,6 +193,9 @@ class Base
     public function PureText($text, $maxlength = FALSE, $breakCode = FALSE,$striptags = TRUE)
     {
             
+        if($striptags)
+            $text = strip_tags(trim($text));
+        
         $IsBreak = strstr($text, $breakCode);
     
         if ($breakCode AND $IsBreak)
@@ -206,8 +209,7 @@ class Base
             $text = mb_strimwidth($text, 0, $maxlength, '...');   
         }
         
-        if($striptags)
-            $text = strip_tags(trim($text));
+        
         
         return $text;
         

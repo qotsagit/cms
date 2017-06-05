@@ -22,7 +22,7 @@ class roleCtrl extends Ctrl
     {
         parent::__construct();
         $this->Model = new roleModel();
-        $this->View = new roleView($this);
+        $this->View = new roleView();
         $this->View->ViewTitle = $this->Msg('_ROLES_','Roles');
         $this->View->CtrlName = CTRL_ROLE;
         $this->Validator = new Validator();

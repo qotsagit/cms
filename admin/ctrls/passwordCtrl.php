@@ -20,7 +20,7 @@ class passwordCtrl extends Ctrl
     public function __construct()
     {
         parent::__construct();
-        $this->View = new passwordView($this);
+        $this->View = new passwordView();
         $this->Model = new userModel();
         $this->Validator = new Validator();           
         

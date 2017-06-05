@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <form method="POST">
+            <fieldset>
+                <legend><?php print $this->ViewTitle ?> - <?php print $this->Name->Value ?> </legend>
+                
+                 <a href="<?php print $this->CtrlName ?>"  class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"> </span> </a>
+               
+                <div class="form-group pull-right">
+                    <input type="hidden" name="<?php print ID ?>" value="<?php print $this->IdCourse->Value ?>">
+                    <input type="hidden" name="<?php print METHOD ?>" value="<?php print METHOD_SAVE ?>">
+                    <button type="submit" class="btn btn-primary"><?php print $this->Msg('_SAVE_','Save') ?></button>
+                    <a href="<?php print $this->CtrlName ?>" class="btn btn-default"><?php print $this->Msg('_CANCEL_','Cancel') ?></a>
+                </div>
+                <hr>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_NAME_','Name') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_NAME_','Name') ?>" name="<?php print COURSE_NAME ?>" value="<?php print $this->Name->Value ?>">
+                        <?php print $this->RenderValidationError($this->Name->ErrorText); ?>
+                         </div>
+                    </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                        <label class="control-label"><?php print $this->Msg('_MAX_USERS_','Max Users') ?></label>
+                        <input type="text" class="form-control" placeholder="<?php print $this->Msg('_MAX_USERS_','Max Users') ?>" name="<?php print COURSE_MAX_USERS ?>" value="<?php print $this->MaxUsers->Value ?>">
+                        <?php print $this->RenderValidationError($this->MaxUsers->ErrorText); ?>
+                         </div>
+                    </div>   
+                    
+                    <div class="col-md-4">
+                        <label class="control-label"><?php print $this->Msg('_START_DATE_','Start date') ?></label>
+                        <div class='input-group date' id='d1'>
+                            <input type='text' class="form-control" name="<?php print COURSE_START_DATE ?>" value="<?php print $this->StartDate->Value ?>">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                             <?php print $this->RenderValidationError($this->StartDate->ErrorText); ?>
+                    </div>
+                
+                    <div class="col-md-4">
+                        <label class="control-label"><?php print $this->Msg('_END_DATE_','End date') ?></label>
+                        <div class='input-group date' id='d2'>
+                            <input type='text' class="form-control" name="<?php print COURSE_END_DATE ?>" value="<?php print $this->EndDate->Value ?>">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                             <?php print $this->RenderValidationError($this->EndDate->ErrorText); ?>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
+                    <textarea class="form-control" name="<?php print COURSE_TEXT ?>" rows="10"><?php print $this->Text->Value ?></textarea>
+                        <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
+                </div>
+                    
+            </fieldset>
+        </form>
+    </div>
+</div>
+ <script type="text/javascript">
+    
+     $('#d1').change(function () {  alert('');});
+    $(function ()
+    {
+        $('#d1').datetimepicker({ locale: 'pl', format: 'YYYY-MM-DD HH:mm' });
+        $('#d2').datetimepicker({ locale: 'pl', format: 'YYYY-MM-DD HH:mm' });
+        
+       
+        
+    });
+</script>

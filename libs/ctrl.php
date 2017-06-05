@@ -22,6 +22,9 @@ abstract class Ctrl extends Base
         $this->Validator = new Validator();
         $this->Model = new Model();
         $this->View = new View();
+		
+		
+		
         $this->NeedAuth = $login;
         $this->Type = $type;
     }
@@ -33,7 +36,9 @@ abstract class Ctrl extends Base
 		//print 'controller '.$this->Ctrl;
 		//print '<br>';
 		//print 'method'.$this->Method;
-        $this->View->Model = $this->Model;
+		//default model z CTRL set
+		$this->View->Model = $this->Model;
+		
         $form = $this->Read();
         $login = $this->CheckForm($form);   // sprawdzamy login
 
@@ -50,6 +55,7 @@ abstract class Ctrl extends Base
         $this->View->_Id = Session::GetId();
         $this->View->_IdParent = Session::GetIdParent();
         $this->View->Page = Session::GetPage();
+		$this->View->PageTo = Session::GetPageTo();
         $this->View->Limit = Session::GetLimit();
         $this->View->OrderColumnId = Session::GetOrderColumnId();
         $this->View->Asc = Session::GetAsc();
@@ -72,7 +78,7 @@ abstract class Ctrl extends Base
                 @list($option,$value) =  $values;
 				if(method_exists($this, $option))
 				{
-					$this->Option = true;
+					$this->Option = $option.'-'.$value;
 				    $this->$option($value);
 				}   
             }
@@ -155,7 +161,7 @@ abstract class Ctrl extends Base
     
     private function SetLimit($value)
     {
-        $this->View->Limit = $value;
+        $this->View->SetLimit($value);
         Session::SetLimit($value);   
     }
 
@@ -182,6 +188,13 @@ abstract class Ctrl extends Base
 
     }
     
+	private function SetPageTo($value)
+	{
+		$this->View->Page = $value;
+		$this->View->SetPageTo();
+		Session::SetPageTo($value);
+	}
+	
     private function SetPage($value)
     {
         if(is_numeric($value) == false)
@@ -189,10 +202,18 @@ abstract class Ctrl extends Base
             $value = DEFAULT_PAGE;
         }   
 
-        $this->View->Page = $value;                       
+        $this->View->Page = $value;
+		$this->View->SetPage();
         Session::SetPage($value);
+		Session::SetPageTo($value);
+		
+		//set page to
+		
+		//$this->SetPageTo($value);
+		
+		
     }
-
+	
     private function SetAsc($value)
     {
         $this->View->Asc = $value;
@@ -222,7 +243,8 @@ abstract class Ctrl extends Base
     //weryfikacja danych
     private function CheckRequest()
     {
-      
+		// wyłączyliśmy bo limit może być inny niż w tablicach
+		return;
         if (array_search($this->View->Limit, Settings::$Limits) == false)
         {
             $this->View->Limit = DEFAULT_LIMIT;
@@ -438,19 +460,15 @@ abstract class Ctrl extends Base
 
     public function Listing()
     {
-        $this->View->SetColumns();
-        $this->View->SetModel($this->Model);
-        $this->View->SetItems($this->Model);
+		$this->View->SetColumns();
+		$this->View->SetValues();
+        $this->View->SetItems($this->Model->Lists());
         $this->View->Render('listView');
     }
     
     public function Content()
     {
 		new myException('NOT IMPLEMENTED',__FUNCTION__);
-        //$this->View->SetColumns();
-        //$this->View->SetModel($this->Model);
-        //$this->View->SetItems($this->Model);
-        //$this->View->Render('listViewContent',true);
     }
 
     public function Index()

@@ -5,7 +5,7 @@ class Model extends Base
 
     public $DB;
     public $Limit;
-    public $LimitFrom;
+    public $LimitFrom = 0;
     public $Asc = SORT_ASC;                // rosnąco, malejąco
     public $OrderFieldName;                 // ustaw na defaultowe pole   
     // tablice z opisami dla jezyka
@@ -18,6 +18,7 @@ class Model extends Base
     public function __construct()
     {
         parent::__construct();
+        //$this->Limit = Session::GetLimit();
     }
 
     public function GetTitle()
@@ -60,6 +61,12 @@ class Model extends Base
     {
         return 0;
     }
+    
+    public function SetOrder($field,$asc)
+	{
+		$this->OrderFieldName = $field;
+		$this->Asc = $asc;
+	}
     
     public function FindPage($url)
     {
@@ -273,17 +280,28 @@ class regionModel extends Model
     
     public function All()
     {
-        
+        $this->name = 'top_left';
+
         return array
         (
-            new regionModel(1,'menu'),
-            new regionModel(2,'slider'),
-            new regionModel(3,'content_top'),
-            new regionModel(4,'content'),
-            new regionModel(5,'content_bottom'),
-            new regionModel(6,'footer'),
-            new regionModel(7,'contact'),
-            new regionModel(8,'newsletter'),
+            $this,
+            new regionModel(1,'top_right'),
+            new regionModel(2,'logo'),
+            new regionModel(3,'menu'),
+            new regionModel(4,'slider'),
+            new regionModel(5,'content_top'),
+            new regionModel(6,'sidebar_left'),
+            new regionModel(7,'content'),
+            new regionModel(8,'sidebar_right'),
+            new regionModel(9,'content_bottom'),
+            new regionModel(10,'footer_1'),
+            new regionModel(11,'footer_2'),
+            new regionModel(12,'footer_3'),
+            new regionModel(13,'footer_4'),
+            new regionModel(15,'footer'),
+            new regionModel(14,'credits'),
+            new regionModel(16,'contact'),
+	    new regionModel(17,'footer_5')
 
         );
 

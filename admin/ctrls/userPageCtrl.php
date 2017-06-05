@@ -19,7 +19,7 @@ class userpageCtrl extends Ctrl
     public function __construct()
     {
         parent::__construct();
-        $this->View = new pageView($this);
+        $this->View = new pageView();
     }
 
     public function Method()

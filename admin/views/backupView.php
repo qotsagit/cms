@@ -10,12 +10,4 @@ class backupView extends View
         $this->CtrlName = CTRL_BACKUP;
     }
         
-    
-    //nadpisujemy 
-    //public function render($view)
-    //{
-      //  include TEMPLATE_FOLDER . '/' . $view . '.html';
-    //}
-
-    
 }

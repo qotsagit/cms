@@ -19,7 +19,7 @@ class loginCtrl extends Ctrl
     public function __construct()
     {
         parent::__construct(false);
-        $this->View = new loginView($this);       
+        $this->View = new loginView();       
         $this->Init();
     }
        

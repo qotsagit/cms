@@ -300,6 +300,19 @@ class FileUploader extends Base
         	
             if ($UploadResult) 
             {
+                $ImageFileName = $UploadResult;
+                $Image = new Image();
+                foreach(Settings::$ImageSizes AS $ImgSizeName => $ImgSizeValues)
+                {
+                    //$Image->resizeImage($ImgSizeValues['width'], $ImgSizeValues['height'], 'crop', true);
+                    $src = Settings::$ImagesFolder.'/'.$ImageFileName;
+                    $dst = Settings::$ImagesFolder.'/'.$ImgSizeValues['folder'].'/'.$ImageFileName;
+                    @mkdir(Settings::$ImagesFolder.'/'.$ImgSizeValues['folder']);
+                    $Image->ResizeAndCrop($src,$dst,$ImgSizeValues['width'], $ImgSizeValues['height']);
+                        //$Image->saveImage(Settings::$ImagesFolder.'/'.$ImgSizeValues['folder'].'/'.$ImageFileName, $ImgSizeValues['quality']);
+                    
+                        //$imageResizeObj -> reset();
+                }
                    
                 $this->OneImageUploaded['img'] = $UploadResult;
    

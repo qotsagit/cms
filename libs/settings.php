@@ -30,8 +30,8 @@ class Settings
         'midi' => array
         (
             'folder'=>'midi',
-            'width'=>480, 
-            'height'=>380, 
+            'width'=>320, 
+            'height'=>240, 
             'crop_w'=>NULL, 
             'crop_h'=>380, 
             'quality'=>96 
@@ -51,7 +51,7 @@ class Settings
         (
             'folder'=>'full',
             'width'=>1140, 
-            'height'=>475, 
+            'height'=>520, 
             'crop_w'=>NULL, 
             'crop_h'=>475, 
             'quality'=>93

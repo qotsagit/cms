@@ -26,7 +26,7 @@ class registerCtrl extends Ctrl
         parent::__construct(false);
                 
         $this->Model = new RegisterModel();
-        $this->View = new RegisterView($this);
+        $this->View = new RegisterView();
         
         $this->InitFormFields();
         $this->InitRequired();

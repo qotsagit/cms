@@ -152,5 +152,5 @@ class blockCtrl extends Ctrl
             $this->View->Render('error');
         }
     }
-    
+     
 }

@@ -4,7 +4,6 @@
 class View extends Base
 {
 
-    
     public $_Id = 0;                        // główne id
     public $_IdParent = 0;                  // id rodzica
     public $ViewTitle;                      // tytuł widoku
@@ -33,72 +32,42 @@ class View extends Base
     public function __construct()
     {
         parent::__construct();
-        
         $this->MetaTitle = '';
         $this->MetaDescription = '';
     }
-    
-    //ustaw opcje modelu
-    public function SetValues()
+
+    public function SetModel($model)
     {
-        //print '<h3>'.$this->Model->AsString().'</h3>';
-        $this->Model->Limit = $this->Limit;		
-        $this->Model->id_parent = $this->_IdParent; // ustawiamy przed Count
-		$this->Model->Asc = $this->Asc;
-
-        $this->Count = $this->Model->Count();
-        $this->CountAll = $this->Model->CountAll();
+        $this->Model = $model;
+        $model->id_parent = $this->_IdParent; // ustawiamy przed Count
+        $this->Count = $model->Count();
+        $this->CountAll = $model->CountAll();
+        $model->Asc = $this->Asc;
+        $model->Limit = $this->Limit;
         
-		if ($this->Limit > 0)
-        {
-			$this->Pages = ceil(($this->Count / $this->Limit));
-		}else{
-			$this->Pages = 1;	
-		}
-		       
-
         $this->CheckPage();
-        $this->CheckLimit();
-        $this->CheckColumns();
-        $this->SetParent();
+        $this->SetPage($model);
         
-        /*
-        print 'Limit na modelu'.$this->Model->Limit;
-        print 'Limit'.$this->Limit;
-        print '<br>';
-        print 'Pages'. $this->Pages;
-        print '<br>';
-        print 'Page'.$this->Page;
-        */
+        $this->CheckColumns($model);        
+        
+        $this->SetParent($model);
+        
+        
+        //$this->RowCount = $model->RowCount();     
     }
-    
-    public function SetLimit($limit)
+ 
+    public function SetItems($model)
     {
-        $this->Limit = $limit;
-        $this->Model->Limit = $limit;
-        $this->Count = $this->Model->Count();
-        $this->CountAll = $this->Model->CountAll();
-		if ($this->Limit > 0)
-        {
-			$this->Pages = ceil(($this->Count / $this->Limit));
-		}else{
-			$this->Pages = 1;	
-		}
+        $this->Items = $model->Lists();
     }
     
-    public function SetItems($items)
-    {
-		//print $model->AsString();
-		$this->Items = $items;
-    }
-    
-    private function CheckColumns()
+    private function CheckColumns($model)
     {
         //check columns
         if (count($this->Columns) > $this->OrderColumnId)
         {
             $column = $this->Columns[$this->OrderColumnId];
-            $this->Model->OrderFieldName = $column->FieldName;
+            $model->OrderFieldName = $column->FieldName;
         
         }else{
             
@@ -108,77 +77,46 @@ class View extends Base
 
     private function CheckPage()
     {
-                     
         if ($this->Limit == 0)
         {
             $this->Pages = 1;
-            
-        }else{
         
+        }else{
+            
+            $this->Count;
             $this->Pages = ceil(($this->Count / $this->Limit));
         }
 
         if ($this->Pages <= $this->Page - 1)
         {
-           
-            Session::SetPage(1);
-            $this->Page = 1;
-        }
-        
-        //strona <= 0
-        if($this->Page < 1)
-        {
             Session::SetPage(1);
             $this->Page = 1;
         }
     }
-    
-    private function CheckLimit()
+
+    private function SetPage($model)
     {
-        if($this->Model->LimitFrom > $this->CountAll)
-        {
-            $this->Model->LimitFrom = 0;   
-        }   
+        $model->LimitFrom = ($this->Page * $this->Limit) - $this->Limit;
+        $model->Page = $this->Page;
     }
     
-    //ile stron ma być otwartych na raz
-    //w widoku al'a facebookowym listy artykułów
-    public function SetPageTo()
-    {
-		//print '<h3>'.$this->Model->AsString().'</h3>';
-        $this->Model->LimitFrom = 0; //od początku
-		$this->Limit = $this->Page * $this->Limit;
-        //print 'SetPageto:'. $this->Limit;
-        //print '<br>';
-        $this->Model->Limit = $this->Limit;
-    }
-    
-    public function SetPage()
-    {
-        //$this->CheckPage();
-		$this->Model->LimitFrom = ($this->Page * $this->Limit) - $this->Limit;
-        $this->Model->Limit = $this->Limit;
-        
-        //$model->Page = $this->Page;
-    }
-    
-    private function SetParent()
+    private function SetParent($model)
     {
         
         if($this->_IdParent > 0)
         {
-            $row = $this->Model->GetParentId($this->_IdParent);          
+            $row = $model->GetParentId($this->_IdParent);          
             $this->_Id = $row->id_parent;
-            $this->Model->Breadcrumb($row->id);
-            $this->BreadcrumbItems = $this->Model->breadcrumb;
-            $this->CurrentItem = $this->Model->GetCurrentItem();
+            $model->Breadcrumb($row->id);
+            $this->BreadcrumbItems = $model->breadcrumb;
+            $this->CurrentItem = $model->GetCurrentItem();
             //}
         }else{
             
             // strona startowa
-            $this->CurrentItem = $this->Model->GetCurrentItem();
+            $this->CurrentItem = $model->GetCurrentItem();
             if($this->CurrentItem)
-                $this->Model->id_parent = $this->CurrentItem->id_page;
+                $model->id_parent = $this->CurrentItem->id_page;
             
         }
     }
@@ -188,11 +126,6 @@ class View extends Base
 
     }  
     
-	public function RenderTechnicalBreak()
-    {
-        print '<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> '.$this->Msg('_MAINTENANCE_','Maintenance').'</div>';    
-    }
-	
     public function RenderMaintenance()
     {
         if($this->Maintenance)
@@ -231,6 +164,7 @@ class View extends Base
         } 
     }
     
+    
     public function RenderImage($src,$value,$width,$height)
     //public function RenderImage($width,$height)
     {
@@ -249,7 +183,7 @@ class View extends Base
         //print '</div>';
     }
     
-    public function RenderOneImage($src,$file,$width,$height)
+    public function RenderOneImage($src,$width,$height)
     {
         //print '<link rel="stylesheet" href="style/simplex/css/image.css">';
         //print '<link rel="stylesheet" href="style/simplex/css/imageffect.css">';
@@ -258,7 +192,7 @@ class View extends Base
         print '<span class="btn btn-file">';
         print '<img id="image" src="'.$src.'" class="img img-circle" width='.$width.' height='.$height.'>'; 
         print '<input type="file" id="inputfile" name="img" onchange="handleFiles(this.files,image)" accept="image/*"></span>';
-        print '<input type="hidden" name="'.AVATAR.'" value="'.$file.'">';
+        print '<input type="hidden" name="'.AVATAR.'" value="'.$src.'">';
         print '</div>';
         //print '<div class="panel" id="preview">';  
         //print '<a href="#" class="info" title="Full Image">Delete</a>';  
@@ -501,6 +435,8 @@ class View extends Base
         
     }
     
+    
+
     public function RenderRowMenu($view, $item)
     {
         print '<div class="btn-group">';
@@ -517,6 +453,7 @@ class View extends Base
         //print '<button class="btn btn btn-danger edit-button" type="button" data-name="test nazwy" data-toggle="modal" data-target="#myModal">'.$view->Msg('_DELETE_', 'Delete').'</button>';
     }
     
+    /*
     public function RenderSelectedPage($view, $title = true, $code_start = '<section class="page-header page-header-xs"><div class="container"><h1>', $code_end = '</h1></div></section>')
     {
 
@@ -524,11 +461,11 @@ class View extends Base
         {
             if($title)
             {
-                /*print '<section class="page-header page-header-xs">';
+                print '<section class="page-header page-header-xs">';
                 print '<div class="container">';
                 print '<h1>'.$view->CurrentItem->title.'</h1>';
                 print '</div>';
-                print '</section>';*/
+                print '</section>';
                 print $code_start;
                 print $view->CurrentItem->title;
                 print $code_end;
@@ -537,6 +474,7 @@ class View extends Base
             print $view->CurrentItem->text;
         }
     }
+    */
     
     public function RenderSelectedPageTitle($view, $code_start = '<section class="page-header page-header-xs"><div class="container"><h1>', $code_end = '</h1></div></section>')
     {
@@ -663,7 +601,7 @@ class View extends Base
 
 
 
-    public function RenderTablePagination($view,$url)
+    public function RenderTablePagination($view,$with_ctrl = false)
     {
         if($view->Pages > 1)
         {
@@ -676,17 +614,23 @@ class View extends Base
                 $start = 1;
             
             // url z kontrollerem
-
+            if($with_ctrl)
+            {
+                $url = $view->CtrlName.'/'.METHOD_PAGE;
+            }else{
+                $url = METHOD_PAGE;
+            }
+            
             print '<ul class="pagination">';
             for ($i = $start; $i < $end + 1 ; $i++)
             {
                 if ($view->Page == $i)
                 {
-                    print '<li class="active"><a href="'.$url.'/'.METHOD_PAGE.'-'. $i.'">' . $i . '</a></li>';
+                    print '<li class="active"><a href="'.$url.'-'. $i.'">' . $i . '</a></li>';
                 }
                 else
                 {
-                    print '<li><a href="'.$url.'/'.METHOD_PAGE.'-'.$i.'">' . $i . '</a></li>';
+                    print '<li><a href="'.$url.'-'.$i.'">' . $i . '</a></li>';
                 }
             }
             print '</ul>';

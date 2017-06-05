@@ -37,6 +37,7 @@ class contactCtrl extends Ctrl
 
     private function InitFormFields()
     {
+	$this->View->Id = new Input();
         $this->View->Email = new Input();
         $this->View->FirstName = new Input();
         $this->View->LastName = new Input();
@@ -133,6 +134,7 @@ class contactCtrl extends Ctrl
     // bo trochę inaczej obsłużymy formularz
     // jeżeli będziemy chcieli powrócić do strej wersji z
     // przeładowaniem to tą funkcję trzeba wykomentować
+    /*
     public function Save()
     {
         $this->ReadForm();
@@ -149,7 +151,7 @@ class contactCtrl extends Ctrl
         }
         
     }
-    
+    */
     
     public function FormAdd()
     {
@@ -178,9 +180,7 @@ class contactCtrl extends Ctrl
         //. . . . . . . . . . . . . . . .
 
         $placeModel = new placeModel();
-        $this->View->Places = $placeModel->All();
-        $this->View->SetModel($placeModel);
-        $this->View->SetItems($placeModel);
+        $this->View->SetItems($placeModel->Lists());
         
         //. . . . . . . . . . . . . . . .
         

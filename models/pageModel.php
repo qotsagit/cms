@@ -284,8 +284,7 @@ class pageModel extends Model
         else
             $sql = 'SELECT * FROM page WHERE id_lang=:id_lang AND id_parent=:id_parent AND active=:active ORDER BY '.$this->OrderFieldName.' '.$asc;
         
-
-	return $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);
+		return $this->DB->Query($sql, $params, PDO::FETCH_CLASS, __CLASS__);
     }
     
 }

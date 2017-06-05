@@ -130,4 +130,12 @@ class calendarCtrl extends Ctrl
         }
     }
     
+    public function Listing()
+    {
+		$this->View->SetColumns();
+		$this->View->SetValues();
+        $this->View->SetItems($this->Model);
+        $this->View->Render('listView');
+    }
+    
 }

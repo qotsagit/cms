@@ -1,0 +1,77 @@
+<!--
+	narazie nie używamy widok zrobiony nie dynamicznie
+	a ten template to jest do takiego ala facebukowatego ładowania zawartości
+-->
+
+<? $this->Model->SetOrder("added_time",SORT_DESC); ?>
+<? $this->SetItems($this->Model->Lists()); ?>
+<!--
+<section id="blog_post" class="blog_post">
+    <div class="container">
+        <div class="row">
+            <div class="fleetdetails_area home1_main_blog blog_post_area blog_post_02_area sections">
+                <div class="col-sm-8">
+                    <div class="blog_post_content">
+					-->
+                        <?php $id = 1; foreach ($this->Items as $item)
+						{ ?>
+						
+                            <div class="single_blog margin-top-20">
+                                <div class="container">
+									
+									<div class="row">
+									    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									        <div class="single_blog_img">
+									        <img src="<?php print $this->ImageUrl($item->img,'full'); ?>" alt="">
+												<div class="blog_update_date text-center textwhite">
+												    <p><?php print date("Y - m",strtotime($item->added_time)); ?></p>
+												    <h4><?php print date("d",strtotime($item->added_time)); ?></h4>
+													
+												</div>
+												<!--h2><?php //print $id; $id++; print ','; //print $item->id_page; ?></h2-->
+											</div>
+										</div>
+								
+										<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										    <div class="sin gle_blog_text"><br />
+										        <h4><?php print $item->title ?></h4>
+												<!--
+										            <a href=""><span class="icon icon-User"></span>Admin</a>
+										            <a href=""><span class="icon icon-MessageLeft"></span> Comments 20</a>
+										            <a href=""><span class="icon icon-Share"></span> Share <i class="fa fa-facebook share"></i><i class="fa fa-google-plus share"></i><i class="fa fa-twitter share"></i><i class="fa fa-linkedin share"></i> </a>
+												-->
+										        <p>
+												<?php print $item->text; 
+                                                        // $this->PureText($item->text,440,false,true); ?>
+												</p>
+											</div>
+											<!--br>
+											<a href="<?php print $item->url_address ?>" class="btn btn-md"><?php print $this->Msg('_READ_MORE_','Read More'); ?></a-->
+										</div>
+									</div>
+									
+								</div>
+                            </div>
+							<section class="section-border">
+
+							 <div class="container">
+									<div class="row">
+										<div class="col-md-12">
+										<?php
+										$images = $this->Model->GetImagesFromPage($item->id_page);
+										//print_r($images);
+										foreach($images as $image)
+										{	 ?>
+											<div class="col-sm-3 mix cat2 cat3" data-bound="" style="display: inline-block;">
+												<a class="powieksz-galeria img-responsive" href="<?php print $this->ImageUrl($image->img) ?>"  alt="<?php print $image->name ?>" title="<?php print $image->name ?>"><img src="<? print $this->ImageUrl($image->img, 'mini') ?>" ></a><br />
+											</div>
+										<?php
+										}
+										?>
+										</div>
+									</div>
+								</div>
+							</section>
+							
+                        <?php } ?>
+						

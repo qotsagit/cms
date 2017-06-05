@@ -33,7 +33,9 @@ class userCtrl extends Ctrl
     {
         parent::__construct();
 
+        $this->Model = new userModel();
         $this->View = new userView();
+        //$this->View->SetModel($this->Model);
 
         // potrzebne przy listingu itp..
         $items = new activeModel();
@@ -43,7 +45,7 @@ class userCtrl extends Ctrl
         
         $this->View->Statuses = $items->All();
 
-        $this->Model = new userModel();
+       
         $this->Validator = new Validator();
 
         $this->InitFormFields();
@@ -295,5 +297,13 @@ class userCtrl extends Ctrl
         }
     }
     
+ 
+    public function Listing()
+    {
+		$this->View->SetColumns();
+		$this->View->SetValues();
+        $this->View->SetItems($this->Model->Lists());
+        $this->View->Render('listView');
+    }
     
 }
