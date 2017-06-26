@@ -35,7 +35,7 @@ class courseuserModel extends Model
             ':text'         => $this->text
         );
 
-        $this->DB->NonQuery('INSERT INTO course SET name=:name, start_date=:start_date, end_date=:end_date, max_users=:max_users, text=:text', $params);
+        //$this->DB->NonQuery('INSERT INTO course SET name=:name, start_date=:start_date, end_date=:end_date, max_users=:max_users, text=:text', $params);
     }
 
     public function Update()
@@ -51,14 +51,14 @@ class courseuserModel extends Model
             ':text'         => $this->text
         );
         
-        $this->DB->NonQuery('UPDATE course SET name=:name, start_date=:start_date, end_date=:end_date, max_users=:max_users, text=:text WHERE id_course=:id', $params);
+        //$this->DB->NonQuery('UPDATE course SET name=:name, start_date=:start_date, end_date=:end_date, max_users=:max_users, text=:text WHERE id_course=:id', $params);
         
     }
     
     public function Delete()
     {
         $params = array(':id' => $this->id);
-        $this->DB->NonQuery('DELETE FROM course WHERE id_course=:id', $params);
+        //$this->DB->NonQuery('DELETE FROM course WHERE id_course=:id', $params);
         return;
     }
 
@@ -72,13 +72,13 @@ class courseuserModel extends Model
     public function CountAll()
     {
         $params = array(':search' => '%'.Session::GetSearch().'%');
-        return $this->DB->Count('SELECT count(*) FROM course_to_user WHERE name LIKE :search', $params);
+        return $this->DB->Count('SELECT count(*) FROM course_to_user', NULL);
     }  
     
     public function Count()
     {
         $params = array(':search' => '%'.Session::GetSearch().'%');
-        return $this->DB->Count('SELECT count(*) FROM course_to_user WHERE name LIKE :search', $params);
+        return $this->DB->Count('SELECT count(*) FROM course_to_user', NULL);
     }
 
     
@@ -91,7 +91,7 @@ class courseuserModel extends Model
             $asc = 'DESC';
 
         if ($this->Limit > 0)
-            $sql = 'SELECT * FROM course_to_user,course WHERE course_to_user.id_course=course.id_course AND name LIKE :search ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
+            $sql = 'SELECT * FROM course_to_user,course,user WHERE course_to_user.id_course=course.id_course AND course_to_user.id_user=user.id_user AND name LIKE :search ORDER BY ' . $this->OrderFieldName . ' ' . $asc . ' LIMIT ' . $this->LimitFrom . ',' . $this->Limit . '';
         else
             $sql = 'SELECT * FROM course_to_user ORDER BY ' . $this->OrderFieldName . ' ' . $asc;
 

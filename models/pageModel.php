@@ -271,7 +271,6 @@ class pageModel extends Model
 		
     public function Lists()
     {
-        //$this->OrderFieldName = 'position';
         
         $params = array(':id_lang' => Session::GetLang(),':id_parent' => $this->id_parent,':active' => STATUS_ACTIVE);
         if($this->Asc == SORT_ASC)

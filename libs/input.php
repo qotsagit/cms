@@ -19,7 +19,8 @@ class Input extends Base
     public $StartDate;              // porównanie pól z datą
     public $EndDate;                // porównanie pól z datą
     public $UniqueEmail = false;    // unikalny email
-    public $Checked = false;        // waliduj chceckbox 
+    public $Checked = false;        // waliduj chceckbox
+    public $FieldLabel;              // label pola
     
     public $Type = FIELD_TYPE_INPUT;
 
@@ -35,6 +36,16 @@ class Input extends Base
         $this->Type = $type;
     }
 
+    public function SetFieldName($field_name)
+    {
+        $this->FieldName = $field_name;
+    }
+    
+    public function SetFieldLabel($field_label)
+    {
+        $this->FieldLabel = $field_label;
+    }
+    
     public function SetRequired($value)
     {
         $this->Required = $value;
@@ -78,7 +89,7 @@ class Input extends Base
         {
             if (empty($this->Value))
             {
-                $this->AppendError($this->ErrorText,$this->Msg('_FIELD_IS_REQUIRED_','Field Is Required'));
+                $this->AppendError($this->ErrorText,$this->FieldLabel.' - '.$this->Msg('_FIELD_IS_REQUIRED_','Field Is Required'));
                 $this->ErrorStyle = 'has-error';
                 $this->IsValid = false;
             }

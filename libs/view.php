@@ -28,7 +28,7 @@ class View extends Base
     public $Count = 0;
     public $Text;                           // tekst dla komunikatu delete
     public $ButtonNew = true;               // czy button NEW ma być widoczny
-
+	public $LoginError = false;
 
     public function __construct()
     {
@@ -59,8 +59,11 @@ class View extends Base
 
         $this->CheckPage();
         $this->CheckLimit();
+		
         $this->CheckColumns();
-        $this->SetParent();
+        
+		$this->SetParent();
+		$this->Model->LimitFrom = ($this->Page * $this->Limit) - $this->Limit;
         
         /*
         print 'Limit na modelu'.$this->Model->Limit;
@@ -84,6 +87,8 @@ class View extends Base
 		}else{
 			$this->Pages = 1;	
 		}
+		 
+		Session::SetLimit($limit);
     }
     
     public function SetItems($items)
@@ -108,7 +113,7 @@ class View extends Base
 
     private function CheckPage()
     {
-                     
+        
         if ($this->Limit == 0)
         {
             $this->Pages = 1;
@@ -137,7 +142,7 @@ class View extends Base
     {
         if($this->Model->LimitFrom > $this->CountAll)
         {
-            $this->Model->LimitFrom = 0;   
+            //$this->Model->LimitFrom = 0;   
         }   
     }
     
@@ -155,7 +160,7 @@ class View extends Base
     
     public function SetPage()
     {
-        //$this->CheckPage();
+    
 		$this->Model->LimitFrom = ($this->Page * $this->Limit) - $this->Limit;
         $this->Model->Limit = $this->Limit;
         
@@ -979,11 +984,48 @@ class View extends Base
         }
     }
     
+	private function MinimizeOutput($buffer)
+	{
+		ob_start(); // 
+		include($buffer);
+		$output = ob_get_contents(); // This contains the output of yourtemplate.php
+		// Manipulate $output...
+		
+	
+		$search = array
+		(
+		    '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
+		    '/[^\S ]+\</s',     // strip whitespaces before tags, except space
+		    '/(\s)+/s',         // shorten multiple whitespace sequences
+		    '/<!--(.|\s)*?-->/' // Remove HTML comments
+		);
+
+		$replace = array
+		(
+		    '>',
+		    '<',
+		    '\\1',
+		    ''
+		);
+
+		$buffer = preg_replace($search, $replace, $output);
+		ob_end_clean(); 
+		return $buffer;
+	}
+	
+	
+	private function RenderPage1($template)
+    {
+		include(TEMPLATE_HEADER_FILE);
+		include(TEMPLATE_FOLDER.'/'.$template);
+		include(TEMPLATE_FOOTER_FILE);
+    }
+	
     private function RenderPage($template)
     {
-        include TEMPLATE_HEADER_FILE;
-        include TEMPLATE_FOLDER.'/'.$template;
-        include TEMPLATE_FOOTER_FILE;
+		print $this->MinimizeOutput(TEMPLATE_HEADER_FILE);
+		print $this->MinimizeOutput(TEMPLATE_FOLDER.'/'.$template);
+		print $this->MinimizeOutput(TEMPLATE_FOOTER_FILE);
     }
     
     private function RenderContent($template)

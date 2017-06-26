@@ -88,7 +88,7 @@ class passwordCtrl extends Ctrl
         }
     }
     
-    private function Update()
+    public function Update()
     {
         $this->Model->password = $this->View->Password->Value;
         $this->Model->id_user = Session::GetUser()->id_user;

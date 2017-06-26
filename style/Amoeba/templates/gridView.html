@@ -1,0 +1,35 @@
+<?php $this->RenderSelectedPage($this); ?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <?php if($this->Count > 0) ?>
+            <?php {
+             foreach($this->Items as $item){
+             ?>
+                    <div class="col-md-4">
+                         <div class="service-box animated fadeInDown go">
+                            <div class="service-icon">
+                                <img class="img-responsive" src="<?php print $this->ImageUrl($item->img, 'content'); ?>" alt="">
+                            </div>
+                                <div class="service-desc">						
+                            	<h5><?php print $item->GetTitle(); ?></h5>
+                            	<div class="divider-header"></div>
+                                	<p>
+                                        <?php print $item->GetText(); ?>
+                                	
+                                	</p>
+                            	<a href="#" class="btn btn-skin">Learn more</a>
+                            </div>
+                        </div>
+                    </div>
+                        <?php } ?>
+                        <div class="panel-body text-right">
+                            <?php $this->RenderTablePagination($this,NULL); ?>
+                        <?php } ?>
+                        </div>       
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>

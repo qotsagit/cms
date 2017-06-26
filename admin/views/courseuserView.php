@@ -18,7 +18,9 @@ class courseUserView extends View
             new ColumnText($this->Msg('_NAME_','Name'),'name'),
             new ColumnText($this->Msg('_START_DATE_','Start date'),'start_date'),
             new ColumnText($this->Msg('_END_DATE_','End date'),'end_date'),
-            new ColumnText($this->Msg('_TEXT_','Text'),'text',false),
+            new ColumnText($this->Msg('_FIRST_NAME_','First Name'),'first_name',true),
+            new ColumnText($this->Msg('_LAST_NAME_','Last Name'),'last_name',true),
+            new ColumnText($this->Msg('_EMAIL_','Email'),'email',true),
             //new ColumnText($this->Msg('_ADDED_TIME_','Added Time'),'added_time')
         );    
     }

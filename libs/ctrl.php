@@ -22,9 +22,6 @@ abstract class Ctrl extends Base
         $this->Validator = new Validator();
         $this->Model = new Model();
         $this->View = new View();
-		
-		
-		
         $this->NeedAuth = $login;
         $this->Type = $type;
     }
@@ -39,15 +36,29 @@ abstract class Ctrl extends Base
 		//default model z CTRL set
 		$this->View->Model = $this->Model;
 		
-        $form = $this->Read();
-        $login = $this->CheckForm($form);   // sprawdzamy login
+        if($this->Read())
+		{
+			$this->CheckForm(true);   // sprawdzamy login z formularza
+        }
+		else
+		{
+			$this->CheckForm(false);   // sprawdzamy login z sesji
+			// możemy tą opcję wyłączyć i po poprawnym zalogowaniu ufać tylko sesji
+			// a możemy zostawić i sprawdzać to co jest w sesji z bazą danych
+		}
 
         $this->ReadSession();               //czytanie z sesji
         $this->ReadOptions();
         $this->CheckRequest();
+		$this->SetVisit();
       
     }
     
+	private function SetVisit()
+    {
+        $this->Model->InsertVisit();
+    }
+	
 	// można nadpisać bo np kontroller page na stronie głównej nie ma pamiętać
     // niektórych rzeczy
     public function ReadSession()
@@ -292,9 +303,8 @@ abstract class Ctrl extends Base
         return false;
     }
 
-    private function CheckForm($form)
+    private function CheckForm($form = true)
     {
-
         $user = $this->Model->CheckLogin($this->Email, $this->Password, $this->Type);
 
         if ($user)
@@ -318,7 +328,6 @@ abstract class Ctrl extends Base
 
     private function Redirect()
     {
-        //print 'redirect dupa';
         //header('Location:/'.$this->Ctrl);
     }
 
@@ -391,6 +400,34 @@ abstract class Ctrl extends Base
         }
     }
     
+	// zapis formularzy ajax np formularz szkoły programowania
+	// zapisu na kurs
+	public function SaveJSON()
+    {
+        $this->ReadForm();
+        if ($this->Validate())
+        {
+            $this->View->Saved = true;
+            $this->View->Validation = VALIDATION_TRUE;
+			$this->Validator->JSON();
+			
+			if($this->View->Id->Value == 0)
+			{
+				$this->Insert();
+			}else{
+				$this->Update();
+			}
+			
+        }
+        else
+        {
+            $this->View->Validation = VALIDATION_FALSE;
+            $this->Validator->JSON();
+        }
+    }
+	
+	
+	
     public function DeleteConfirm()
     {
         $this->ReadForm();

@@ -140,7 +140,7 @@ class pageCtrl extends Ctrl
 		$this->View->Asc = SORT_ASC;
         $this->View->SetValues();
 		$this->Model->SetOrder("position",SORT_ASC);
-		$this->View->SetItems($this->Model->Lists());
+		//$this->View->SetItems($this->Model->Lists());
         // set template			
 		
 		$page = $this->View->CurrentItem;
@@ -163,7 +163,7 @@ class pageCtrl extends Ctrl
 			if($this->IsTemplateExists($template))
                 $this->View->Render($template);
             else
-                $this->View->Render('gridView');
+				$this->View->Render('gridView');
          
 		}
     }

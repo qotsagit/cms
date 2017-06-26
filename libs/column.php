@@ -99,7 +99,7 @@ class ColumnIcon extends Column
     public function Render($view,$item)
     {
         $name = $this->FieldName;
-        print '<a href="'.$view->CtrlName.'/'.METHOD_PARENT.'/'.$item->GetId().'" ><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span></a>';
+        print '<a href="'.$view->CtrlName.'/'.METHOD_PARENT.'/'.$item->GetId().'" ><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span></a>';
     }
 }
 
@@ -152,7 +152,7 @@ class ColumnAvatar extends Column
         if(file_exists($avatar))
             print '<img onclick="loadImage(this)" src ='.$avatar.' class="img img-circle" width=50 height=50>';
         else
-            print '<img onclick="loadImage(this)" src ='.DEFAULT_IMAGE.' class="img img-circle" width=50 height=50>' ;
+            print '<img onclick="loadImage(this)" src ='.IMAGE_DIR.'/'.DEFAULT_IMAGE.' class="img img-circle" width=50 height=50>' ;
             
         print '</a>';   
     }

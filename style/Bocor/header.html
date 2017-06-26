@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bocor bootstrap 3 one page template</title>
+	
+    <!-- css -->
+    <link href="style/<?php print STYLE ?>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style/<?php print STYLE ?>/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<link href="style/<?php print STYLE ?>/css/nivo-lightbox.css" rel="stylesheet" />
+	<link href="style/<?php print STYLE ?>/css/nivo-lightbox-theme/default/default.css" rel="stylesheet" type="text/css" />
+	<link href="style/<?php print STYLE ?>/css/animations.css" rel="stylesheet" />
+    <link href="style/<?php print STYLE ?>/css/style.css" rel="stylesheet">
+	<link href="style/<?php print STYLE ?>/color/default.css" rel="stylesheet">
+    <!-- =======================================================
+        Theme Name: Bocor
+        Theme URL: https://bootstrapmade.com/bocor-bootstrap-template-nice-animation/
+        Author: BootstrapMade
+        Author URL: https://bootstrapmade.com
+    ======================================================= -->
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+	<!--
+	<section class="hero" id="intro">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 text-right navicon">
+                  <a id="nav-toggle" class="nav_slide_button" href="#"><span></span></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center inner">
+					<div class="animatedParent">
+						<h1 class="animated fadeInDown">MUSIM BOCOR</h1>
+						<p class="animated fadeInUp">Udah dari dulu tahu kalo bocor kenapa nggak ditambal tong</p>
+					</div>
+			   </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                  <a href="#about" class="learn-more-btn btn-scroll">Learn more</a>
+                </div>
+              </div>
+            </div>
+    </section>
+	-->
+	
+    <!-- Navigation -->
+    <div id="navigation">
+        <nav class="navbar navbar-custom" role="navigation">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+							<?php print $this->RenderBlock('logo'); ?>
+                    </div>
+                    
+                    <div class="col-md-9">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="menu">
+                        <?php $this->RenderMenu('menu',' class="nav navbar-nav navbar-right"','class="dropdown"','class="dropdown-toggle" data-toggle="dropdown" role="button"','class="dropdown-menu"'); ?>
+                                                            
+                    </div>
+                    <!-- /.Navbar-collapse -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        </nav>
+    </div> 

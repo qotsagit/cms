@@ -1,0 +1,27 @@
+
+        
+<?php $this->RenderSelectedPage($this); ?>
+    
+    <div class="container">
+<?php        
+        foreach ($this->Items as $item)
+        { ?>   
+            <div class="col-md-4">
+                <div class="service-box style-3 default">
+                    <div class="text-center">
+                        <h2><?php print $item->GetName() ?></h1>
+                        <img class="text-center" src="<?php print IMAGES_URL.$item->img ?>">
+                        <a22 href="#">Więcej</a>
+                    </div>
+                </div>
+            <?php 
+                //print $item->GetText(); 
+                //print $item->GetPrice();
+            ?>
+
+            </div>
+        <?php 
+        } ?>              
+        </div>
+    </div>
+

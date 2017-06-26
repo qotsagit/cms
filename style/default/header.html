@@ -3,18 +3,14 @@
 
 <head>
 
-	<title>
-	<?php //print $this->Msg('_SITE_TITLE_','CMS')
-	
-		print $this->MetaTitle;
-	?>
-	</title>
+	<title><?php print $this->MetaTitle ?></title>
+	<meta name="description" content="<?php print $this->MetaDescription ?>">
 	<meta HTTP-EQUIV="Pragma" content="no-cache">
 	<meta HTTP-EQUIV="Expires" content="-1">
 	<base href="<?php print BASE_HREF ?>">
 	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/bootstrap.css">
     <!--<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/bootstrap-switch.css">-->
-	<!-- <link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/bootstrap-datetimepicker.min.css"> -->
+	<!--<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/bootstrap-datetimepicker.min.css"> -->
 	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/custom.css">
 	<link rel="stylesheet" type="text/css" href="style/<?php print STYLE ?>/css/treeview.css">
 	<script src="style/<?php print STYLE ?>/js/jquery.js"></script>

@@ -1,12 +1,12 @@
 <?php
 /**
- * blockCtrl
+ * courseCtrl
  * 
  * @category   Controller
  * @package    CMS
  * @author     Rafał Żygadło <rafal@maxkod.pl>
  
- * @copyright  2016 maxkod.pl
+ * @copyright  2017 maxkod.pl
  * @version    1.0
  */
 

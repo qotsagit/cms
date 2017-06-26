@@ -6,8 +6,8 @@
     define('TECHNICAL_BREAK',false);
 
     //Style
-    define('STYLE','default');
-    define('BASE_HREF','/');
+    define('STYLE','Bocor');
+    define('BASE_HREF','/style');
     //file templates
     define('TEMPLATE_FOLDER','style/'.STYLE.'/templates');
     define('TEMPLATE_HEADER_FILE','style/'.STYLE.'/header.html');

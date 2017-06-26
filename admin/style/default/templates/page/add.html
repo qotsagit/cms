@@ -25,13 +25,13 @@
                     <hr> 
                     <ul class="nav nav-tabs">
                         <li class="active" role="presentation"><a data-toggle="pill" href="#page1"><?php print $this->Msg('_ALL_','All') ?></a></li>
-                        <li role="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_OPTIONS_','Options') ?></a></li>
-                        <!--li role="presentation"><a data-toggle="pill" href="#page3"><?php print $this->Msg('_PORTFOLIO_','Portfolio') ?></a></li>
-                        <li role="presentation"><a data-toggle="pill" href="#page4"><?php print $this->Msg('_PRICE_','Price') ?></a></li-->
-                        <li role="presentation"><a data-toggle="pill" href="#page5"><?php print $this->Msg('_META_','Meta') ?></a></li>
-                        <li role="presentation"><a data-toggle="pill" href="#page6"><?php print $this->Msg('_IMAGE_','Image') ?></a></li>
-                        <li role="presentation"><a data-toggle="pill" href="#page7"><?php print $this->Msg('_GALLERY_','Gallery') ?></a></li>
-                        <li role="presentation"><a data-toggle="pill" href="#page8"><?php print $this->Msg('_FILES_','Files') ?></a></li>
+                        <li roleq="presentation"><a data-toggle="pill" href="#page2"><?php print $this->Msg('_TEXT_','Text') ?></a></li>
+                        <li roleq="presentation"><a data-toggle="pill" href="#page3"><?php print $this->Msg('_OPTIONS_','Options') ?></a></li>
+                        <li roleq="presentation"><a data-toggle="pill" href="#page4"><?php print $this->Msg('_PRICE_','Price') ?></a></li>
+                        <li roleq="presentation"><a data-toggle="pill" href="#page5"><?php print $this->Msg('_META_','Meta') ?></a></li>
+                        <li roleq="presentation"><a data-toggle="pill" href="#page6"><?php print $this->Msg('_IMAGE_','Image') ?></a></li>
+                        <li roleq="presentation"><a data-toggle="pill" href="#page7"><?php print $this->Msg('_GALLERY_','Gallery') ?></a></li>
+                        <li roleq="presentation"><a data-toggle="pill" href="#page8"><?php print $this->Msg('_FILES_','Files') ?></a></li>
                     </ul>
                 
                 <div class="tab-content">
@@ -41,9 +41,17 @@
                         <input type="text" class="form-control" placeholder="<?php print $this->msg('_TITLE_','Title') ?>" name="<?php print PAGE_TITLE ?>" value="<?php print $this->Title->Value ?>">
                         <?php print $this->RenderValidationError($this->Title->ErrorText); ?>
                     </div>
+                    
                     <?php $this->RenderAsSelect($this->Categories,$this->IdCategory->Value ,$this->msg('_CATEGORY_','Category'),IDCATEGORY) ?>
+                    
+
                     <?php $this->RenderAsSelect($this->ContentTypes,$this->ContentType->Value ,$this->msg('_CONTENT_TYPE_','Content Type'),PAGE_CONTENT_TYPE) ?>
-                    <div class="form-group">
+                    
+                   
+                </div>
+                
+                <div id="page2" class="tab-pane fade">
+                     <div class="form-group">
                         <label class="control-label"><?php print $this->Msg('_TEXT_','Text') ?></label>
                         <textarea id="editor" class="form-control" name="<?php print PAGE_TEXT ?>" rows="40" ><?php print $this->Text->Value ?></textarea> 
                         <br /><i class="glyphicon glyphicon-info-sign"></i> Wprowadź:<br />
@@ -52,7 +60,8 @@
                         <?php print $this->RenderValidationError($this->Text->ErrorText); ?>
                     </div>
                 </div>
-                <div id="page2" class="tab-pane fade">
+                
+                <div id="page3" class="tab-pane fade">
                     <?php $this->RenderAsSelect($this->Languages,$this->IdLang->Value,$this->Msg('_LANGUAGES_','Languages'),PAGE_ID_LANG) ?>
                     <?php $this->RenderTreeAsSelect($this->Pages,$this->IdParent->Value,$this->Msg('_PAGES_','Pages'),IDPARENT) ?>
                     <?php $this->RenderAsSelect($this->Statuses,$this->Active->Value ,$this->msg('_ACTIVE_','Active'),PAGE_STATUS) ?>
@@ -70,14 +79,6 @@
                         <?php if($this->IdPage->Value == 0) { $disabled = 'disabled'; } else { $disabled = '';} ?>
                         <input <?php print $disabled ?> type="text" class="form-control" placeholder="<?php print $this->msg('_PAGEURL_ADDRESS_','URL Address') ?>" name="<?php print PAGE_URL_ADDRESS ?>" value="<?php print $this->UrlAddress->Value ?>">
                         <?php print $this->RenderValidationError($this->UrlAddress->ErrorText); ?>
-                    </div>
-                </div>
-                    
-                <div id="page3" class="tab-pane fade">
-                    <div class="form-group">
-                        <label class="control-label"><?php print $this->msg('_PAGEURL_','URL') ?></label>
-                        <input type="text" class="form-control" placeholder="<?php print $this->msg('_PAGEURL_','URL') ?>" name="<?php print PAGE_URL ?>" value="<?php print $this->Url->Value ?>">
-                        <?php print $this->RenderValidationError($this->Url->ErrorText); ?>
                     </div>
                 </div>
                 <div id="page4" class="tab-pane fade">

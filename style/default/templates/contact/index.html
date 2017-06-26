@@ -109,7 +109,7 @@
                             </label>
                             </div>
                     </div>
-		    <div id="contact-alert-area" class="alert alert-info"></div>    
+		    <div id="contact-alert-area"></div>    
                     <div class="form-group">
 			<input class="btn btn-default btn-md" id="submit" type="submit" name="submit" value="<?php print $this->Msg('_SEND_','Send') ?>">
 			
@@ -151,7 +151,7 @@ $("#contact-form").submit
                 //msg = JSON.parse(html);
                 //if(msg.code == 1)
 		//{
-		    $( "#contact-form" ).delay( 800 ).fadeIn( 400 );
+		    $( "#contact-form" ).hide();
 					//$( "div.second" ).slideUp( 300 ).fadeIn( 400 );
                     //$("#newsletter-form").hide();
                 //}
@@ -159,6 +159,7 @@ $("#contact-form").submit
 		$("#contact-alert-area").html('msg.text');
 		$("#contact-alert-area").fadeIn(500);
 		$("#contact-alert-area").delay( 1000 ).fadeOut(3000);
+		$( "#contact-form" ).show();
                   
 	    },
 	    error: function()

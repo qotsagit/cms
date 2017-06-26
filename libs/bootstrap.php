@@ -163,8 +163,6 @@ class Bootstrap
           
         $this->LoadLoginController();
         
-        
-        
     }
 
     private function LoadLoginController()

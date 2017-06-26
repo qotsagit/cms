@@ -3,7 +3,7 @@
 class Settings
 {   
     public static $Limits = array(2,5, 30, 60, 90);
-    public static $ContentTypes = array('page', 'news', 'prod', 'gall');
+    //public static $ContentTypes = array('page', 'news', 'prod', 'gall');
     public static $CKEditorUse = false;  
     public static $JqueryFileUploader = false;
     
@@ -11,8 +11,8 @@ class Settings
     public static $ImagesFolder = '../filemanager/files/images/';
     public static $ImagesUploadOriginal = TRUE;
    
-    public static $Regions = array('HEADER','FOOTER',);
-
+    //public static $Templates = 
+    
     public static $ImageSizes = array
     (
         
@@ -41,7 +41,7 @@ class Settings
         (
             'folder'=>'content',
             'width'=>745, 
-            'height'=>360,
+            'height'=>560,
             'crop_w'=>NULL, 
             'crop_h'=>360, 
             'quality'=>93
@@ -51,7 +51,7 @@ class Settings
         (
             'folder'=>'full',
             'width'=>1140, 
-            'height'=>520, 
+            'height'=>820, 
             'crop_w'=>NULL, 
             'crop_h'=>475, 
             'quality'=>93

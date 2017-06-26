@@ -1,0 +1,27 @@
+<?php
+
+$this->RenderSelectedPage($this);
+$GalleryImages = $this->Model->GetImagesFromPage($this->CurrentItem->id_page);
+
+?>
+    
+	<section id="works" class="home-section color-dark text-center bg-white">
+		<div class="container marginbot-501">
+
+            <div class="row gallery-item">
+			<?php
+			foreach($GalleryImages AS $Image)
+			{ ?>
+				
+				<div class="col-md-4 animated fadeInUp go gallery-img">
+					<a href="<?php print $this->ImageUrl($Image->img, 'content'); ?>" title="This is an image title" data-lightbox-gallery="gallery">
+						<img class="img-responsive" src="<?php print $this->ImageUrl($Image->img, 'content'); ?>" alt="">
+					</a>
+				</div>
+			
+			<?php
+			}
+			?>
+            </div>
+        </div>
+    </section>

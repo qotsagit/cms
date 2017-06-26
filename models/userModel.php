@@ -42,30 +42,19 @@ class userModel extends Model
     {
         $params = array
         (
-            ':customer_type'    => $this->customer_type,
-            ':password'         => $this->password,
             ':email'            => $this->email,
             ':first_name'       => $this->first_name,
             ':last_name'        => $this->last_name,
-            ':phone'            => $this->phone,
-            ':company'          => $this->company,
-            ':vat'              => $this->vat,
-            ':address'          => $this->address,
-            ':zip_code'         => $this->zip_code,
-            ':city'             => $this->city,
-            ':country'          => $this->country,
-            ':newsletter'       => $this->newsletter,
-            ':confirmed'        => $this->confirmed
-    
+            ':phone'            => $this->phone
         );
 
-        $this->DB->NonQuery('INSERT INTO customer SET customer_type=:customer_type, password=:password, email=:email, first_name=:first_name, last_name=:last_name, phone=:phone, company=:company, vat=:vat, address=:address, zip_code=:zip_code, city=:city, country=:country, confirmed=:confirmed ', $params);
+        $this->DB->NonQuery('INSERT INTO user SET email=:email, first_name=:first_name, last_name=:last_name, phone=:phone ', $params);
     }
 
     public function EmailExists()
     {
         $params = array(':email' => $this->email);
-        return $this->DB->Row('SELECT * FROM customer WHERE email=:email',$params);
+        return $this->DB->Row('SELECT * FROM user WHERE email=:email',$params);
     }
     
     public function Delete()

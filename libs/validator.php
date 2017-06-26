@@ -11,12 +11,38 @@ class Validator
     {
         $this->Fields = array();
     }
-
+    
     public function Add(Input $field)
     {
         $field->InValidator = true;
         array_push($this->Fields,$field);
     }
+    
+    public function JSON()
+    {
+       
+        $array = array();
+        $valid = true;
+        
+        foreach ($this->Fields as $field)
+        {
+            if(!$field->IsValid)
+                $valid = false;
+            
+            $json_field = array
+            (
+                'valid' => $field->IsValid,
+                'text'  => $field->ErrorText,
+            );
+            
+             $array[$field->FieldName] = $json_field;
+        }
+               
+        $array['valid'] = $valid;        
+        print json_encode($array);
+    
+    }
+    
     
     public function Validate()
     {
