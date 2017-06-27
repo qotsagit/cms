@@ -242,14 +242,14 @@ class pageCtrl extends Ctrl
         // wykomentuj potem
         // wykomentuj potem
         // rafał 2017-03-07 przy dodawaniu english wersji
-        /*
+        
         $url = NULL;
-            $this->Model->Url($this->Model->id_parent,$url);
-            if($url == NULL)
-                $this->Model->url_address = $this->TransliterateStringToUrl($this->View->Title->Value);
-            else
-                $this->Model->url_address = $this->TransliterateStringToUrl($url.' '.$this->View->Title->Value);
-        */
+        $this->Model->Url($this->Model->id_parent,$url);
+        if($url == NULL)
+            $this->Model->url_address = $this->TransliterateStringToUrl($this->View->Title->Value);
+        else
+            $this->Model->url_address = $this->TransliterateStringToUrl($url.' '.$this->View->Title->Value);
+        
         // wykomentuj potem
         // wykomentuj potem
         // wykomentuj potem
